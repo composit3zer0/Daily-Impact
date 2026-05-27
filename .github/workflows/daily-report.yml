@@ -3,7 +3,7 @@ name: Daily Impact Report
 on:
   schedule:
     - cron: '0 1 * * *'  # 8:00 AM Bangkok (UTC+7)
-  workflow_dispatch:
+  workflow_dispatch:      # manual trigger for testing
 
 jobs:
   generate:
@@ -32,16 +32,3 @@ jobs:
           git add .
           git commit -m "Daily Impact: $(TZ='Asia/Bangkok' date +'%d %b %Y')"
           git push
-
-      - name: Send email
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          secure: true
-          username: ${{ secrets.EMAIL_ADDRESS }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "The Daily Impact — $(TZ='Asia/Bangkok' date +'%d %b %Y')"
-          to: ${{ secrets.EMAIL_ADDRESS }}
-          from: The Daily Impact
-          html_body: file://index.html
