@@ -1,4 +1,5 @@
-import anthropic
+from google import genai
+from google.genai import types
 import os
 import glob
 from datetime import datetime
@@ -13,118 +14,71 @@ archive_filename = now.strftime('%Y-%m-%d') + '.html'
 
 print(f"Generating Daily Impact for {bangkok_date}...")
 
-# Initialize Claude client
-client = anthropic.Anthropic(api_key=os.environ['ANTHROPIC_API_KEY'])
+# Initialize Gemini client
+client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
 system_prompt = os.environ['SYSTEM_PROMPT']
 
-# Auto-select latest Sonnet model
-def get_latest_sonnet():
+# Auto-select latest Gemini Flash model
+def get_latest_gemini():
     try:
         models = client.models.list()
-        sonnet_models = [
-            m.id for m in models.data
-            if 'sonnet' in m.id.lower()
+        flash_models = [
+            m.name for m in models
+            if 'gemini' in m.name.lower()
+            and 'flash' in m.name.lower()
+            and 'preview' not in m.name.lower()
+            and 'thinking' not in m.name.lower()
         ]
-        if sonnet_models:
-            latest = sorted(sonnet_models, reverse=True)[0]
-            print(f"Using model: {latest}")
-            return latest
+        if flash_models:
+            latest = sorted(flash_models, reverse=True)[0]
+            model_id = latest.replace('models/', '')
+            print(f"Using model: {model_id}")
+            return model_id
     except Exception as e:
         print(f"Model fetch failed: {e}, falling back to default")
-    return "claude-sonnet-4-6"
+    return "gemini-2.0-flash"
 
-MODEL = get_latest_sonnet()
+MODEL = get_latest_gemini()
 
-# Initial message
-messages = [
-    {
-        "role": "user",
-        "content": (
-            f"Generate today's daily report. "
-            f"Today is {bangkok_day}, {bangkok_date}, 8:00 AM Bangkok time (Asia/Bangkok, UTC+7). "
-            f"Use web search to find today's actual current news before writing. "
-            f"Search for stories published in the last 24 hours."
-        )
-    }
-]
+# Build the prompt
+prompt = (
+    f"Generate today's daily report. "
+    f"Today is {bangkok_day}, {bangkok_date}, 8:00 AM Bangkok time (Asia/Bangkok, UTC+7). "
+    f"Use Google Search to find today's actual current news before writing. "
+    f"Search for stories published in the last 24 hours. "
+    f"Output only a complete valid HTML document starting with <!DOCTYPE html>. "
+    f"No preamble, no thinking text, no markdown, no code fences — just the HTML."
+)
 
-# Agentic loop — handles web search tool calls
-report = ""
-max_iterations = 10
-iteration = 0
+print("Calling Gemini API with Google Search grounding...")
 
-while iteration < max_iterations:
-    iteration += 1
-    print(f"API call {iteration}...")
-
-    response = client.messages.create(
+try:
+    response = client.models.generate_content(
         model=MODEL,
-        max_tokens=8000,
-        system=system_prompt,
-        tools=[
-            {
-                "type": "web_search_20250305",
-                "name": "web_search"
-            }
-        ],
-        messages=messages
+        contents=prompt,
+        config=types.GenerateContentConfig(
+            system_instruction=system_prompt,
+            tools=[types.Tool(google_search=types.GoogleSearch())],
+            max_output_tokens=8000,
+            temperature=0.7,
+        )
     )
+    raw = response.text
+    print(f"Response received: {len(raw)} characters")
 
-    print(f"Stop reason: {response.stop_reason}")
+except Exception as e:
+    print(f"ERROR: Gemini API call failed: {e}")
+    exit(1)
 
-    # Collect any text blocks from this response
-    text_blocks = [
-        block.text
-        for block in response.content
-        if hasattr(block, 'text') and block.type == 'text'
-    ]
+# Strip anything before the HTML document
+if '<!DOCTYPE html>' in raw:
+    report = raw[raw.index('<!DOCTYPE html>'):]
+elif '<html' in raw:
+    report = raw[raw.index('<html'):]
+else:
+    report = raw
 
-    if response.stop_reason == "end_turn":
-        raw = '\n'.join(text_blocks)
-        # Strip anything before the HTML document
-        if '<!DOCTYPE html>' in raw:
-            report = raw[raw.index('<!DOCTYPE html>'):]
-        elif '<html' in raw:
-            report = raw[raw.index('<html'):]
-        else:
-            report = raw
-        print(f"Report complete: {len(report)} characters")
-        break
-
-    if response.stop_reason == "tool_use":
-        # Add assistant turn to history
-        messages.append({
-            "role": "assistant",
-            "content": response.content
-        })
-
-        # Build tool results
-        tool_results = []
-        for block in response.content:
-            if block.type == "tool_use":
-                print(f"  Web search: {getattr(block, 'input', {})}")
-                tool_results.append({
-                    "type": "tool_result",
-                    "tool_use_id": block.id,
-                    "content": "Search executed."
-                })
-
-        # Add tool results and continue
-        messages.append({
-            "role": "user",
-            "content": tool_results
-        })
-        continue
-
-    # Any other stop reason — strip and use what we have
-    raw = '\n'.join(text_blocks)
-    if '<!DOCTYPE html>' in raw:
-        report = raw[raw.index('<!DOCTYPE html>'):]
-    elif '<html' in raw:
-        report = raw[raw.index('<html'):]
-    else:
-        report = raw
-    break
+print(f"Report extracted: {len(report)} characters")
 
 # Validate we have output
 if not report or len(report) < 500:
