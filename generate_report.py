@@ -18,6 +18,24 @@ print(f"Generating Daily Impact for {bangkok_date}...")
 client = anthropic.Anthropic(api_key=os.environ['ANTHROPIC_API_KEY'])
 system_prompt = os.environ['SYSTEM_PROMPT']
 
+# Auto-select latest Sonnet model
+def get_latest_sonnet():
+    try:
+        models = client.models.list()
+        sonnet_models = [
+            m.id for m in models.data
+            if 'sonnet' in m.id.lower()
+        ]
+        if sonnet_models:
+            latest = sorted(sonnet_models, reverse=True)[0]
+            print(f"Using model: {latest}")
+            return latest
+    except Exception as e:
+        print(f"Model fetch failed: {e}, falling back to default")
+    return "claude-sonnet-4-6"
+
+MODEL = get_latest_sonnet()
+
 # Initial message
 messages = [
     {
@@ -41,7 +59,7 @@ while iteration < max_iterations:
     print(f"API call {iteration}...")
 
     response = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model=MODEL,
         max_tokens=8000,
         system=system_prompt,
         tools=[
