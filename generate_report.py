@@ -63,7 +63,7 @@ for attempt in range(1, 4):
             config=types.GenerateContentConfig(
                 system_instruction=system_prompt,
                 tools=[types.Tool(google_search=types.GoogleSearch())],
-                max_output_tokens=8192,
+                max_output_tokens=16384,
                 temperature=0.7,
             )
         )
