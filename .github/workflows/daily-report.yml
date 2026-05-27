@@ -31,4 +31,5 @@ jobs:
           git config user.name "GitHub Actions"
           git add .
           git diff --staged --quiet || git commit -m "Daily Impact: $(TZ='Asia/Bangkok' date +'%d %b %Y')"
+          git pull --rebase
           git push
