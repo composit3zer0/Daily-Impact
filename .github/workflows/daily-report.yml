@@ -30,5 +30,5 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
           git add .
-          git commit -m "Daily Impact: $(TZ='Asia/Bangkok' date +'%d %b %Y')"
+          git diff --staged --quiet || git commit -m "Daily Impact: $(TZ='Asia/Bangkok' date +'%d %b %Y')"
           git push
