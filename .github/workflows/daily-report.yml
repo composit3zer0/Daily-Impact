@@ -1,0 +1,47 @@
+name: Daily Impact Report
+
+on:
+  schedule:
+    - cron: '0 1 * * *'  # 8:00 AM Bangkok (UTC+7)
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic pytz
+
+      - name: Generate report
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SYSTEM_PROMPT: ${{ secrets.SYSTEM_PROMPT }}
+        run: python generate_report.py
+
+      - name: Publish to GitHub Pages
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add .
+          git commit -m "Daily Impact: $(TZ='Asia/Bangkok' date +'%d %b %Y')"
+          git push
+
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.EMAIL_ADDRESS }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "The Daily Impact — $(TZ='Asia/Bangkok' date +'%d %b %Y')"
+          to: ${{ secrets.EMAIL_ADDRESS }}
+          from: The Daily Impact
+          html_body: file://index.html
