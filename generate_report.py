@@ -1,6 +1,5 @@
 import anthropic
 import os
-import json
 import glob
 from datetime import datetime
 import pytz
@@ -81,7 +80,14 @@ while iteration < max_iterations:
     ]
 
     if response.stop_reason == "end_turn":
-        report = '\n'.join(text_blocks)
+        raw = '\n'.join(text_blocks)
+        # Strip anything before the HTML document
+        if '<!DOCTYPE html>' in raw:
+            report = raw[raw.index('<!DOCTYPE html>'):]
+        elif '<html' in raw:
+            report = raw[raw.index('<html'):]
+        else:
+            report = raw
         print(f"Report complete: {len(report)} characters")
         break
 
@@ -110,8 +116,14 @@ while iteration < max_iterations:
         })
         continue
 
-    # Any other stop reason — use what we have
-    report = '\n'.join(text_blocks)
+    # Any other stop reason — strip and use what we have
+    raw = '\n'.join(text_blocks)
+    if '<!DOCTYPE html>' in raw:
+        report = raw[raw.index('<!DOCTYPE html>'):]
+    elif '<html' in raw:
+        report = raw[raw.index('<html'):]
+    else:
+        report = raw
     break
 
 # Validate we have output
