@@ -2,6 +2,7 @@ from google import genai
 from google.genai import types
 import os
 import glob
+import time
 from datetime import datetime
 import pytz
 
@@ -52,22 +53,30 @@ prompt = (
 
 print("Calling Gemini API with Google Search grounding...")
 
-try:
-    response = client.models.generate_content(
-        model=MODEL,
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            system_instruction=system_prompt,
-            tools=[types.Tool(google_search=types.GoogleSearch())],
-            max_output_tokens=8000,
-            temperature=0.7,
+raw = None
+for attempt in range(1, 4):
+    try:
+        print(f"API call attempt {attempt}/3...")
+        response = client.models.generate_content(
+            model=MODEL,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                system_instruction=system_prompt,
+                tools=[types.Tool(google_search=types.GoogleSearch())],
+                max_output_tokens=8192,
+                temperature=0.7,
+            )
         )
-    )
-    raw = response.text
-    print(f"Response received: {len(raw)} characters")
+        raw = response.text
+        print(f"Response received: {len(raw)} characters")
+        break
+    except Exception as e:
+        print(f"Attempt {attempt} failed: {e}")
+        if attempt < 3:
+            time.sleep(10)
 
-except Exception as e:
-    print(f"ERROR: Gemini API call failed: {e}")
+if not raw:
+    print("ERROR: All 3 API attempts failed")
     exit(1)
 
 # Strip anything before the HTML document
