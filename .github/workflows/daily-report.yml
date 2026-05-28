@@ -2,7 +2,8 @@ name: Daily Impact Report
 
 on:
   schedule:
-    - cron: '0 1 * * *'  # 8:00 AM Bangkok (UTC+7)
+    - cron: '0 1 * * *'
+    - cron: '30 1 * * *'  # 8:00 AM Bangkok (UTC+7)
   workflow_dispatch:      # manual trigger for testing
 
 jobs:
