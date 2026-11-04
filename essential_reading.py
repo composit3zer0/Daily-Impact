@@ -128,6 +128,31 @@ def word_count(text):
     return len(re.findall(r"\b[\w'’-]+\b", text or ''))
 
 
+# ----------------------------------------------------------------- focus topics
+
+def load_focus(config):
+    """{category: {'label': str, 'topics': {name: [compiled regex, ...]}}} from reading_sources.json."""
+    focus = {}
+    for key, spec in (config.get('focus') or {}).items():
+        if not key.isdigit():
+            continue
+        topics = {name: [re.compile(p, re.I) for p in pats] for name, pats in spec.get('topics', {}).items()}
+        if topics:
+            focus[int(key)] = {'label': spec.get('label') or ', '.join(topics), 'topics': topics}
+    return focus
+
+
+def focus_topics(spec, title, body='', min_mentions=1):
+    """Focus topics an article is about: named in the title, or mentioned min_mentions+ times in body."""
+    found = []
+    for name, pats in spec['topics'].items():
+        if any(p.search(title or '') for p in pats):
+            found.append(name)
+        elif body and sum(len(p.findall(body)) for p in pats) >= min_mentions:
+            found.append(name)
+    return found
+
+
 # ------------------------------------------------------------------ article checks
 
 def _jsonld_objects(soup):
@@ -347,7 +372,7 @@ def feeds_of(src):
             yield feed, src['categories']
 
 
-def collect_feed_candidates(config, seen_urls, seen_titles, now):
+def collect_feed_candidates(config, seen_urls, seen_titles, now, focus=None):
     """All recent, not-yet-featured feed entries, tagged with the categories of their source."""
     jobs = [(src, feed_url, cats) for src in config['sources'] for feed_url, cats in feeds_of(src)]
     with ThreadPoolExecutor(8) as ex:
@@ -370,6 +395,8 @@ def collect_feed_candidates(config, seen_urls, seen_titles, now):
     cands = list(by_url.values())
     for i, c in enumerate(cands):
         c['id'] = f"F{i}"
+        c['focus'] = {num: t for num, spec in (focus or {}).items() if num in c['categories']
+                      for t in [focus_topics(spec, c['title'], c['summary'])] if t}
     log(f"{len(cands)} fresh feed candidates from {len(results)} feeds")
     return cands
 
@@ -413,7 +440,13 @@ def _gemini_json(client, model, system, prompt, tools=None):
     raise RuntimeError(f'Gemini call failed: {last_err}')
 
 
-def _context_block(context, history, now):
+def recent_focus(history, num, days=7):
+    """Focus topics covered in a category over the last few picks, most recent last."""
+    picks = [h for h in history if h.get('category') == num and h.get('focus')][-days:]
+    return [t for h in picks for t in h['focus']]
+
+
+def _context_block(context, history, now, focus=None):
     recent = [h for h in history
               if now - datetime.fromisoformat(h['date']).replace(tzinfo=timezone.utc) <= timedelta(days=14)]
     lines = ["TODAY'S NEWS HEADLINES (avoid overlapping topics):"]
@@ -424,34 +457,62 @@ def _context_block(context, history, now):
     for num, name in CATEGORIES:
         picks = [h['title'] for h in recent if h.get('category') == num][-5:]
         lines.append(f"{num}. {name}: " + ('; '.join(picks) if picks else '(none yet)'))
+    for num, spec in (focus or {}).items():
+        lines.append(f"\nEDITORIAL FOCUS for category {num}: {spec['label']} take centre stage. "
+                     f"Prefer articles tagged [FOCUS]. Rotate between {', '.join(spec['topics'])}; "
+                     f"focus topics of the most recent picks (oldest first): "
+                     f"{', '.join(recent_focus(history, num)) or 'none yet'}. "
+                     f"Avoid covering the same condition in category 7 on the same day.")
     return '\n'.join(lines)
 
 
-def shortlist(client, model, system, candidates, context_text):
-    """Gemini ranks up to 4 feed candidates per category using titles and teasers only."""
+def shortlist(client, model, system, candidates, context_text, focus=None, history=()):
+    """Gemini ranks feed candidates per category using titles and teasers only.
+
+    Focus categories list matching candidates first (topics covered least recently ahead)
+    and tag them, and get 6 slots instead of 4 so more focus articles reach verification.
+    """
+    focus = focus or {}
     blocks = []
     for num, name in CATEGORIES:
-        pool = [c for c in candidates if num in c['categories']][:150]
-        rows = '\n'.join(f"{c['id']} | {c['source']} | {c['title']} | {c['summary'][:200]}" for c in pool)
+        pool = [c for c in candidates if num in c['categories']]
+        if num in focus:
+            recent = recent_focus(history, num)
+            def rank(c):
+                topics = c['focus'].get(num)
+                if not topics:
+                    return (1, 0)
+                last = max((i for i, t in enumerate(recent) if t in topics), default=-1)
+                return (0, last)            # never/least recently covered topics first
+            pool.sort(key=rank)
+        pool = pool[:150]
+        def row(c):
+            tag = f"[FOCUS: {', '.join(c['focus'][num])}] " if c['focus'].get(num) else ''
+            return f"{c['id']} | {c['source']} | {tag}{c['title']} | {c['summary'][:200]}"
+        rows = '\n'.join(row(c) for c in pool)
         blocks.append(f"## Category {num}: {name}\n{rows or '(no candidates)'}")
     prompt = (
         "Step 1 of 2: shortlist. Below are fresh, unpaywalled articles from our curated sources, "
         "grouped by the categories their publication covers. For each category, choose up to 4 "
         "candidate IDs that best meet the selection standards AND genuinely fit that category, "
-        "best first. An ID may be used in only one category. Use [] if nothing fits.\n\n"
+        "best first (up to 6 for a category with an editorial focus, putting [FOCUS] articles first). "
+        "An ID may be used in only one category. Use [] if nothing fits.\n\n"
         f"{context_text}\n\n" + '\n\n'.join(blocks) +
         '\n\nReply with JSON only: {"1": ["F12", ...], "2": [...], ..., "7": [...]}')
     data, _ = _gemini_json(client, model, system, prompt)
-    return {num: [i for i in data.get(str(num), []) if isinstance(i, str)][:4] for num, _ in CATEGORIES}
+    return {num: [i for i in data.get(str(num), []) if isinstance(i, str)][:6 if num in focus else 4]
+            for num, _ in CATEGORIES}
 
 
-def search_fallback(client, model, system, num, context_text, blocked):
-    """Ask Gemini (with Google Search) for candidate URLs for one empty category."""
+def search_fallback(client, model, system, num, context_text, blocked, focus_label=None):
+    """Ask Gemini (with Google Search) for candidate URLs for one category."""
     from google.genai import types
+    what = (f"article on {focus_label} (the editorial focus) for category {num}: {CATEGORY_NAMES[num]}"
+            if focus_label else f"suitable article for category {num}: {CATEGORY_NAMES[num]}")
     prompt = (
-        f"Our curated feeds have no suitable article today for category {num}: {CATEGORY_NAMES[num]}. "
-        f"Use Google Search to find up to 4 exceptional, freely accessible articles or essays in this "
-        f"category published within the last {MAX_AGE_DAYS} days. Exclude these paywalled or unsuitable "
+        f"Our curated feeds have no {what} today. "
+        f"Use Google Search to find up to 4 exceptional, freely accessible articles or essays "
+        f"{'on ' + focus_label if focus_label else 'in this category'} published within the last {MAX_AGE_DAYS} days. Exclude these paywalled or unsuitable "
         f"domains: {', '.join(blocked)}. Give the direct article URL exactly as published; do not guess "
         f"URLs. Our script will open and verify each one.\n\n{context_text}\n\n"
         'Reply with JSON only: {"urls": ["https://...", ...]}')
@@ -480,7 +541,8 @@ def write_summaries(client, model, system, verified, context_text, only=None, fe
             continue
         rows = []
         for c in verified.get(num, []):
-            rows.append(f"### {c['id']} | {c['source']} | {c['title']} | {c['minutes']} min\n"
+            tag = f" | FOCUS: {', '.join(c['focus'])}" if c.get('focus') else ''
+            rows.append(f"### {c['id']} | {c['source']} | {c['title']} | {c['minutes']} min{tag}\n"
                         f"{c['excerpt'][:5000]}")
         blocks.append(f"## Category {num}: {name}\n" + ('\n\n'.join(rows) or '(no verified candidates)'))
     prompt = (
@@ -575,11 +637,15 @@ def build_picks(client, model, report, now, today):
     history = [h for h in load_history() if h['date'] != today]   # a same-day re-run may reuse its picks
     seen_urls = {h['norm_url'] for h in history}
     seen_titles = past_titles(history, today)
-    context_text = _context_block(report_context(report), history, now)
+    focus = load_focus(config)
+    context_text = _context_block(report_context(report), history, now, focus)
 
-    candidates = collect_feed_candidates(config, seen_urls, seen_titles, now)
+    candidates = collect_feed_candidates(config, seen_urls, seen_titles, now, focus)
     by_id = {c['id']: c for c in candidates}
-    ranked = shortlist(client, model, system, candidates, context_text) if candidates else {}
+    for num, spec in focus.items():
+        n = sum(1 for c in candidates if c['focus'].get(num))
+        log(f"cat {num}: {n} fresh candidates match the focus ({spec['label']})")
+    ranked = shortlist(client, model, system, candidates, context_text, focus, history) if candidates else {}
 
     cache = {}
 
@@ -593,6 +659,12 @@ def build_picks(client, model, report, now, today):
     def accept(res, title):
         return res['ok'] and not is_repeat(res['final_url'], title or res['title'], seen_urls, seen_titles)
 
+    def tag_focus(num, art):
+        """Confirm focus on the opened article: topic in the title or 3+ mentions in the text."""
+        if num in focus:
+            art['focus'] = focus_topics(focus[num], art['title'], art.get('excerpt', ''), min_mentions=3)
+        return art
+
     # An article may be shortlisted in several categories; uniqueness is enforced at the final pick.
     verified = {num: [] for num, _ in CATEGORIES}
     jobs = [(num, by_id[i]) for num, ids in ranked.items() for i in ids if i in by_id]
@@ -600,19 +672,24 @@ def build_picks(client, model, report, now, today):
         if not res['ok']:
             log(f"cat {num} rejected {cand['url']}: {res['reason']}")
         elif accept(res, cand['title']) and all(v['id'] != cand['id'] for v in verified[num]):
-            verified[num].append(dict(res, id=cand['id'], source=cand['source'],
-                                      title=cand['title'] or res['title']))
+            verified[num].append(tag_focus(num, dict(res, id=cand['id'], source=cand['source'],
+                                                     title=cand['title'] or res['title'])))
 
-    # Search fallback for categories the feeds could not fill.
+    # Search fallback for categories the feeds could not fill, and for focus categories
+    # without a verified focus article.
     sid = 0
     for num, _ in CATEGORIES:
-        if verified[num]:
+        needs_focus = num in focus and not any(v.get('focus') for v in verified[num])
+        if verified[num] and not needs_focus:
             continue
         if out_of_time():
             log(f"cat {num}: time budget used up, skipping search fallback")
             continue
+        label = focus[num]['label'] if needs_focus else None
+        if label:
+            log(f"cat {num}: no verified focus article from feeds; searching for {label}")
         try:
-            urls = search_fallback(client, model, system, num, context_text, blocked)
+            urls = search_fallback(client, model, system, num, context_text, blocked, label)
         except Exception as e:  # noqa: BLE001
             log(f"cat {num} search fallback failed: {e}")
             continue
@@ -623,8 +700,18 @@ def build_picks(client, model, report, now, today):
             if not accept(res, res['title']):
                 continue
             sid += 1
-            verified[num].append(dict(res, id=f"S{sid}",
-                                      source=res.get('site_name') or domain_of(res['final_url'])))
+            verified[num].append(tag_focus(num, dict(res, id=f"S{sid}",
+                                                     source=res.get('site_name') or domain_of(res['final_url']))))
+
+    # Focus filter: when any verified article matches, only matching articles can be picked.
+    for num, spec in focus.items():
+        matching = [v for v in verified[num] if v.get('focus')]
+        if matching:
+            dropped = len(verified[num]) - len(matching)
+            verified[num] = matching
+            log(f"cat {num}: focus filter kept {len(matching)} ({', '.join(sorted({t for v in matching for t in v['focus']}))}), dropped {dropped}")
+        else:
+            log(f"cat {num}: no verified article on {spec['label']} today; using general candidates")
     log('verified per category: ' + ', '.join(f"{n}={len(v)}" for n, v in verified.items()))
 
     # Choose and summarise, then one corrective round for: unknown ids, the same article
@@ -694,6 +781,7 @@ def build_picks(client, model, report, now, today):
             'url': clean_display_url(art['final_url']), 'title': art['title'], 'source': art['source'],
             'published': art['published'], 'minutes': art['minutes'],
             'summary': re.sub(r'\s+', ' ', ch['summary']).strip(),
+            'focus': art.get('focus') or [],
         }
     return picks
 
@@ -724,7 +812,8 @@ def add_essential_reading(client, report, now, model=None, fallback_model=None):
         if 'url' in p:
             history.append({'date': today, 'category': num, 'url': p['url'],
                             'norm_url': normalize_url(p['url']), 'title': p['title'],
-                            'source': p['source'], 'published': p['published']})
+                            'source': p['source'], 'published': p['published'],
+                            'focus': p.get('focus') or []})
     with open(HISTORY_FILE, 'w', encoding='utf-8') as f:
         json.dump(history, f, indent=1, ensure_ascii=False)
     filled = sum('url' in p for p in picks.values())
