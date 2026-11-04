@@ -1,5 +1,5 @@
 {
- "_comment": "Curated free sources for 'Today's Essential Reading'. Categories: 1 Health and Wellness, 2 Religion and Spirituality, 3 Psychology/Psychiatry/Mental Health, 4 Social Media and Sociocultural Trends, 5 Alternative Medicine and Herbology, 6 Sex and Relationships, 7 Parenting and Special Needs. Excluded on purpose (paywalled/metered): Tricycle, STAT, Nautilus, Scientific American, The Atlantic, NYT. Excluded (advocacy slant): Mad in America. Removed by owner: Big Think.",
+ "_comment": "Curated free sources for 'Today's Essential Reading', checked from GitHub's runners on 2026-11-04. Categories: 1 Health and Wellness, 2 Religion and Spirituality, 3 Psychology/Psychiatry/Mental Health, 4 Social Media and Sociocultural Trends, 5 Alternative Medicine and Herbology, 6 Sex and Relationships, 7 Parenting and Special Needs. A feed may be a URL (inherits the source's categories) or {url, categories}. Not listed because they block GitHub's runners (HTTP 403): Knowable Magazine, Religion News Service, Buddhistdoor Global. Not listed because no working feed was found: Medical News Today, Harvard Health, NCCIH, Kinsey Institute. Paywalled/metered or unsuitable sources are in blocked_domains (also enforced for search-fallback results).",
  "sources": [
   {
    "name": "The Conversation",
@@ -15,8 +15,26 @@
    ],
    "feeds": [
     "https://theconversation.com/global/articles.atom",
-    "https://theconversation.com/us/health/articles.atom",
-    "https://theconversation.com/uk/health/articles.atom"
+    {
+     "url": "https://theconversation.com/us/health/articles.atom",
+     "categories": [
+      1,
+      3,
+      5,
+      6,
+      7
+     ]
+    },
+    {
+     "url": "https://theconversation.com/uk/health/articles.atom",
+     "categories": [
+      1,
+      3,
+      5,
+      6,
+      7
+     ]
+    }
    ]
   },
   {
@@ -83,20 +101,6 @@
    ]
   },
   {
-   "name": "Medical News Today",
-   "domain": "medicalnewstoday.com",
-   "categories": [
-    1,
-    3,
-    5,
-    6
-   ],
-   "feeds": [
-    "https://www.medicalnewstoday.com/newsfeeds-rss",
-    "https://www.medicalnewstoday.com/feed"
-   ]
-  },
-  {
    "name": "Psychology Today",
    "domain": "psychologytoday.com",
    "categories": [
@@ -115,16 +119,33 @@
     1,
     3,
     5,
-    6,
     7
    ],
    "feeds": [
-    "https://www.sciencedaily.com/rss/health_medicine/alternative_medicine.xml",
-    "https://www.sciencedaily.com/rss/health_medicine/sexual_health.xml",
-    "https://www.sciencedaily.com/rss/mind_brain/relationships.xml",
-    "https://www.sciencedaily.com/rss/mind_brain/parenting.xml",
-    "https://www.sciencedaily.com/rss/mind_brain/psychology.xml",
-    "https://www.sciencedaily.com/rss/health_medicine/nutrition.xml"
+    {
+     "url": "https://www.sciencedaily.com/rss/health_medicine/alternative_medicine.xml",
+     "categories": [
+      5
+     ]
+    },
+    {
+     "url": "https://www.sciencedaily.com/rss/health_medicine/nutrition.xml",
+     "categories": [
+      1
+     ]
+    },
+    {
+     "url": "https://www.sciencedaily.com/rss/mind_brain/psychology.xml",
+     "categories": [
+      3
+     ]
+    },
+    {
+     "url": "https://www.sciencedaily.com/rss/mind_brain/parenting.xml",
+     "categories": [
+      7
+     ]
+    }
    ]
   },
   {
@@ -138,18 +159,6 @@
    ]
   },
   {
-   "name": "Harvard Health Blog",
-   "domain": "health.harvard.edu",
-   "categories": [
-    1,
-    3
-   ],
-   "feeds": [
-    "https://www.health.harvard.edu/blog/feed/",
-    "https://www.health.harvard.edu/feed"
-   ]
-  },
-  {
    "name": "NIH News Releases",
    "domain": "nih.gov",
    "categories": [
@@ -158,21 +167,7 @@
     5
    ],
    "feeds": [
-    "https://www.nih.gov/news-releases/feed.xml",
-    "https://www.nih.gov/news-events/feed.xml",
-    "https://www.nih.gov/rss.xml"
-   ]
-  },
-  {
-   "name": "NCCIH",
-   "domain": "nccih.nih.gov",
-   "categories": [
-    5
-   ],
-   "feeds": [
-    "https://www.nccih.nih.gov/feed",
-    "https://www.nccih.nih.gov/news/press-releases/rss",
-    "https://www.nccih.nih.gov/research/blog/rss"
+    "https://www.nih.gov/news-releases/feed.xml"
    ]
   },
   {
@@ -227,16 +222,6 @@
    ]
   },
   {
-   "name": "Kinsey Institute",
-   "domain": "kinseyinstitute.org",
-   "categories": [
-    6
-   ],
-   "feeds": [
-    "https://blogs.iu.edu/kinseyinstitute/feed/"
-   ]
-  },
-  {
    "name": "ADDitude",
    "domain": "additudemag.com",
    "categories": [
@@ -273,19 +258,46 @@
     1,
     2,
     3,
-    4,
     6,
     7
    ],
    "feeds": [
-    "https://www.theguardian.com/lifeandstyle/health-and-wellbeing/rss",
-    "https://www.theguardian.com/world/religion/rss",
-    "https://www.theguardian.com/society/mental-health/rss",
-    "https://www.theguardian.com/technology/social-media/rss",
-    "https://www.theguardian.com/lifeandstyle/sex/rss",
-    "https://www.theguardian.com/lifeandstyle/relationships/rss",
-    "https://www.theguardian.com/lifeandstyle/parents-and-parenting/rss",
-    "https://www.theguardian.com/education/special-educational-needs/rss"
+    {
+     "url": "https://www.theguardian.com/lifeandstyle/health-and-wellbeing/rss",
+     "categories": [
+      1
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/world/religion/rss",
+     "categories": [
+      2
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/society/mental-health/rss",
+     "categories": [
+      3
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/lifeandstyle/sex/rss",
+     "categories": [
+      6
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/lifeandstyle/relationships/rss",
+     "categories": [
+      6
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/lifeandstyle/parents-and-parenting/rss",
+     "categories": [
+      7
+     ]
+    }
    ]
   },
   {

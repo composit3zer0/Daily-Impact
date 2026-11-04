@@ -2,13 +2,13 @@ name: Daily Impact Report
 
 on:
   schedule:
-    - cron: '0 1 * * *'
-    - cron: '30 1 * * *'  # 8:00 AM Bangkok (UTC+7)
+    - cron: '0 1 * * *'   # 8:00 AM Bangkok (UTC+7): one run for the whole briefing
   workflow_dispatch:      # manual trigger for testing
 
 jobs:
   generate:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     permissions:
       contents: write
     env:
@@ -22,13 +22,14 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install google-genai pytz
+        run: pip install google-genai pytz feedparser requests beautifulsoup4
 
       - name: Generate report
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SYSTEM_PROMPT: ${{ secrets.SYSTEM_PROMPT }}
-          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}  # optional override; empty = script default
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}    # optional override; empty = script default
+          READING_MODEL: ${{ vars.READING_MODEL }}  # optional; empty = gemini-flash-latest
         run: python generate_report.py
 
       - name: Publish to GitHub Pages

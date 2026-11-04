@@ -82,6 +82,14 @@ if not report or len(report) < 500:
     print("ERROR: Report generation failed or output too short")
     exit(1)
 
+# Add "Today's Essential Reading". This step never blocks the main report:
+# on any failure the briefing is published without the section.
+try:
+    from essential_reading import add_essential_reading
+    report = add_essential_reading(client, report, now, fallback_model=MODEL)
+except Exception as e:
+    print(f"WARNING: Essential Reading skipped: {e}")
+
 # Write today's report as index.html (live page)
 with open('index.html', 'w', encoding='utf-8') as f:
     f.write(report)

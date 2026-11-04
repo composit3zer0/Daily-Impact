@@ -1,5 +1,8 @@
 """Check every feed in reading_sources.json from the machine it runs on.
 
+Run on a GitHub runner (the daily job's network) when changing the source list:
+    pip install feedparser requests beautifulsoup4 && python tools/check_reading_sources.py
+
 For each feed: HTTP status, entry count, entries from the last 14 days.
 For up to 3 recent entries per feed: run the same article checks the daily
 job uses (loads, dated <= 14 days, no paywall, enough text).
@@ -24,7 +27,7 @@ def check_feed(src, url):
     return {'source': src['name'], 'feed': url, 'error': None, 'entries': len(entries),
             'recent': len(recent), 'articles': arts}
 
-jobs = [(s, f) for s in cfg['sources'] for f in s['feeds']]
+jobs = [(s, f) for s in cfg['sources'] for f, _cats in er.feeds_of(s)]
 with ThreadPoolExecutor(8) as ex:
     results = list(ex.map(lambda j: check_feed(*j), jobs))
 
