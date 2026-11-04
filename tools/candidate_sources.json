@@ -1,0 +1,20 @@
+{"sources": [
+ {"name": "SD autism", "domain": "sciencedaily.com", "categories": [3], "feeds": ["https://www.sciencedaily.com/rss/mind_brain/autism.xml"]},
+ {"name": "SD adhd", "domain": "sciencedaily.com", "categories": [3], "feeds": ["https://www.sciencedaily.com/rss/mind_brain/add_and_adhd.xml", "https://www.sciencedaily.com/rss/mind_brain/adhd.xml"]},
+ {"name": "SD bipolar", "domain": "sciencedaily.com", "categories": [3], "feeds": ["https://www.sciencedaily.com/rss/mind_brain/bipolar_disorder.xml"]},
+ {"name": "SD ptsd", "domain": "sciencedaily.com", "categories": [3], "feeds": ["https://www.sciencedaily.com/rss/mind_brain/ptsd.xml", "https://www.sciencedaily.com/rss/mind_brain/post-traumatic_stress_disorder.xml"]},
+ {"name": "Guardian autism", "domain": "theguardian.com", "categories": [3], "feeds": ["https://www.theguardian.com/society/autism/rss"]},
+ {"name": "Guardian adhd", "domain": "theguardian.com", "categories": [3], "feeds": ["https://www.theguardian.com/society/attention-deficit-hyperactivity-disorder/rss", "https://www.theguardian.com/society/adhd/rss"]},
+ {"name": "Guardian bipolar", "domain": "theguardian.com", "categories": [3], "feeds": ["https://www.theguardian.com/society/bipolar-disorder/rss"]},
+ {"name": "Guardian ptsd", "domain": "theguardian.com", "categories": [3], "feeds": ["https://www.theguardian.com/society/post-traumatic-stress-disorder/rss", "https://www.theguardian.com/society/ptsd/rss"]},
+ {"name": "Medical Xpress psych", "domain": "medicalxpress.com", "categories": [3], "feeds": ["https://medicalxpress.com/rss-feed/psychology-psychiatry-news/"]},
+ {"name": "Neuroscience News autism", "domain": "neurosciencenews.com", "categories": [3], "feeds": ["https://neurosciencenews.com/neuroscience-topics/autism/feed/", "https://neurosciencenews.com/neuroscience-topics/psychology/feed/"]},
+ {"name": "bpHope", "domain": "bphope.com", "categories": [3], "feeds": ["https://www.bphope.com/feed/"]},
+ {"name": "International Bipolar Foundation", "domain": "ibpf.org", "categories": [3], "feeds": ["https://ibpf.org/feed/"]},
+ {"name": "Brain & Behavior Research Foundation", "domain": "bbrfoundation.org", "categories": [3], "feeds": ["https://bbrfoundation.org/rss.xml", "https://bbrfoundation.org/feed"]},
+ {"name": "NeuroClastic", "domain": "neuroclastic.com", "categories": [3], "feeds": ["https://neuroclastic.com/feed/"]},
+ {"name": "Psychiatric Times", "domain": "psychiatrictimes.com", "categories": [3], "feeds": ["https://www.psychiatrictimes.com/rss"]},
+ {"name": "PTSD UK", "domain": "ptsduk.org", "categories": [3], "feeds": ["https://www.ptsduk.org/feed/"]},
+ {"name": "Mental Elf", "domain": "nationalelfservice.net", "categories": [3], "feeds": ["https://www.nationalelfservice.net/mental-health/feed/"]},
+ {"name": "The Conversation autism tag", "domain": "theconversation.com", "categories": [3], "feeds": ["https://theconversation.com/global/topics/autism-2457/articles.atom", "https://theconversation.com/global/topics/adhd-1052/articles.atom"]}
+], "blocked_domains": []}
