@@ -1,61 +1,324 @@
 {
-  "_comment": "Curated free sources for 'Today's Essential Reading'. Categories: 1 Health and Wellness, 2 Religion and Spirituality, 3 Psychology/Psychiatry/Mental Health, 4 Social Media and Sociocultural Trends, 5 Alternative Medicine and Herbology, 6 Sex and Relationships, 7 Parenting and Special Needs. Excluded on purpose (paywalled/metered): Tricycle, STAT, Nautilus, Scientific American, The Atlantic, NYT. Excluded (advocacy slant): Mad in America. Removed by owner: Big Think.",
-  "sources": [
-    {"name": "The Conversation", "domain": "theconversation.com", "categories": [1, 2, 3, 4, 5, 6, 7],
-     "feeds": ["https://theconversation.com/global/articles.atom", "https://theconversation.com/us/health/articles.atom", "https://theconversation.com/uk/health/articles.atom"]},
-    {"name": "Greater Good Magazine", "domain": "greatergood.berkeley.edu", "categories": [1, 2, 3, 6, 7],
-     "feeds": ["https://greatergood.berkeley.edu/site/rss/articles", "https://greatergood.berkeley.edu/feeds/articles"]},
-    {"name": "Psyche", "domain": "psyche.co", "categories": [2, 3, 6, 7],
-     "feeds": ["https://psyche.co/feed", "https://psyche.co/feed.rss"]},
-    {"name": "Knowable Magazine", "domain": "knowablemagazine.org", "categories": [1, 3, 4, 5],
-     "feeds": ["https://knowablemagazine.org/rss", "https://knowablemagazine.org/content/rss"]},
-    {"name": "Aeon", "domain": "aeon.co", "categories": [2, 3, 4],
-     "feeds": ["https://aeon.co/feed.rss"]},
-    {"name": "NPR Shots", "domain": "npr.org", "categories": [1, 3, 7],
-     "feeds": ["https://feeds.npr.org/1128/rss.xml"]},
-    {"name": "Pew Research Center", "domain": "pewresearch.org", "categories": [2, 4, 7],
-     "feeds": ["https://www.pewresearch.org/feed/"]},
-    {"name": "Medical News Today", "domain": "medicalnewstoday.com", "categories": [1, 3, 5, 6],
-     "feeds": ["https://rss.medicalnewstoday.com/featurednews.xml", "https://www.medicalnewstoday.com/rss"]},
-    {"name": "Psychology Today", "domain": "psychologytoday.com", "categories": [3, 6, 7],
-     "feeds": ["https://www.psychologytoday.com/us/front/feed", "https://www.psychologytoday.com/intl/front/feed"]},
-    {"name": "ScienceDaily", "domain": "sciencedaily.com", "categories": [1, 3, 5, 6, 7],
-     "feeds": ["https://www.sciencedaily.com/rss/health_medicine/alternative_medicine.xml", "https://www.sciencedaily.com/rss/mind_brain/relationships.xml", "https://www.sciencedaily.com/rss/mind_brain/parenting.xml", "https://www.sciencedaily.com/rss/mind_brain/psychology.xml", "https://www.sciencedaily.com/rss/health_medicine/nutrition.xml"]},
-    {"name": "KFF Health News", "domain": "kffhealthnews.org", "categories": [1],
-     "feeds": ["https://kffhealthnews.org/feed/"]},
-    {"name": "Harvard Health Blog", "domain": "health.harvard.edu", "categories": [1, 3],
-     "feeds": ["https://www.health.harvard.edu/blog/feed"]},
-    {"name": "NIH News Releases", "domain": "nih.gov", "categories": [1, 3, 5],
-     "feeds": ["https://www.nih.gov/news-events/news-releases/feed.xml"]},
-    {"name": "NCCIH", "domain": "nccih.nih.gov", "categories": [5],
-     "feeds": ["https://www.nccih.nih.gov/news/rss", "https://www.nccih.nih.gov/rss.xml"]},
-    {"name": "Science-Based Medicine", "domain": "sciencebasedmedicine.org", "categories": [5],
-     "feeds": ["https://sciencebasedmedicine.org/feed/"]},
-    {"name": "Lion's Roar", "domain": "lionsroar.com", "categories": [2],
-     "feeds": ["https://www.lionsroar.com/feed/"]},
-    {"name": "Buddhistdoor Global", "domain": "buddhistdoor.net", "categories": [2],
-     "feeds": ["https://www.buddhistdoor.net/feed/"]},
-    {"name": "Religion News Service", "domain": "religionnews.com", "categories": [2],
-     "feeds": ["https://religionnews.com/feed/"]},
-    {"name": "Mindful", "domain": "mindful.org", "categories": [2],
-     "feeds": ["https://www.mindful.org/feed/"]},
-    {"name": "The Transmitter", "domain": "thetransmitter.org", "categories": [3, 7],
-     "feeds": ["https://www.thetransmitter.org/feed/"]},
-    {"name": "Rest of World", "domain": "restofworld.org", "categories": [4],
-     "feeds": ["https://restofworld.org/feed/latest", "https://restofworld.org/feed/"]},
-    {"name": "Kinsey Institute", "domain": "kinseyinstitute.org", "categories": [6],
-     "feeds": ["https://blogs.iu.edu/kinseyinstitute/feed/", "https://kinseyinstitute.org/feed/"]},
-    {"name": "ADDitude", "domain": "additudemag.com", "categories": [7],
-     "feeds": ["https://www.additudemag.com/feed/"]},
-    {"name": "Child Mind Institute", "domain": "childmind.org", "categories": [7],
-     "feeds": ["https://childmind.org/feed/"]},
-    {"name": "The Hechinger Report", "domain": "hechingerreport.org", "categories": [7],
-     "feeds": ["https://hechingerreport.org/feed/"]}
-  ],
-  "blocked_domains": [
-    "tricycle.org", "statnews.com", "nautil.us", "scientificamerican.com", "theatlantic.com",
-    "nytimes.com", "wsj.com", "ft.com", "economist.com", "newyorker.com", "washingtonpost.com",
-    "bloomberg.com", "wired.com", "technologyreview.com", "newscientist.com", "thetimes.co.uk",
-    "telegraph.co.uk", "hbr.org", "madinamerica.com", "bigthink.com"
-  ]
+ "_comment": "Curated free sources for 'Today's Essential Reading'. Categories: 1 Health and Wellness, 2 Religion and Spirituality, 3 Psychology/Psychiatry/Mental Health, 4 Social Media and Sociocultural Trends, 5 Alternative Medicine and Herbology, 6 Sex and Relationships, 7 Parenting and Special Needs. Excluded on purpose (paywalled/metered): Tricycle, STAT, Nautilus, Scientific American, The Atlantic, NYT. Excluded (advocacy slant): Mad in America. Removed by owner: Big Think.",
+ "sources": [
+  {
+   "name": "The Conversation",
+   "domain": "theconversation.com",
+   "categories": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "feeds": [
+    "https://theconversation.com/global/articles.atom",
+    "https://theconversation.com/us/health/articles.atom",
+    "https://theconversation.com/uk/health/articles.atom"
+   ]
+  },
+  {
+   "name": "Greater Good Magazine",
+   "domain": "greatergood.berkeley.edu",
+   "categories": [
+    1,
+    2,
+    3,
+    6,
+    7
+   ],
+   "feeds": [
+    "https://greatergood.berkeley.edu/site/rss/articles"
+   ]
+  },
+  {
+   "name": "Psyche",
+   "domain": "psyche.co",
+   "categories": [
+    2,
+    3,
+    6,
+    7
+   ],
+   "feeds": [
+    "https://psyche.co/feed"
+   ]
+  },
+  {
+   "name": "Aeon",
+   "domain": "aeon.co",
+   "categories": [
+    2,
+    3,
+    4
+   ],
+   "feeds": [
+    "https://aeon.co/feed.rss"
+   ]
+  },
+  {
+   "name": "NPR Shots",
+   "domain": "npr.org",
+   "categories": [
+    1,
+    3,
+    7
+   ],
+   "feeds": [
+    "https://feeds.npr.org/1128/rss.xml"
+   ]
+  },
+  {
+   "name": "Pew Research Center",
+   "domain": "pewresearch.org",
+   "categories": [
+    2,
+    4,
+    7
+   ],
+   "feeds": [
+    "https://www.pewresearch.org/feed/"
+   ]
+  },
+  {
+   "name": "Medical News Today",
+   "domain": "medicalnewstoday.com",
+   "categories": [
+    1,
+    3,
+    5,
+    6
+   ],
+   "feeds": [
+    "https://www.medicalnewstoday.com/newsfeeds-rss",
+    "https://www.medicalnewstoday.com/feed"
+   ]
+  },
+  {
+   "name": "Psychology Today",
+   "domain": "psychologytoday.com",
+   "categories": [
+    3,
+    6,
+    7
+   ],
+   "feeds": [
+    "https://www.psychologytoday.com/us/front/feed"
+   ]
+  },
+  {
+   "name": "ScienceDaily",
+   "domain": "sciencedaily.com",
+   "categories": [
+    1,
+    3,
+    5,
+    6,
+    7
+   ],
+   "feeds": [
+    "https://www.sciencedaily.com/rss/health_medicine/alternative_medicine.xml",
+    "https://www.sciencedaily.com/rss/health_medicine/sexual_health.xml",
+    "https://www.sciencedaily.com/rss/mind_brain/relationships.xml",
+    "https://www.sciencedaily.com/rss/mind_brain/parenting.xml",
+    "https://www.sciencedaily.com/rss/mind_brain/psychology.xml",
+    "https://www.sciencedaily.com/rss/health_medicine/nutrition.xml"
+   ]
+  },
+  {
+   "name": "KFF Health News",
+   "domain": "kffhealthnews.org",
+   "categories": [
+    1
+   ],
+   "feeds": [
+    "https://kffhealthnews.org/feed/"
+   ]
+  },
+  {
+   "name": "Harvard Health Blog",
+   "domain": "health.harvard.edu",
+   "categories": [
+    1,
+    3
+   ],
+   "feeds": [
+    "https://www.health.harvard.edu/blog/feed/",
+    "https://www.health.harvard.edu/feed"
+   ]
+  },
+  {
+   "name": "NIH News Releases",
+   "domain": "nih.gov",
+   "categories": [
+    1,
+    3,
+    5
+   ],
+   "feeds": [
+    "https://www.nih.gov/news-releases/feed.xml",
+    "https://www.nih.gov/news-events/feed.xml",
+    "https://www.nih.gov/rss.xml"
+   ]
+  },
+  {
+   "name": "NCCIH",
+   "domain": "nccih.nih.gov",
+   "categories": [
+    5
+   ],
+   "feeds": [
+    "https://www.nccih.nih.gov/feed",
+    "https://www.nccih.nih.gov/news/press-releases/rss",
+    "https://www.nccih.nih.gov/research/blog/rss"
+   ]
+  },
+  {
+   "name": "Science-Based Medicine",
+   "domain": "sciencebasedmedicine.org",
+   "categories": [
+    5
+   ],
+   "feeds": [
+    "https://sciencebasedmedicine.org/feed/"
+   ]
+  },
+  {
+   "name": "Lion's Roar",
+   "domain": "lionsroar.com",
+   "categories": [
+    2
+   ],
+   "feeds": [
+    "https://www.lionsroar.com/feed/"
+   ]
+  },
+  {
+   "name": "Mindful",
+   "domain": "mindful.org",
+   "categories": [
+    2
+   ],
+   "feeds": [
+    "https://www.mindful.org/feed/"
+   ]
+  },
+  {
+   "name": "The Transmitter",
+   "domain": "thetransmitter.org",
+   "categories": [
+    3,
+    7
+   ],
+   "feeds": [
+    "https://www.thetransmitter.org/feed/"
+   ]
+  },
+  {
+   "name": "Rest of World",
+   "domain": "restofworld.org",
+   "categories": [
+    4
+   ],
+   "feeds": [
+    "https://restofworld.org/feed/latest"
+   ]
+  },
+  {
+   "name": "Kinsey Institute",
+   "domain": "kinseyinstitute.org",
+   "categories": [
+    6
+   ],
+   "feeds": [
+    "https://blogs.iu.edu/kinseyinstitute/feed/"
+   ]
+  },
+  {
+   "name": "ADDitude",
+   "domain": "additudemag.com",
+   "categories": [
+    7
+   ],
+   "feeds": [
+    "https://www.additudemag.com/feed/"
+   ]
+  },
+  {
+   "name": "Child Mind Institute",
+   "domain": "childmind.org",
+   "categories": [
+    7
+   ],
+   "feeds": [
+    "https://childmind.org/feed/"
+   ]
+  },
+  {
+   "name": "The Hechinger Report",
+   "domain": "hechingerreport.org",
+   "categories": [
+    7
+   ],
+   "feeds": [
+    "https://hechingerreport.org/feed/"
+   ]
+  },
+  {
+   "name": "The Guardian",
+   "domain": "theguardian.com",
+   "categories": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    7
+   ],
+   "feeds": [
+    "https://www.theguardian.com/lifeandstyle/health-and-wellbeing/rss",
+    "https://www.theguardian.com/world/religion/rss",
+    "https://www.theguardian.com/society/mental-health/rss",
+    "https://www.theguardian.com/technology/social-media/rss",
+    "https://www.theguardian.com/lifeandstyle/sex/rss",
+    "https://www.theguardian.com/lifeandstyle/relationships/rss",
+    "https://www.theguardian.com/lifeandstyle/parents-and-parenting/rss",
+    "https://www.theguardian.com/education/special-educational-needs/rss"
+   ]
+  },
+  {
+   "name": "The Gottman Institute",
+   "domain": "gottman.com",
+   "categories": [
+    6
+   ],
+   "feeds": [
+    "https://www.gottman.com/blog/feed/"
+   ]
+  }
+ ],
+ "blocked_domains": [
+  "tricycle.org",
+  "statnews.com",
+  "nautil.us",
+  "scientificamerican.com",
+  "theatlantic.com",
+  "nytimes.com",
+  "wsj.com",
+  "ft.com",
+  "economist.com",
+  "newyorker.com",
+  "washingtonpost.com",
+  "bloomberg.com",
+  "wired.com",
+  "technologyreview.com",
+  "newscientist.com",
+  "thetimes.co.uk",
+  "telegraph.co.uk",
+  "hbr.org",
+  "madinamerica.com",
+  "bigthink.com"
+ ]
 }
