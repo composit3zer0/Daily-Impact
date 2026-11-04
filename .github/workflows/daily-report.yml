@@ -28,6 +28,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SYSTEM_PROMPT: ${{ secrets.SYSTEM_PROMPT }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}  # optional override; empty = script default
         run: python generate_report.py
 
       - name: Publish to GitHub Pages

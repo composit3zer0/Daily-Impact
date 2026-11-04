@@ -19,27 +19,15 @@ print(f"Generating Daily Impact for {bangkok_date}...")
 client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
 system_prompt = os.environ['SYSTEM_PROMPT']
 
-# Auto-select latest Gemini Flash model
-def get_latest_gemini():
-    try:
-        models = client.models.list()
-        flash_models = [
-            m.name for m in models
-            if 'gemini' in m.name.lower()
-            and 'flash' in m.name.lower()
-            and 'preview' not in m.name.lower()
-            and 'thinking' not in m.name.lower()
-        ]
-        if flash_models:
-            latest = sorted(flash_models, reverse=True)[0]
-            model_id = latest.replace('models/', '')
-            print(f"Using model: {model_id}")
-            return model_id
-    except Exception as e:
-        print(f"Model fetch failed: {e}, falling back to default")
-    return "gemini-2.0-flash"
-
-MODEL = get_latest_gemini()
+# Pinned model. Picking a model automatically from the API's model list broke
+# on 28 Aug 2026: the list started to include 'gemini-omni-1.1-flash', which sorts
+# last alphabetically but only supports the Interactions API, so every
+# generate_content call returned 400 INVALID_ARGUMENT.
+# To change the model, set a repository variable named GEMINI_MODEL
+# (Settings -> Secrets and variables -> Actions -> Variables).
+DEFAULT_MODEL = "gemini-flash-lite-latest"  # last model that produced a report
+MODEL = os.environ.get('GEMINI_MODEL', '').strip() or DEFAULT_MODEL
+print(f"Using model: {MODEL}")
 
 # Build the prompt
 prompt = (
