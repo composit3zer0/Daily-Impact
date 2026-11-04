@@ -39,10 +39,11 @@ for r in results:
     lines.append(f"| {r['source']} | {r['feed']} | ✅ {r['entries']} items | {r['recent']} | "
                  f"{ok}/{len(r['articles'])} | {notes} |")
 report = '\n'.join(lines)
-print(report)
 detail = json.dumps([{k: v for k, v in a.items() if k != 'excerpt'}
                      for r in results for a in r['articles']], indent=1, default=str)
 print(detail)
+print('=== SUMMARY TABLE ===')
+print(report)
 if os.environ.get('GITHUB_STEP_SUMMARY'):
     with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
         f.write('## Reading source check\n\n' + report + '\n')

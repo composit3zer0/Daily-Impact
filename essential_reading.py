@@ -187,13 +187,17 @@ def detect_paywall(soup, text):
 
 
 def article_text(soup):
+    """Readable body text: the <article>/<main>/<body> block with the most paragraph text."""
     for tag in soup(['script', 'style', 'noscript', 'nav', 'header', 'footer',
                      'aside', 'form', 'figure', 'svg', 'iframe']):
         tag.decompose()
-    root = soup.find('article') or soup.find('main') or soup.body or soup
-    paras = [p.get_text(' ', strip=True) for p in root.find_all(['p', 'li', 'h2', 'h3'])]
-    text = '\n'.join(p for p in paras if p)
-    return text
+    best = ''
+    for root in soup.find_all(['article', 'main']) + [soup.body or soup]:
+        paras = [p.get_text(' ', strip=True) for p in root.find_all('p')]
+        text = '\n'.join(p for p in paras if p)
+        if word_count(text) > word_count(best):
+            best = text
+    return best
 
 
 def verify_article(url, feed_date=None, blocked_domains=(), now=None):
