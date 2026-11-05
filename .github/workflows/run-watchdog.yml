@@ -1,0 +1,42 @@
+name: Daily Impact Watchdog
+
+# Opens a GitHub issue (label: daily-impact-alert) when a Daily Impact run fails,
+# publishes a thin Essential Reading section, or doesn't happen at all; closes it
+# when a healthy run follows. See tools/run_watchdog.py.
+
+on:
+  workflow_run:
+    workflows: [Daily Impact Report]
+    types: [completed]
+  schedule:
+    - cron: '17 9 * * *'   # 16:17 Bangkok: safety net if no run happened today (after the 07:50
+                           # dispatch and the 09:37 backup, allowing for GitHub's late starts)
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: tools
+      - name: Check after a run
+        if: github.event_name == 'workflow_run'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          RUN_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          RUN_BRANCH: ${{ github.event.workflow_run.head_branch }}
+        run: python3 tools/run_watchdog.py after-run
+      - name: Daily safety check
+        if: github.event_name != 'workflow_run'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 tools/run_watchdog.py daily

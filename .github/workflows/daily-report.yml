@@ -1,9 +1,13 @@
 name: Daily Impact Report
 
 on:
+  # Primary: a Claude scheduled task starts this workflow (workflow_dispatch) at 07:50
+  # Bangkok, so the edition lands by ~08:00. GitHub's own schedule has started this repo's
+  # runs hours late (often 4-7 h), so it is only a backup: at 09:37 Bangkok (02:37 UTC) it
+  # runs only if today's edition hasn't been published yet.
   schedule:
-    - cron: '0 1 * * *'   # 8:00 AM Bangkok (UTC+7): one run for the whole briefing
-  workflow_dispatch:      # manual trigger for testing
+    - cron: '37 2 * * *'
+  workflow_dispatch:
 
 jobs:
   generate:
@@ -16,15 +20,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Skip if today's edition already exists (backup schedule only)
+        id: guard
+        if: github.event_name == 'schedule'
+        run: |
+          f="$(TZ=Asia/Bangkok date +%Y-%m-%d).html"
+          if [ -f "$f" ]; then
+            echo "SKIP: $f is already published; the backup schedule has nothing to do."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Set up Python
+        if: steps.guard.outputs.skip != 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
+        if: steps.guard.outputs.skip != 'true'
         run: pip install google-genai pytz feedparser requests beautifulsoup4
 
       - name: Generate report
+        if: steps.guard.outputs.skip != 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SYSTEM_PROMPT: ${{ secrets.SYSTEM_PROMPT }}
@@ -33,6 +50,7 @@ jobs:
         run: python generate_report.py
 
       - name: Publish to GitHub Pages
+        if: steps.guard.outputs.skip != 'true'
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"

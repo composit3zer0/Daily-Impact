@@ -15,8 +15,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import essential_reading as er
 
 now = datetime.now(timezone.utc)
-cfg = er.load_json(er.SOURCES_FILE, {})
-blocked = cfg.get('blocked_domains', [])
+cfg = er.load_json(sys.argv[1] if len(sys.argv) > 1 else er.SOURCES_FILE, {})
+blocked = er.load_json(er.SOURCES_FILE, {}).get('blocked_domains', [])
 
 def check_feed(src, url):
     entries, err = er.fetch_feed(url)

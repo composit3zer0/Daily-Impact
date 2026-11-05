@@ -1,5 +1,5 @@
 {
- "_comment": "Curated free sources for 'Today's Essential Reading', checked from GitHub's runners on 2026-11-04. Categories: 1 Health and Wellness, 2 Religion and Spirituality, 3 Psychology/Psychiatry/Mental Health, 4 Social Media and Sociocultural Trends, 5 Alternative Medicine and Herbology, 6 Sex and Relationships, 7 Parenting and Special Needs. A feed may be a URL (inherits the source's categories) or {url, categories}. Not listed because they block GitHub's runners (HTTP 403): Knowable Magazine, Religion News Service, Buddhistdoor Global. Not listed because no working feed was found: Medical News Today, Harvard Health, NCCIH, Kinsey Institute. Paywalled/metered or unsuitable sources are in blocked_domains (also enforced for search-fallback results).",
+ "_comment": "Curated free sources for 'Today's Essential Reading', checked from GitHub's runners on 2026-11-04. Categories: 1 Health and Wellness, 2 Religion and Spirituality, 3 Psychology/Psychiatry/Mental Health, 4 Social Media and Sociocultural Trends, 5 Alternative Medicine and Herbology, 6 Sex and Relationships, 7 Parenting and Special Needs. A feed may be a URL (inherits the source's categories) or {url, categories}. Not listed because they block GitHub's runners (HTTP 403): Knowable Magazine, Religion News Service, Buddhistdoor Global. Not listed because no working feed was found: Medical News Today, Harvard Health, NCCIH, Kinsey Institute, Medical Xpress. International Bipolar Foundation blocks GitHub's runners (HTTP 403). Paywalled/metered or unsuitable sources are in blocked_domains (also enforced for search-fallback results).",
  "sources": [
   {
    "name": "The Conversation",
@@ -32,6 +32,13 @@
       3,
       5,
       6,
+      7
+     ]
+    },
+    {
+     "url": "https://theconversation.com/global/topics/autism-2457/articles.atom",
+     "categories": [
+      3,
       7
      ]
     }
@@ -145,6 +152,32 @@
      "categories": [
       7
      ]
+    },
+    {
+     "url": "https://www.sciencedaily.com/rss/mind_brain/autism.xml",
+     "categories": [
+      3,
+      7
+     ]
+    },
+    {
+     "url": "https://www.sciencedaily.com/rss/mind_brain/add_and_adhd.xml",
+     "categories": [
+      3,
+      7
+     ]
+    },
+    {
+     "url": "https://www.sciencedaily.com/rss/mind_brain/bipolar_disorder.xml",
+     "categories": [
+      3
+     ]
+    },
+    {
+     "url": "https://www.sciencedaily.com/rss/mind_brain/ptsd.xml",
+     "categories": [
+      3
+     ]
     }
    ]
   },
@@ -225,6 +258,7 @@
    "name": "ADDitude",
    "domain": "additudemag.com",
    "categories": [
+    3,
     7
    ],
    "feeds": [
@@ -297,6 +331,32 @@
      "categories": [
       7
      ]
+    },
+    {
+     "url": "https://www.theguardian.com/society/autism/rss",
+     "categories": [
+      3,
+      7
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/society/attention-deficit-hyperactivity-disorder/rss",
+     "categories": [
+      3,
+      7
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/society/bipolar-disorder/rss",
+     "categories": [
+      3
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/society/post-traumatic-stress-disorder/rss",
+     "categories": [
+      3
+     ]
     }
    ]
   },
@@ -308,6 +368,68 @@
    ],
    "feeds": [
     "https://www.gottman.com/blog/feed/"
+   ]
+  },
+  {
+   "name": "Neuroscience News",
+   "domain": "neurosciencenews.com",
+   "categories": [
+    3
+   ],
+   "feeds": [
+    "https://neurosciencenews.com/neuroscience-topics/autism/feed/",
+    "https://neurosciencenews.com/neuroscience-topics/psychology/feed/"
+   ]
+  },
+  {
+   "name": "bpHope",
+   "domain": "bphope.com",
+   "categories": [
+    3
+   ],
+   "feeds": [
+    "https://www.bphope.com/feed/"
+   ]
+  },
+  {
+   "name": "The Mental Elf",
+   "domain": "nationalelfservice.net",
+   "categories": [
+    3
+   ],
+   "feeds": [
+    "https://www.nationalelfservice.net/mental-health/feed/"
+   ]
+  },
+  {
+   "name": "Psychiatric Times",
+   "domain": "psychiatrictimes.com",
+   "categories": [
+    3
+   ],
+   "feeds": [
+    "https://www.psychiatrictimes.com/rss"
+   ]
+  },
+  {
+   "name": "Brain & Behavior Research Foundation",
+   "domain": "bbrfoundation.org",
+   "categories": [
+    3
+   ],
+   "feeds": [
+    "https://bbrfoundation.org/rss.xml"
+   ]
+  },
+  {
+   "name": "NeuroClastic",
+   "domain": "neuroclastic.com",
+   "categories": [
+    3,
+    7
+   ],
+   "feeds": [
+    "https://neuroclastic.com/feed/"
    ]
   }
  ],
@@ -332,5 +454,35 @@
   "hbr.org",
   "madinamerica.com",
   "bigthink.com"
- ]
+ ],
+ "focus": {
+  "_comment": "Editorial focus per category. Articles whose title/teaser match a topic are tagged and ranked first; after the article is opened, a match needs the topic in the title or 3+ mentions in the text. If any verified candidate matches, only matching articles can be picked for that category; otherwise a targeted web search runs, and only then does the category fall back to general picks. Patterns are case-insensitive Python regular expressions; (?-i:...) makes a part case-sensitive.",
+  "3": {
+   "label": "autism, ADHD, PTSD and bipolar disorder",
+   "topics": {
+    "Autism": [
+     "\\bautis(m|tic|ts?)\\b",
+     "\\b(?-i:ASD)\\b",
+     "\\basperger",
+     "\\bautism spectrum"
+    ],
+    "ADHD": [
+     "\\b(?-i:ADHD)\\b",
+     "\\battention[- ]deficit",
+     "\\bhyperactivity disorder"
+    ],
+    "PTSD": [
+     "\\b(?-i:C?-?PTSD)\\b",
+     "\\bpost-?\\s?traumatic stress",
+     "\\bcombat trauma\\b"
+    ],
+    "Bipolar disorder": [
+     "\\bbipolar\\b",
+     "\\bmanic[- ]depress",
+     "\\bmanic episodes?\\b",
+     "\\bmood stabili[sz]ers?\\b"
+    ]
+   }
+  }
+ }
 }
