@@ -108,6 +108,9 @@ def after_run():
               f'Run: {url}\nConclusion: **{conclusion}**\nFailed step: {failed or "unknown"}\n\n'
               f'Relevant log lines:\n```\n{tail_of_log(log)}\n```')
         return
+    if 'SKIP:' in log and '[reading] section published' not in log:
+        print("Backup schedule skipped: today's edition already existed. Nothing to report.")
+        return
     problems = analyse_log(log)
     if problems:
         alert('run degraded',
