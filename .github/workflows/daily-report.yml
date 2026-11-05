@@ -2,7 +2,9 @@ name: Daily Impact Report
 
 on:
   schedule:
-    - cron: '0 1 * * *'   # 8:00 AM Bangkok (UTC+7): one run for the whole briefing
+    # 07:23 Bangkok (00:23 UTC). Off the top of the hour, when GitHub delays or drops
+    # the most scheduled runs; this repo's 01:00 UTC runs often started hours late.
+    - cron: '23 0 * * *'
   workflow_dispatch:      # manual trigger for testing
 
 jobs:

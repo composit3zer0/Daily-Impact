@@ -9,7 +9,8 @@ on:
     workflows: [Daily Impact Report]
     types: [completed]
   schedule:
-    - cron: '17 3 * * *'   # 10:17 Bangkok: safety net if no run happened today
+    - cron: '17 9 * * *'   # 16:17 Bangkok: safety net if no run happened today (GitHub can start
+                           # the 00:23 UTC run hours late, so this waits until the afternoon)
   workflow_dispatch:
 
 permissions:
