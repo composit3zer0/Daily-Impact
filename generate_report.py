@@ -19,15 +19,44 @@ print(f"Generating Daily Impact for {bangkok_date}...")
 client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
 system_prompt = os.environ['SYSTEM_PROMPT']
 
-# Pinned model. Picking a model automatically from the API's model list broke
-# on 28 Aug 2026: the list started to include 'gemini-omni-1.1-flash', which sorts
-# last alphabetically but only supports the Interactions API, so every
-# generate_content call returned 400 INVALID_ARGUMENT.
-# To change the model, set a repository variable named GEMINI_MODEL
+# Model chain. Google renames and retires model aliases without notice:
+# - 28 Aug 2026: auto-selecting from the model list picked 'gemini-omni-1.1-flash',
+#   which only supports the Interactions API (400 INVALID_ARGUMENT on every call);
+# - 7 Nov 2026: 'gemini-flash-lite-latest' started returning 404 NOT_FOUND.
+# So the script tries a short list in order and moves to the next model at once when
+# a model is missing or rejects generate_content. As a last resort it asks the API
+# for flash models that declare generateContent support.
+# To put a model first, set a repository variable named GEMINI_MODEL
 # (Settings -> Secrets and variables -> Actions -> Variables).
-DEFAULT_MODEL = "gemini-flash-lite-latest"  # last model that produced a report
-MODEL = os.environ.get('GEMINI_MODEL', '').strip() or DEFAULT_MODEL
-print(f"Using model: {MODEL}")
+MODEL_CHAIN = ["gemini-flash-latest", "gemini-flash-lite-latest", "gemini-2.5-flash"]
+
+
+def candidate_models():
+    first = os.environ.get('GEMINI_MODEL', '').strip()
+    return list(dict.fromkeys(([first] if first else []) + MODEL_CHAIN))
+
+
+def discovered_models(exclude):
+    """Flash models the API says support generateContent (newest-looking first)."""
+    try:
+        found = []
+        for m in client.models.list():
+            name = (m.name or '').replace('models/', '')
+            actions = [a.lower() for a in (getattr(m, 'supported_actions', None) or [])]
+            if ('flash' in name and 'generatecontent' in actions and name not in exclude
+                    and not any(x in name for x in ('preview', 'thinking', 'tts', 'image', 'live', 'omni'))):
+                found.append(name)
+        return sorted(found, reverse=True)[:3]
+    except Exception as e:
+        print(f"Model discovery failed: {e}")
+        return []
+
+
+def model_unusable(err):
+    """True when retrying this model can't help (missing model or unsupported method)."""
+    text = str(err)
+    return any(k in text for k in ('404', 'NOT_FOUND', '400 INVALID_ARGUMENT', 'only supports'))
+
 
 # Build the prompt
 prompt = (
@@ -39,33 +68,59 @@ prompt = (
     f"No preamble, no thinking text, no markdown, no code fences — just the HTML."
 )
 
-print("Calling Gemini API with Google Search grounding...")
 
-raw = None
-for attempt in range(1, 4):
-    try:
-        print(f"API call attempt {attempt}/3...")
-        response = client.models.generate_content(
-            model=MODEL,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                system_instruction=system_prompt,
-                tools=[types.Tool(google_search=types.GoogleSearch())],
-                max_output_tokens=16384,
-                temperature=0.7,
+def generate_with(model):
+    """Up to 3 attempts with one model. Returns (text, unusable)."""
+    for attempt in range(1, 4):
+        try:
+            print(f"API call attempt {attempt}/3 with {model}...")
+            response = client.models.generate_content(
+                model=model,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=system_prompt,
+                    tools=[types.Tool(google_search=types.GoogleSearch())],
+                    max_output_tokens=16384,
+                    temperature=0.7,
+                )
             )
-        )
-        raw = response.text
-        print(f"Response received: {len(raw)} characters")
-        break
-    except Exception as e:
-        print(f"Attempt {attempt} failed: {e}")
+            text = response.text
+            if text:
+                print(f"Response received: {len(text)} characters")
+                return text, False
+            print(f"Attempt {attempt}: empty response")
+        except Exception as e:
+            print(f"Attempt {attempt} failed: {e}")
+            if model_unusable(e):
+                print(f"{model} is unavailable for generate_content; trying the next model.")
+                return None, True
         if attempt < 3:
             time.sleep(10)
+    return None, False
+
+
+print("Calling Gemini API with Google Search grounding...")
+
+raw, MODEL, tried = None, None, []
+for model in candidate_models():
+    tried.append(model)
+    raw, _ = generate_with(model)
+    if raw:
+        MODEL = model
+        break
+if not raw:
+    for model in discovered_models(set(tried)):
+        print(f"Trying discovered model: {model}")
+        tried.append(model)
+        raw, _ = generate_with(model)
+        if raw:
+            MODEL = model
+            break
 
 if not raw:
-    print("ERROR: All 3 API attempts failed")
+    print(f"ERROR: no model produced a report (tried: {', '.join(tried)})")
     exit(1)
+print(f"Using model: {MODEL}")
 
 # Strip anything before the HTML document
 if '<!DOCTYPE html>' in raw:
