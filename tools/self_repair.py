@@ -4,7 +4,8 @@ run is started.
 
 Run by the `repair` job in .github/workflows/run-watchdog.yml after the watchdog
 raises a repairable alert. Inputs (env): ISSUE (alert issue number), RUN_ID (the
-failed run), GH_TOKEN (GitHub token for gh/git), CLAUDE_CODE_OAUTH_TOKEN.
+failed run), GH_TOKEN (GitHub token for gh/git), ANTHROPIC_API_KEY (or the
+CLAUDE_CODE_OAUTH_TOKEN fallback).
 
 Guardrails (enforced here, not by the model):
   - Claude gets file tools, web search, and only two shell commands (the self-tests
@@ -121,8 +122,8 @@ def main():
                      'Bash(python3 tools/selftest.py)', 'Bash(python3 -m py_compile *)'),
             label='self-repair')
     except claude_llm.ClaudeError as e:
-        comment(f'Self-repair could not run: `{e}`. Most likely the Claude token needs attention '
-                '(CLAUDE_CODE_OAUTH_TOKEN secret) or the usage limit was reached.')
+        comment(f'Self-repair could not run: `{e}`. Most likely the Claude credentials need attention '
+                '(ANTHROPIC_API_KEY secret) or the monthly API credit ran out.')
         return 1
     finally:
         os.environ.update(hidden)

@@ -1,8 +1,9 @@
 """Thin wrapper around headless Claude Code (`claude -p`) for the Daily Impact.
 
-Authentication: the workflow sets CLAUDE_CODE_OAUTH_TOKEN (a subscription token
-from `claude setup-token`). ANTHROPIC_API_KEY must NOT be set, or it takes
-precedence over the token.
+Authentication: ANTHROPIC_API_KEY, an API key from the Claude Console organization
+linked to the owner's Max plan, so usage is billed to the plan's monthly API credit
+under the Commercial Terms. If no key is set, Claude Code falls back to
+CLAUDE_CODE_OAUTH_TOKEN (a subscription token from `claude setup-token`).
 
 Model: CLAUDE_MODEL (default "sonnet"). The alias always points at the current
 Sonnet, so a retired model name can't break the job the way Gemini's did.
@@ -55,7 +56,8 @@ def ask(prompt, *, system=None, schema=None, tools=(), allowed=None, model=None,
         # CLAUDE.md (maintainer notes) isn't loaded into the briefing's context.
         cwd = tempfile.mkdtemp(prefix='daily-impact-')
     env = dict(os.environ)
-    env.pop('ANTHROPIC_API_KEY', None)          # would override the subscription token
+    if not env.get('ANTHROPIC_API_KEY'):
+        env.pop('ANTHROPIC_API_KEY', None)      # an empty secret must not block the token fallback
     last = None
     try:
         for attempt in range(1, attempts + 1):

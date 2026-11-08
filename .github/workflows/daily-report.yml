@@ -51,7 +51,9 @@ jobs:
       - name: Generate report
         if: steps.guard.outputs.skip != 'true'
         env:
-          # Subscription token from `claude setup-token` (Settings -> Secrets -> Actions).
+          # API key from the Console organization linked to the Claude plan (uses the plan's
+          # monthly API credit). The subscription token is only a fallback when no key is set.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           SYSTEM_PROMPT: ${{ secrets.SYSTEM_PROMPT }}
           CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL }}      # optional; empty = "sonnet" (current Sonnet)

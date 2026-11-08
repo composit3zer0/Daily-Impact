@@ -79,6 +79,7 @@ jobs:
       - name: Diagnose and fix
         env:
           GH_TOKEN: ${{ github.token }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           ISSUE: ${{ needs.watch.outputs.issue }}
           RUN_ID: ${{ github.event.workflow_run.id }}
