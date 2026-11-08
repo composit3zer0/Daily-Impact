@@ -5,7 +5,7 @@ Division of labour:
     article, confirm the publication date (<= 14 days old), reject paywalls and
     blocked domains, compute reading time, enforce no-repeat, check summary
     length, render the HTML section, and record what was published.
-  * Gemini: choose the best verified candidate per category and write the
+  * Claude (Sonnet, via claude_llm.py): choose the best verified candidate per category and write the
     summaries (reading_prompt.md), and, as a fallback only, search the web for
     a category that has no usable feed candidates. Fallback URLs go through
     the same checks.
@@ -52,7 +52,7 @@ MIN_ARTICLE_WORDS = 350          # shorter than this is usually a teaser or a bl
 SUMMARY_WORDS = (80, 120)
 MAX_CANDIDATES_PER_CATEGORY = 12
 TITLE_SIMILARITY = 0.85          # headline match against past Daily Impact stories
-TIME_BUDGET_SECONDS = 8 * 60     # the whole section; remaining fallback work is skipped after this
+TIME_BUDGET_SECONDS = 15 * 60    # the whole section; remaining fallback work is skipped after this
 _deadline = [float('inf')]
 
 
@@ -235,7 +235,7 @@ def verify_article(url, feed_date=None, blocked_domains=(), now=None):
     """Open an article and check it against the selection rules.
 
     Returns a dict with ok, reason, final_url, title, published, date_source,
-    words, minutes and an excerpt for Gemini to summarise from.
+    words, minutes and an excerpt for Claude to summarise from.
     """
     now = now or datetime.now(timezone.utc)
     result = {'url': url, 'ok': False}
@@ -401,43 +401,32 @@ def collect_feed_candidates(config, seen_urls, seen_titles, now, focus=None):
     return cands
 
 
-# --------------------------------------------------------------------- Gemini
+# --------------------------------------------------------------------- Claude
 
-def _gemini_json(client, model, system, prompt, tools=None):
-    """Call Gemini and parse a JSON object from the reply. Returns (data, response)."""
-    from google.genai import types
-    cfg = dict(system_instruction=system, temperature=0.4, max_output_tokens=8192)
-    if tools:
-        cfg['tools'] = tools               # JSON mode can't be combined with search tools
-    else:
-        cfg['response_mime_type'] = 'application/json'
-    last_err = None
-    for attempt in range(3):
-        if out_of_time():
-            raise RuntimeError('reading section time budget used up')
-        try:
-            resp = client.models.generate_content(
-                model=model, contents=prompt, config=types.GenerateContentConfig(**cfg))
-        except Exception as e:  # noqa: BLE001 - logged and retried
-            last_err = e
-            log(f"Gemini call failed ({model}, attempt {attempt + 1}): {e}")
-            if ' 400 ' in f' {e} ' or 'INVALID_ARGUMENT' in str(e) or 'NOT_FOUND' in str(e):
-                break                       # not worth retrying the same model
-            time.sleep(8)
-            continue
-        text = resp.text or ''
-        m = re.search(r'\{.*\}', text, re.S)
-        try:
-            data = json.loads(m.group(0) if m else text)
-            if isinstance(data, dict):
-                return data, resp
-            last_err = ValueError('reply was JSON but not an object')
-        except ValueError as e:
-            last_err = e
-        log(f"Gemini reply was not usable JSON ({model}, attempt {attempt + 1}); retrying")
-        if attempt >= 1:
-            break                           # two unusable replies in a row: give up on this call
-    raise RuntimeError(f'Gemini call failed: {last_err}')
+def _claude_json(model, system, prompt, schema, tools=(), label='reading'):
+    """One schema-validated Claude call (headless Claude Code). Returns a dict."""
+    import claude_llm
+    if out_of_time():
+        raise RuntimeError('reading section time budget used up')
+    remaining = max(60, int(_deadline[0] - time.monotonic()))
+    return claude_llm.ask(prompt, system=system, schema=schema, tools=tools, model=model,
+                          timeout=min(600, remaining), attempts=2, label=label)
+
+
+def _ids_schema():
+    return {"type": "object", "additionalProperties": False,
+            "properties": {str(n): {"type": "array", "items": {"type": "string"}} for n, _ in CATEGORIES},
+            "required": [str(n) for n, _ in CATEGORIES]}
+
+
+def _choices_schema(nums):
+    choice = {"type": "object", "additionalProperties": False,
+              "properties": {"id": {"type": ["string", "null"]},
+                             "summary": {"type": "string"},
+                             "reason": {"type": "string"}},
+              "required": ["id"]}
+    return {"type": "object", "additionalProperties": False,
+            "properties": {str(n): choice for n in nums}, "required": [str(n) for n in nums]}
 
 
 def recent_focus(history, num, days=7):
@@ -466,8 +455,8 @@ def _context_block(context, history, now, focus=None):
     return '\n'.join(lines)
 
 
-def shortlist(client, model, system, candidates, context_text, focus=None, history=()):
-    """Gemini ranks feed candidates per category using titles and teasers only.
+def shortlist(model, system, candidates, context_text, focus=None, history=()):
+    """Claude ranks feed candidates per category using titles and teasers only.
 
     Focus categories list matching candidates first (topics covered least recently ahead)
     and tag them, and get 6 slots instead of 4 so more focus articles reach verification.
@@ -498,33 +487,29 @@ def shortlist(client, model, system, candidates, context_text, focus=None, histo
         "best first (up to 6 for a category with an editorial focus, putting [FOCUS] articles first). "
         "An ID may be used in only one category. Use [] if nothing fits.\n\n"
         f"{context_text}\n\n" + '\n\n'.join(blocks) +
-        '\n\nReply with JSON only: {"1": ["F12", ...], "2": [...], ..., "7": [...]}')
-    data, _ = _gemini_json(client, model, system, prompt)
+        '\n\nAnswer with an object mapping each category number ("1"-"7") to a list of candidate IDs.')
+    data = _claude_json(model, system, prompt, _ids_schema(), label='reading shortlist')
     return {num: [i for i in data.get(str(num), []) if isinstance(i, str)][:6 if num in focus else 4]
             for num, _ in CATEGORIES}
 
 
-def search_fallback(client, model, system, num, context_text, blocked, focus_label=None):
-    """Ask Gemini (with Google Search) for candidate URLs for one category."""
-    from google.genai import types
+def search_fallback(model, system, num, context_text, blocked, focus_label=None):
+    """Ask Claude (with web search) for candidate URLs for one category."""
+    import claude_llm
     what = (f"article on {focus_label} (the editorial focus) for category {num}: {CATEGORY_NAMES[num]}"
             if focus_label else f"suitable article for category {num}: {CATEGORY_NAMES[num]}")
     prompt = (
         f"Our curated feeds have no {what} today. "
-        f"Use Google Search to find up to 4 exceptional, freely accessible articles or essays "
+        f"Use web search to find up to 4 exceptional, freely accessible articles or essays "
         f"{'on ' + focus_label if focus_label else 'in this category'} published within the last {MAX_AGE_DAYS} days. Exclude these paywalled or unsuitable "
         f"domains: {', '.join(blocked)}. Give the direct article URL exactly as published; do not guess "
         f"URLs. Our script will open and verify each one.\n\n{context_text}\n\n"
-        'Reply with JSON only: {"urls": ["https://...", ...]}')
-    data, resp = _gemini_json(client, model, system, prompt,
-                              tools=[types.Tool(google_search=types.GoogleSearch())])
+        'Answer with the list of URLs you found.')
+    schema = {"type": "object", "additionalProperties": False,
+              "properties": {"urls": {"type": "array", "items": {"type": "string"}}}, "required": ["urls"]}
+    data = _claude_json(model, system, prompt, schema, tools=claude_llm.WEB_TOOLS,
+                        label=f'reading search cat {num}')
     urls = [u for u in data.get('urls', []) if isinstance(u, str) and u.startswith('http')]
-    try:   # grounding sources are real search results; verify them too
-        for chunk in resp.candidates[0].grounding_metadata.grounding_chunks or []:
-            if chunk.web and chunk.web.uri:
-                urls.append(chunk.web.uri)
-    except (AttributeError, IndexError, TypeError):
-        pass
     seen, out = set(), []
     for u in urls:
         if u not in seen:
@@ -533,8 +518,8 @@ def search_fallback(client, model, system, num, context_text, blocked, focus_lab
     return out[:8]
 
 
-def write_summaries(client, model, system, verified, context_text, only=None, feedback=''):
-    """Gemini picks one verified article per category and writes the summary."""
+def write_summaries(model, system, verified, context_text, only=None, feedback=''):
+    """Claude picks one verified article per category and writes the summary."""
     blocks = []
     for num, name in CATEGORIES:
         if only and num not in only:
@@ -551,9 +536,10 @@ def write_summaries(client, model, system, verified, context_text, only=None, fe
         "following the summary format, based only on the article text shown. If no candidate meets the "
         "bar or fits the category, set id to null and give a one-sentence reason.\n"
         f"{feedback}\n{context_text}\n\n" + '\n\n'.join(blocks) +
-        '\n\nReply with JSON only: {"1": {"id": "F3", "summary": "..."} or {"id": null, "reason": "..."}, ...}')
-    data, _ = _gemini_json(client, model, system, prompt)
-    return data
+        '\n\nAnswer with an object keyed by category number. For each: {"id": "<candidate id>", '
+        '"summary": "<one paragraph, 80-120 words>"} or {"id": null, "reason": "<one sentence>"}.')
+    nums = [n for n, _ in CATEGORIES if not only or n in only]
+    return _claude_json(model, system, prompt, _choices_schema(nums), label='reading summaries')
 
 
 # ---------------------------------------------------------------------- render
@@ -629,7 +615,7 @@ def summary_ok(text):
     return SUMMARY_WORDS[0] <= n <= SUMMARY_WORDS[1], n
 
 
-def build_picks(client, model, report, now, today):
+def build_picks(model, report, now, today):
     config = load_json(SOURCES_FILE, {'sources': [], 'blocked_domains': []})
     blocked = config.get('blocked_domains', [])
     with open(PROMPT_FILE, encoding='utf-8') as f:
@@ -645,7 +631,7 @@ def build_picks(client, model, report, now, today):
     for num, spec in focus.items():
         n = sum(1 for c in candidates if c['focus'].get(num))
         log(f"cat {num}: {n} fresh candidates match the focus ({spec['label']})")
-    ranked = shortlist(client, model, system, candidates, context_text, focus, history) if candidates else {}
+    ranked = shortlist(model, system, candidates, context_text, focus, history) if candidates else {}
 
     cache = {}
 
@@ -689,7 +675,7 @@ def build_picks(client, model, report, now, today):
         if label:
             log(f"cat {num}: no verified focus article from feeds; searching for {label}")
         try:
-            urls = search_fallback(client, model, system, num, context_text, blocked, label)
+            urls = search_fallback(model, system, num, context_text, blocked, label)
         except Exception as e:  # noqa: BLE001
             log(f"cat {num} search fallback failed: {e}")
             continue
@@ -716,7 +702,7 @@ def build_picks(client, model, report, now, today):
 
     # Choose and summarise, then one corrective round for: unknown ids, the same article
     # picked for two categories, and summaries outside 80-120 words.
-    choices = write_summaries(client, model, system, verified, context_text)
+    choices = write_summaries(model, system, verified, context_text)
 
     def problems():
         bad, taken = {}, {}
@@ -743,14 +729,14 @@ def build_picks(client, model, report, now, today):
         bad, taken = problems()
         if not bad:
             break
-        log(f"asking Gemini to fix: {bad}")
+        log(f"asking Claude to fix: {bad}")
         fb = ("CORRECTIONS NEEDED (answer only these categories): "
               + '; '.join(f'category {k}: {v}' for k, v in bad.items())
               + ". Each category must use a different article. Articles already used elsewhere today: "
               + (', '.join(next(v['id'] for n in verified for v in verified[n]
                                 if normalize_url(v['final_url']) == key) for key in taken) or 'none') + '.')
         try:
-            redo = write_summaries(client, model, system, verified, context_text, only=set(bad), feedback=fb)
+            redo = write_summaries(model, system, verified, context_text, only=set(bad), feedback=fb)
             for num in bad:
                 if str(num) in redo:
                     choices[str(num)] = redo[str(num)]
@@ -786,17 +772,18 @@ def build_picks(client, model, report, now, today):
     return picks
 
 
-def add_essential_reading(client, report, now, model=None, fallback_model=None):
+def add_essential_reading(report, now, model=None):
     """Return the report with the reading section inserted. Never raises."""
-    model = model or os.environ.get('READING_MODEL', '').strip() or 'gemini-flash-latest'
+    import claude_llm
+    model = model or os.environ.get('READING_MODEL', '').strip() or claude_llm.DEFAULT_MODEL
     now_utc = now.astimezone(timezone.utc)
     today = now.strftime('%Y-%m-%d')
     _deadline[0] = time.monotonic() + TIME_BUDGET_SECONDS
     picks = None
-    for m in [model] + ([fallback_model] if fallback_model and fallback_model != model else []):
+    for m in [model]:
         try:
             log(f"building with model {m}")
-            picks = build_picks(client, m, report, now_utc, today)
+            picks = build_picks(m, report, now_utc, today)
             break
         except Exception as e:  # noqa: BLE001
             log(f"build failed with {m}: {e}")

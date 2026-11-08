@@ -12,7 +12,7 @@ on:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 45
     permissions:
       contents: write
     env:
@@ -36,17 +36,26 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Set up Node (for Claude Code)
+        if: steps.guard.outputs.skip != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
       - name: Install dependencies
         if: steps.guard.outputs.skip != 'true'
-        run: pip install google-genai pytz feedparser requests beautifulsoup4
+        run: |
+          npm install -g @anthropic-ai/claude-code@2.1.319
+          pip install feedparser requests beautifulsoup4
 
       - name: Generate report
         if: steps.guard.outputs.skip != 'true'
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # Subscription token from `claude setup-token` (Settings -> Secrets -> Actions).
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           SYSTEM_PROMPT: ${{ secrets.SYSTEM_PROMPT }}
-          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}    # optional override; empty = script default
-          READING_MODEL: ${{ vars.READING_MODEL }}  # optional; empty = gemini-flash-latest
+          CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL }}      # optional; empty = "sonnet" (current Sonnet)
+          READING_MODEL: ${{ vars.READING_MODEL }}    # optional; empty = same as CLAUDE_MODEL
         run: python generate_report.py
 
       - name: Publish to GitHub Pages
