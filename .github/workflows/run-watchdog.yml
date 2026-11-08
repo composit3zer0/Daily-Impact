@@ -3,6 +3,8 @@ name: Daily Impact Watchdog
 # Opens a GitHub issue (label: daily-impact-alert) when a Daily Impact run fails,
 # publishes a thin Essential Reading section, or doesn't happen at all; closes it
 # when a healthy run follows. See tools/run_watchdog.py.
+# For a failed or degraded run, the `repair` job then has Claude diagnose and fix
+# the code; the fix is merged only if the offline self-tests pass (tools/self_repair.py).
 
 on:
   workflow_run:
@@ -22,11 +24,16 @@ jobs:
   watch:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    outputs:
+      alert: ${{ steps.after.outputs.alert }}
+      repairable: ${{ steps.after.outputs.repairable }}
+      issue: ${{ steps.after.outputs.issue }}
     steps:
       - uses: actions/checkout@v4
         with:
           sparse-checkout: tools
       - name: Check after a run
+        id: after
         if: github.event_name == 'workflow_run'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -40,3 +47,40 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 tools/run_watchdog.py daily
+
+  repair:
+    needs: watch
+    if: needs.watch.outputs.repairable == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      actions: write        # start a fresh Daily Impact run after a fix
+      contents: write       # commit the fix to main
+      issues: write         # report on the alert issue
+    concurrency:
+      group: daily-impact-self-repair
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 50
+          persist-credentials: false   # Claude never sees a push credential; only the final push uses one
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: |
+          npm install -g @anthropic-ai/claude-code@2.1.319
+          pip install feedparser requests beautifulsoup4
+      - name: Diagnose and fix
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          ISSUE: ${{ needs.watch.outputs.issue }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: python3 tools/self_repair.py

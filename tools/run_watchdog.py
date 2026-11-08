@@ -2,7 +2,8 @@
 
 Opens (or updates) a GitHub issue labelled `daily-impact-alert` when a run
 needs attention, and closes it when a healthy run follows. GitHub emails the
-repository owner about new issues, and a daily Claude check reads them.
+repository owner about new issues. For a failed or degraded run, the workflow's
+self-repair job (tools/self_repair.py) then asks Claude to fix the code.
 
 Modes (run by .github/workflows/run-watchdog.yml):
   after-run   right after each Daily Impact Report run. Alerts on a failed or
@@ -68,7 +69,16 @@ def open_issue():
     return items[0]['number'] if items else None
 
 
-def alert(title, body):
+def set_output(**values):
+    """Tell later workflow steps/jobs about the alert (no-op outside Actions)."""
+    path = os.environ.get('GITHUB_OUTPUT')
+    if path:
+        with open(path, 'a') as f:
+            for k, v in values.items():
+                f.write(f'{k}={v}\n')
+
+
+def alert(title, body, repairable=False):
     gh('label', 'create', LABEL, '--color', 'B60205',
        '--description', 'Daily Impact run needs attention', check=False)
     number = open_issue()
@@ -76,8 +86,11 @@ def alert(title, body):
         gh('issue', 'comment', str(number), '--body', f'### {title}\n\n{body}')
         print(f'Commented on issue #{number}: {title}')
     else:
-        gh('issue', 'create', '--title', f'Daily Impact alert: {title}', '--label', LABEL, '--body', body)
-        print(f'Opened issue: {title}')
+        url = gh('issue', 'create', '--title', f'Daily Impact alert: {title}', '--label', LABEL,
+                 '--body', body).strip()
+        number = int(url.rstrip('/').rsplit('/', 1)[-1]) if url.rstrip('/').rsplit('/', 1)[-1].isdigit() else open_issue()
+        print(f'Opened issue #{number}: {title}')
+    set_output(alert='true', issue=number or '', repairable='true' if repairable else 'false')
 
 
 def resolve(run_url):
@@ -106,7 +119,7 @@ def after_run():
                     '[.jobs[].steps[] | select(.conclusion=="failure") | .name] | join(", ")', check=False).strip()
         alert(f'run {conclusion or "did not succeed"}',
               f'Run: {url}\nConclusion: **{conclusion}**\nFailed step: {failed or "unknown"}\n\n'
-              f'Relevant log lines:\n```\n{tail_of_log(log)}\n```')
+              f'Relevant log lines:\n```\n{tail_of_log(log)}\n```', repairable=conclusion == 'failure')
         return
     if 'SKIP:' in log and '[reading] section published' not in log:
         print("Backup schedule skipped: today's edition already existed. Nothing to report.")
@@ -115,7 +128,7 @@ def after_run():
     if problems:
         alert('run degraded',
               f'Run: {url} succeeded, but:\n' + '\n'.join(f'- {p}' for p in problems) +
-              f'\n\nRelevant log lines:\n```\n{tail_of_log(log)}\n```')
+              f'\n\nRelevant log lines:\n```\n{tail_of_log(log)}\n```', repairable=True)
     else:
         resolve(url)
 

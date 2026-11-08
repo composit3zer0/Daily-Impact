@@ -1,204 +1,156 @@
-from google import genai
-from google.genai import types
-import os
+"""Daily Impact: generate today's briefing with Claude and publish it.
+
+Claude (via headless Claude Code, see claude_llm.py) researches today's news with
+web search and writes the full HTML briefing following SYSTEM_PROMPT (a repo
+secret). essential_reading.py then adds "Today's Essential Reading".
+
+A briefing that comes back incomplete (cut off, or missing its closing sections)
+is retried once and otherwise NOT published: the run fails and the watchdog
+raises an alert instead of a broken page going live.
+"""
 import glob
-import time
+import os
+import re
+import sys
 from datetime import datetime
-import pytz
 
-# Bangkok date and time
-bangkok_tz = pytz.timezone('Asia/Bangkok')
-now = datetime.now(bangkok_tz)
-bangkok_date = now.strftime('%d %B %Y')
-bangkok_day = now.strftime('%A')
-archive_filename = now.strftime('%Y-%m-%d') + '.html'
+from zoneinfo import ZoneInfo
 
-print(f"Generating Daily Impact for {bangkok_date}...")
+import claude_llm
 
-# Initialize Gemini client
-client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
-system_prompt = os.environ['SYSTEM_PROMPT']
-
-# Model chain. Google renames and retires model aliases without notice:
-# - 28 Aug 2026: auto-selecting from the model list picked 'gemini-omni-1.1-flash',
-#   which only supports the Interactions API (400 INVALID_ARGUMENT on every call);
-# - 7 Nov 2026: 'gemini-flash-lite-latest' started returning 404 NOT_FOUND.
-# So the script tries a short list in order and moves to the next model at once when
-# a model is missing or rejects generate_content. As a last resort it asks the API
-# for flash models that declare generateContent support.
-# To put a model first, set a repository variable named GEMINI_MODEL
-# (Settings -> Secrets and variables -> Actions -> Variables).
-MODEL_CHAIN = ["gemini-flash-latest", "gemini-flash-lite-latest", "gemini-2.5-flash"]
+# Sections every edition must contain, in order (from the SYSTEM_PROMPT template).
+REQUIRED_SECTIONS = ["News", "Editorial", "Dhamma Corner", "Personal Reflection"]
 
 
-def candidate_models():
-    first = os.environ.get('GEMINI_MODEL', '').strip()
-    return list(dict.fromkeys(([first] if first else []) + MODEL_CHAIN))
+def extract_html(raw):
+    """Strip anything before the HTML document."""
+    for marker in ('<!DOCTYPE html>', '<!doctype html>', '<html'):
+        if marker in raw:
+            return raw[raw.index(marker):]
+    return raw
 
 
-def discovered_models(exclude):
-    """Flash models the API says support generateContent (newest-looking first)."""
+def completeness_problems(report):
+    """Reasons the briefing looks incomplete (empty list = complete)."""
+    problems = []
+    if len(report) < 5000:
+        problems.append(f'only {len(report)} characters')
+    if not re.search(r'</html>\s*$', report, re.I):
+        problems.append('does not end with </html> (output cut off?)')
+    headers = [h.strip().lower() for h in re.findall(r'class="section-header"[^>]*>([^<]+)<', report)]
+    for name in REQUIRED_SECTIONS:
+        if name.lower() not in headers:
+            problems.append(f'missing the "{name}" section')
+    return problems
+
+
+def briefing_prompt(now, feedback=''):
+    return (
+        f"Generate today's daily report. "
+        f"Today is {now.strftime('%A')}, {now.strftime('%d %B %Y')}, 8:00 AM Bangkok time "
+        f"(Asia/Bangkok, UTC+7). "
+        f"Use web search to find today's actual current news before writing, focusing on "
+        f"stories published in the last 24 hours, and open articles to check facts. "
+        f"The edition must contain all of its sections in order: {', '.join(REQUIRED_SECTIONS)}. "
+        f"Keep each section to its usual length so the whole page fits comfortably in one answer. "
+        f"Your final answer must be only the complete, valid HTML document, starting with "
+        f"<!DOCTYPE html> and ending with </html>: no preamble, no notes, no markdown, no code fences."
+        + (f"\n\nIMPORTANT: {feedback}" if feedback else '')
+    )
+
+
+def generate_briefing(now, system_prompt):
+    feedback = ''
+    for attempt in (1, 2):
+        raw = claude_llm.ask(briefing_prompt(now, feedback), system=system_prompt,
+                             tools=claude_llm.WEB_TOOLS, timeout=1500, attempts=2,
+                             label=f'briefing #{attempt}')
+        report = extract_html(raw.strip())
+        problems = completeness_problems(report)
+        print(f"Report extracted: {len(report)} characters")
+        if not problems:
+            return report
+        print(f"Briefing attempt {attempt} incomplete: {'; '.join(problems)}")
+        feedback = ("Your previous answer was rejected because it " + '; '.join(problems) +
+                    ". Write the complete page again, keeping every section concise.")
+    raise SystemExit("ERROR: briefing still incomplete after a retry; not publishing a broken page")
+
+
+def main():
+    bangkok_tz = ZoneInfo("Asia/Bangkok")
+    now = datetime.now(bangkok_tz)
+    archive_filename = now.strftime('%Y-%m-%d') + '.html'
+    print(f"Generating Daily Impact for {now.strftime('%d %B %Y')} with Claude ({claude_llm.DEFAULT_MODEL})...")
+    system_prompt = os.environ['SYSTEM_PROMPT']
+
+    report = generate_briefing(now, system_prompt)
+
+    # Add "Today's Essential Reading". This step never blocks the main report:
+    # on any failure the briefing is published without the section.
     try:
-        found = []
-        for m in client.models.list():
-            name = (m.name or '').replace('models/', '')
-            actions = [a.lower() for a in (getattr(m, 'supported_actions', None) or [])]
-            if ('flash' in name and 'generatecontent' in actions and name not in exclude
-                    and not any(x in name for x in ('preview', 'thinking', 'tts', 'image', 'live', 'omni'))):
-                found.append(name)
-        return sorted(found, reverse=True)[:3]
+        from essential_reading import add_essential_reading
+        report = add_essential_reading(report, now)
     except Exception as e:
-        print(f"Model discovery failed: {e}")
-        return []
+        print(f"WARNING: Essential Reading skipped: {e}")
+
+    # Write today's report as index.html (live page)
+    with open('index.html', 'w', encoding='utf-8') as f:
+        f.write(report)
+    print("Written: index.html")
+
+    # Write archive copy
+    with open(archive_filename, 'w', encoding='utf-8') as f:
+        f.write(report)
+    print(f"Written: {archive_filename}")
+
+    # Rebuild archive index
+    archive_files = sorted(glob.glob('20*.html'), reverse=True)
+    archive_links = '\n'.join([
+        f'<li><a href="{f}" target="_blank" rel="noopener noreferrer">'
+        f'{f.replace(".html", "")}</a></li>'
+        for f in archive_files
+    ])
+
+    archive_html = f"""<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>The Daily Impact — Archive</title>
+      <style>
+        body {{
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          background: #0a0e16;
+          color: #edeff2;
+          max-width: 640px;
+          margin: 60px auto;
+          padding: 0 24px;
+        }}
+        h1 {{ color: #c9a84c; letter-spacing: 0.05em; }}
+        p {{ color: #8a9bb0; }}
+        ul {{ list-style: none; padding: 0; }}
+        li {{ margin: 12px 0; }}
+        a {{
+          color: #7ecfd4;
+          text-decoration: none;
+          font-size: 1.05rem;
+        }}
+        a:hover {{ color: #c9a84c; }}
+      </style>
+    </head>
+    <body>
+      <h1>The Daily Impact</h1>
+      <p>Daily intelligence briefing — archive of all issues.</p>
+      <ul>{archive_links}</ul>
+    </body>
+    </html>"""
+
+    with open('archive.html', 'w', encoding='utf-8') as f:
+        f.write(archive_html)
+    print("Written: archive.html")
+
+    print("Done.")
 
 
-def model_unusable(err):
-    """True when retrying this model can't help (missing model or unsupported method)."""
-    text = str(err)
-    return any(k in text for k in ('404', 'NOT_FOUND', '400 INVALID_ARGUMENT', 'only supports'))
-
-
-# Build the prompt
-prompt = (
-    f"Generate today's daily report. "
-    f"Today is {bangkok_day}, {bangkok_date}, 8:00 AM Bangkok time (Asia/Bangkok, UTC+7). "
-    f"Use Google Search to find today's actual current news before writing. "
-    f"Search for stories published in the last 24 hours. "
-    f"Output only a complete valid HTML document starting with <!DOCTYPE html>. "
-    f"No preamble, no thinking text, no markdown, no code fences — just the HTML."
-)
-
-
-def generate_with(model):
-    """Up to 3 attempts with one model. Returns (text, unusable)."""
-    for attempt in range(1, 4):
-        try:
-            print(f"API call attempt {attempt}/3 with {model}...")
-            response = client.models.generate_content(
-                model=model,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    system_instruction=system_prompt,
-                    tools=[types.Tool(google_search=types.GoogleSearch())],
-                    max_output_tokens=16384,
-                    temperature=0.7,
-                )
-            )
-            text = response.text
-            if text:
-                print(f"Response received: {len(text)} characters")
-                return text, False
-            print(f"Attempt {attempt}: empty response")
-        except Exception as e:
-            print(f"Attempt {attempt} failed: {e}")
-            if model_unusable(e):
-                print(f"{model} is unavailable for generate_content; trying the next model.")
-                return None, True
-        if attempt < 3:
-            time.sleep(10)
-    return None, False
-
-
-print("Calling Gemini API with Google Search grounding...")
-
-raw, MODEL, tried = None, None, []
-for model in candidate_models():
-    tried.append(model)
-    raw, _ = generate_with(model)
-    if raw:
-        MODEL = model
-        break
-if not raw:
-    for model in discovered_models(set(tried)):
-        print(f"Trying discovered model: {model}")
-        tried.append(model)
-        raw, _ = generate_with(model)
-        if raw:
-            MODEL = model
-            break
-
-if not raw:
-    print(f"ERROR: no model produced a report (tried: {', '.join(tried)})")
-    exit(1)
-print(f"Using model: {MODEL}")
-
-# Strip anything before the HTML document
-if '<!DOCTYPE html>' in raw:
-    report = raw[raw.index('<!DOCTYPE html>'):]
-elif '<html' in raw:
-    report = raw[raw.index('<html'):]
-else:
-    report = raw
-
-print(f"Report extracted: {len(report)} characters")
-
-# Validate we have output
-if not report or len(report) < 500:
-    print("ERROR: Report generation failed or output too short")
-    exit(1)
-
-# Add "Today's Essential Reading". This step never blocks the main report:
-# on any failure the briefing is published without the section.
-try:
-    from essential_reading import add_essential_reading
-    report = add_essential_reading(client, report, now, fallback_model=MODEL)
-except Exception as e:
-    print(f"WARNING: Essential Reading skipped: {e}")
-
-# Write today's report as index.html (live page)
-with open('index.html', 'w', encoding='utf-8') as f:
-    f.write(report)
-print("Written: index.html")
-
-# Write archive copy
-with open(archive_filename, 'w', encoding='utf-8') as f:
-    f.write(report)
-print(f"Written: {archive_filename}")
-
-# Rebuild archive index
-archive_files = sorted(glob.glob('20*.html'), reverse=True)
-archive_links = '\n'.join([
-    f'<li><a href="{f}" target="_blank" rel="noopener noreferrer">'
-    f'{f.replace(".html", "")}</a></li>'
-    for f in archive_files
-])
-
-archive_html = f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Daily Impact — Archive</title>
-  <style>
-    body {{
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #0a0e16;
-      color: #edeff2;
-      max-width: 640px;
-      margin: 60px auto;
-      padding: 0 24px;
-    }}
-    h1 {{ color: #c9a84c; letter-spacing: 0.05em; }}
-    p {{ color: #8a9bb0; }}
-    ul {{ list-style: none; padding: 0; }}
-    li {{ margin: 12px 0; }}
-    a {{
-      color: #7ecfd4;
-      text-decoration: none;
-      font-size: 1.05rem;
-    }}
-    a:hover {{ color: #c9a84c; }}
-  </style>
-</head>
-<body>
-  <h1>The Daily Impact</h1>
-  <p>Daily intelligence briefing — archive of all issues.</p>
-  <ul>{archive_links}</ul>
-</body>
-</html>"""
-
-with open('archive.html', 'w', encoding='utf-8') as f:
-    f.write(archive_html)
-print("Written: archive.html")
-
-print("Done.")
+if __name__ == "__main__":
+    main()
