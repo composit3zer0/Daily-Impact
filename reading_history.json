@@ -268,5 +268,77 @@
   "source": "Greater Good Magazine",
   "published": "2026-11-05T17:20:00+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-10",
+  "category": 1,
+  "url": "https://theconversation.com/this-weightlifting-technique-can-help-older-adults-stay-fit-and-independent-as-they-age-294751",
+  "norm_url": "https://theconversation.com/this-weightlifting-technique-can-help-older-adults-stay-fit-and-independent-as-they-age-294751",
+  "title": "This weightlifting technique can help older adults stay fit and independent as they age",
+  "source": "The Conversation",
+  "published": "2026-11-06T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-10",
+  "category": 2,
+  "url": "https://www.pewresearch.org/religion/2026/10/28/religion-remains-stable-in-the-us-with-mixed-signals-for-young-adults/",
+  "norm_url": "https://pewresearch.org/religion/2026/10/28/religion-remains-stable-in-the-us-with-mixed-signals-for-young-adults",
+  "title": "Religion Remains Stable in the U.S., With Mixed Signals for Young Adults",
+  "source": "Pew Research Center",
+  "published": "2026-10-28T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-10",
+  "category": 3,
+  "url": "https://www.theguardian.com/society/2026/nov/01/the-term-is-becoming-unrecognisable-have-the-experts-who-believed-in-a-single-autism-spectrum-changed-their-minds",
+  "norm_url": "https://theguardian.com/society/2026/nov/01/the-term-is-becoming-unrecognisable-have-the-experts-who-believed-in-a-single-autism-spectrum-changed-their-minds",
+  "title": "‘The term is becoming unrecognisable’: have the experts who believed in a single autism spectrum changed their minds?",
+  "source": "The Guardian",
+  "published": "2026-11-01T06:00:04+00:00",
+  "focus": [
+   "Autism"
+  ]
+ },
+ {
+  "date": "2026-11-10",
+  "category": 4,
+  "url": "https://theconversation.com/why-people-trust-weight-loss-drug-advice-on-social-media-even-when-it-may-be-misleading-295322",
+  "norm_url": "https://theconversation.com/why-people-trust-weight-loss-drug-advice-on-social-media-even-when-it-may-be-misleading-295322",
+  "title": "Why people trust weight-loss drug advice on social media, even when it may be misleading",
+  "source": "The Conversation",
+  "published": "2026-11-03T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-10",
+  "category": 5,
+  "url": "https://theconversation.com/can-creatine-help-your-mental-health-heres-what-the-latest-evidence-says-289174",
+  "norm_url": "https://theconversation.com/can-creatine-help-your-mental-health-heres-what-the-latest-evidence-says-289174",
+  "title": "Can creatine help your mental health? Here’s what the latest evidence says",
+  "source": "The Conversation",
+  "published": "2026-10-30T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-10",
+  "category": 6,
+  "url": "https://www.psychologytoday.com/us/blog/mindful-relationships/202611/why-your-wife-doesnt-want-sex-and-what-actually-helps",
+  "norm_url": "https://psychologytoday.com/us/blog/mindful-relationships/202611/why-your-wife-doesnt-want-sex-and-what-actually-helps",
+  "title": "Why Your Wife Doesn’t Want Sex (and What Actually Helps)",
+  "source": "Psychology Today",
+  "published": "2026-11-09T14:42:59+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-10",
+  "category": 7,
+  "url": "https://www.psychologytoday.com/us/blog/bridging-the-gulf/202611/what-kids-wont-tell-their-parents",
+  "norm_url": "https://psychologytoday.com/us/blog/bridging-the-gulf/202611/what-kids-wont-tell-their-parents",
+  "title": "What Kids Won't Tell Their Parents",
+  "source": "Psychology Today",
+  "published": "2026-11-09T17:36:05+00:00",
+  "focus": []
  }
 ]
