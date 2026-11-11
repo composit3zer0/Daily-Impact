@@ -340,5 +340,78 @@
   "source": "Psychology Today",
   "published": "2026-11-09T17:36:05+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-11",
+  "category": 1,
+  "url": "https://www.sciencedaily.com/releases/2026/11/261108203714.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/11/261108203714.htm",
+  "title": "Eating less protein could slow aging, review of 350 studies finds",
+  "source": "ScienceDaily",
+  "published": "2026-11-10T12:48:16+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-11",
+  "category": 2,
+  "url": "https://aeon.co/essays/how-does-roshi-joan-halifax-make-sense-of-her-buddhist-life",
+  "norm_url": "https://aeon.co/essays/how-does-roshi-joan-halifax-make-sense-of-her-buddhist-life",
+  "title": "The wholehearted life",
+  "source": "Aeon",
+  "published": "2026-11-10T11:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-11",
+  "category": 3,
+  "url": "https://aeon.co/essays/welcome-to-the-mixed-up-joyful-world-of-audhd",
+  "norm_url": "https://aeon.co/essays/welcome-to-the-mixed-up-joyful-world-of-audhd",
+  "title": "Methodical/mercurial",
+  "source": "Aeon",
+  "published": "2026-11-05T11:00:00+00:00",
+  "focus": [
+   "Autism",
+   "ADHD"
+  ]
+ },
+ {
+  "date": "2026-11-11",
+  "category": 4,
+  "url": "https://greatergood.berkeley.edu/article/item/how_ideas_of_masculinity_might_affect_a_countrys_wellbeing",
+  "norm_url": "https://greatergood.berkeley.edu/article/item/how_ideas_of_masculinity_might_affect_a_countrys_wellbeing",
+  "title": "How Ideas of Masculinity Might Affect a Country’s Well-Being",
+  "source": "Greater Good Magazine",
+  "published": "2026-11-04T16:27:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-11",
+  "category": 5,
+  "url": "https://theconversation.com/sunscreen-myths-explained-the-truth-about-beef-tallow-cancer-and-vitamin-d-295143",
+  "norm_url": "https://theconversation.com/sunscreen-myths-explained-the-truth-about-beef-tallow-cancer-and-vitamin-d-295143",
+  "title": "Sunscreen myths explained: the truth about beef tallow, cancer and vitamin D",
+  "source": "The Conversation",
+  "published": "2026-11-03T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-11",
+  "category": 6,
+  "url": "https://www.psychologytoday.com/us/blog/fulfillment-at-any-age/202611/dont-let-conflict-erode-your-relationship",
+  "norm_url": "https://psychologytoday.com/us/blog/fulfillment-at-any-age/202611/dont-let-conflict-erode-your-relationship",
+  "title": "Don't Let Conflict Erode Your Relationship",
+  "source": "Psychology Today",
+  "published": "2026-11-10T17:06:59+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-11",
+  "category": 7,
+  "url": "https://theconversation.com/im-an-athletic-trainer-heres-how-to-know-when-kids-sports-are-too-intense-293479",
+  "norm_url": "https://theconversation.com/im-an-athletic-trainer-heres-how-to-know-when-kids-sports-are-too-intense-293479",
+  "title": "I’m an athletic trainer – here’s how to know when kids sports are too intense",
+  "source": "The Conversation",
+  "published": "2026-11-06T00:00:00+00:00",
+  "focus": []
  }
 ]
