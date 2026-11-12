@@ -413,5 +413,77 @@
   "source": "The Conversation",
   "published": "2026-11-06T00:00:00+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-12",
+  "category": 1,
+  "url": "https://theconversation.com/blood-sugar-spikes-what-actually-works-to-manage-them-289545",
+  "norm_url": "https://theconversation.com/blood-sugar-spikes-what-actually-works-to-manage-them-289545",
+  "title": "Blood sugar spikes: what actually works to manage them",
+  "source": "The Conversation",
+  "published": "2026-11-11T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-12",
+  "category": 2,
+  "url": "https://www.lionsroar.com/silent-illumination-the-method-of-no-method/",
+  "norm_url": "https://lionsroar.com/silent-illumination-the-method-of-no-method",
+  "title": "Silent Illumination: The Method of No-Method",
+  "source": "Lion's Roar",
+  "published": "2026-11-10T20:41:46+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-12",
+  "category": 3,
+  "url": "https://www.psychiatrictimes.com/view/brain-trust-bessel-van-der-kolk-md-on-complex-ptsd-attachment-and-the-limits-of-pharmacotherapy",
+  "norm_url": "https://psychiatrictimes.com/view/brain-trust-bessel-van-der-kolk-md-on-complex-ptsd-attachment-and-the-limits-of-pharmacotherapy",
+  "title": "<![CDATA[Brain Trust: Bessel van der Kolk, MD, on Complex PTSD, Attachment, and the Limits of Pharmacotherapy]]>",
+  "source": "Psychiatric Times",
+  "published": "2026-11-04T14:00:00+00:00",
+  "focus": [
+   "PTSD"
+  ]
+ },
+ {
+  "date": "2026-11-12",
+  "category": 4,
+  "url": "https://psyche.co/ideas/why-patient-influencers-should-come-with-a-health-warning",
+  "norm_url": "https://psyche.co/ideas/why-patient-influencers-should-come-with-a-health-warning",
+  "title": "Why ‘patient influencers’ should come with a health warning",
+  "source": "Psyche",
+  "published": "2026-11-11T11:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-12",
+  "category": 5,
+  "url": "https://theconversation.com/the-collagen-craze-promises-younger-looking-skin-but-the-evidence-is-less-convincing-295145",
+  "norm_url": "https://theconversation.com/the-collagen-craze-promises-younger-looking-skin-but-the-evidence-is-less-convincing-295145",
+  "title": "The collagen craze promises younger-looking skin, but the evidence is less convincing",
+  "source": "The Conversation",
+  "published": "2026-11-10T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-12",
+  "category": 6,
+  "url": "https://greatergood.berkeley.edu/article/item/how_couples_create_their_own_unique_microcultures",
+  "norm_url": "https://greatergood.berkeley.edu/article/item/how_couples_create_their_own_unique_microcultures",
+  "title": "How Couples Create Their Own Unique Microcultures",
+  "source": "Greater Good Magazine",
+  "published": "2026-11-11T16:30:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-12",
+  "category": 7,
+  "url": "https://www.psychologytoday.com/us/blog/play-in-mind/202611/play-risk-and-lawn-darts",
+  "norm_url": "https://psychologytoday.com/us/blog/play-in-mind/202611/play-risk-and-lawn-darts",
+  "title": "Play, Risk, and Lawn Darts",
+  "source": "Psychology Today",
+  "published": "2026-11-12T00:27:37+00:00",
+  "focus": []
  }
 ]
