@@ -485,5 +485,77 @@
   "source": "Psychology Today",
   "published": "2026-11-12T00:27:37+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-13",
+  "category": 1,
+  "url": "https://theconversation.com/how-your-body-clock-affects-your-mental-health-and-ways-to-keep-it-in-sync-294970",
+  "norm_url": "https://theconversation.com/how-your-body-clock-affects-your-mental-health-and-ways-to-keep-it-in-sync-294970",
+  "title": "How your body clock affects your mental health and ways to keep it in sync",
+  "source": "The Conversation",
+  "published": "2026-11-02T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-13",
+  "category": 2,
+  "url": "https://www.lionsroar.com/thays-continuation/",
+  "norm_url": "https://lionsroar.com/thays-continuation",
+  "title": "Thay’s Continuation",
+  "source": "Lion's Roar",
+  "published": "2026-11-05T17:13:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-13",
+  "category": 3,
+  "url": "https://www.bphope.com/girl-talk-bipolar-menopause/",
+  "norm_url": "https://bphope.com/girl-talk-bipolar-menopause",
+  "title": "Bipolar Symptoms That Often Worsen During Menopause",
+  "source": "bpHope",
+  "published": "2026-10-30T14:01:11+00:00",
+  "focus": [
+   "Bipolar disorder"
+  ]
+ },
+ {
+  "date": "2026-11-13",
+  "category": 4,
+  "url": "https://restofworld.org/2026/taiwan-labor-strike-ai-profits/",
+  "norm_url": "https://restofworld.org/2026/taiwan-labor-strike-ai-profits",
+  "title": "A rare strike in Taiwan exposes labor unrest beneath the global AI rush",
+  "source": "Rest of World",
+  "published": "2026-11-05T11:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-13",
+  "category": 5,
+  "url": "https://sciencebasedmedicine.org/not-approved-not-listed-the-hhs-peptide-proposal/",
+  "norm_url": "https://sciencebasedmedicine.org/not-approved-not-listed-the-hhs-peptide-proposal",
+  "title": "Not Approved, Not Listed: The HHS Peptide Proposal",
+  "source": "Science-Based Medicine",
+  "published": "2026-11-05T12:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-13",
+  "category": 6,
+  "url": "https://www.theguardian.com/lifeandstyle/ng-interactive/2026/nov/11/young-americans-prenups-before-marriage",
+  "norm_url": "https://theguardian.com/lifeandstyle/ng-interactive/2026/nov/11/young-americans-prenups-before-marriage",
+  "title": "The young women driving the US prenup boom: ‘I want to protect myself’",
+  "source": "The Guardian",
+  "published": "2026-11-11T13:00:50+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-13",
+  "category": 7,
+  "url": "https://www.nationalelfservice.net/mental-health/adhd/mood-instability-in-autism-and-adhd-more-contacts-with-services/",
+  "norm_url": "https://nationalelfservice.net/mental-health/adhd/mood-instability-in-autism-and-adhd-more-contacts-with-services",
+  "title": "Mood instability in autism and ADHD: more contacts with services",
+  "source": "The Mental Elf",
+  "published": "2026-11-06T05:00:54+00:00",
+  "focus": []
  }
 ]
