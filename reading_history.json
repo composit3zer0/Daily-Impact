@@ -557,5 +557,77 @@
   "source": "The Mental Elf",
   "published": "2026-11-06T05:00:54+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-14",
+  "category": 1,
+  "url": "https://theconversation.com/menopause-can-quietly-weaken-bones-heres-what-research-reveals-about-protecting-them-293648",
+  "norm_url": "https://theconversation.com/menopause-can-quietly-weaken-bones-heres-what-research-reveals-about-protecting-them-293648",
+  "title": "Menopause can quietly weaken bones – here’s what research reveals about protecting them",
+  "source": "The Conversation",
+  "published": "2026-11-03T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-14",
+  "category": 2,
+  "url": "https://theconversation.com/10-years-after-leonard-cohens-passing-his-grappling-with-the-divine-lives-on-295955",
+  "norm_url": "https://theconversation.com/10-years-after-leonard-cohens-passing-his-grappling-with-the-divine-lives-on-295955",
+  "title": "10 years after Leonard Cohen’s passing, his grappling with the divine lives on",
+  "source": "The Conversation",
+  "published": "2026-11-06T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-14",
+  "category": 3,
+  "url": "https://neurosciencenews.com/autism-perception-feedback-eeg-32367/",
+  "norm_url": "https://neurosciencenews.com/autism-perception-feedback-eeg-32367",
+  "title": "Autism Alters Feedback Evaluation, Not Raw Perception",
+  "source": "Neuroscience News",
+  "published": "2026-11-02T17:29:58+00:00",
+  "focus": [
+   "Autism"
+  ]
+ },
+ {
+  "date": "2026-11-14",
+  "category": 4,
+  "url": "https://www.pewresearch.org/short-reads/2026/11/12/download-my-free-guide-what-products-and-services-do-health-and-wellness-influencers-promote/",
+  "norm_url": "https://pewresearch.org/short-reads/2026/11/12/download-my-free-guide-what-products-and-services-do-health-and-wellness-influencers-promote",
+  "title": "‘Download My Free Guide’: What Products and Services Do Health and Wellness Influencers Promote?",
+  "source": "Pew Research Center",
+  "published": "2026-11-12T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-14",
+  "category": 5,
+  "url": "https://www.npr.org/2026/11/13/nx-s1-6039203/kratom-7-oh-dea-addiction-opioid",
+  "norm_url": "https://npr.org/2026/11/13/nx-s1-6039203/kratom-7-oh-dea-addiction-opioid",
+  "title": "Kratom and 7-OH can feel like 'a miracle.' They can also be addictive",
+  "source": "NPR Shots",
+  "published": "2026-11-13T11:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-14",
+  "category": 6,
+  "url": "https://www.theguardian.com/lifeandstyle/2026/nov/11/the-thermostat-wars-tearing-couples-apart-its-hard-to-feel-sexy-when-youre-freezing-cold",
+  "norm_url": "https://theguardian.com/lifeandstyle/2026/nov/11/the-thermostat-wars-tearing-couples-apart-its-hard-to-feel-sexy-when-youre-freezing-cold",
+  "title": "The thermostat wars tearing couples apart: ‘It’s hard to feel sexy when you’re freezing cold’",
+  "source": "The Guardian",
+  "published": "2026-11-11T05:00:29+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-14",
+  "category": 7,
+  "url": "https://www.psychologytoday.com/us/blog/explorations-of-the-mind/202611/the-unexpected-legacy-of-childhood-adversity",
+  "norm_url": "https://psychologytoday.com/us/blog/explorations-of-the-mind/202611/the-unexpected-legacy-of-childhood-adversity",
+  "title": "The Unexpected Legacy of Childhood Adversity",
+  "source": "Psychology Today",
+  "published": "2026-11-13T23:30:46+00:00",
+  "focus": []
  }
 ]
