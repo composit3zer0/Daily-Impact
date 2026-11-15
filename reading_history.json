@@ -629,5 +629,67 @@
   "source": "Psychology Today",
   "published": "2026-11-13T23:30:46+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-15",
+  "category": 1,
+  "url": "https://www.sciencedaily.com/releases/2026/11/261112230452.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/11/261112230452.htm",
+  "title": "Yale scientists reveal what really slows aging and what doesn't",
+  "source": "ScienceDaily",
+  "published": "2026-11-14T04:26:12+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-15",
+  "category": 2,
+  "url": "https://www.psychologytoday.com/us/blog/addiction-outlook/202611/who-knew-spirituality-might-prevent-addiction-and-relapse",
+  "norm_url": "https://psychologytoday.com/us/blog/addiction-outlook/202611/who-knew-spirituality-might-prevent-addiction-and-relapse",
+  "title": "Who Knew Spirituality Might Prevent Addiction and Relapse?",
+  "source": "Psychology Today",
+  "published": "2026-11-14T02:26:34+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-15",
+  "category": 3,
+  "url": "https://www.additudemag.com/signs-of-aging-adhd-cognitive-function/",
+  "norm_url": "https://additudemag.com/signs-of-aging-adhd-cognitive-function",
+  "title": "What’s Fogging Your Brain? Signs of Aging vs. ADHD",
+  "source": "ADDitude",
+  "published": "2026-11-09T10:37:29+00:00",
+  "focus": [
+   "ADHD"
+  ]
+ },
+ {
+  "date": "2026-11-15",
+  "category": 4,
+  "url": "https://www.pewresearch.org/short-reads/2026/11/05/lgbtq-americans-stand-out-for-being-part-of-online-communities-finding-value-in-them/",
+  "norm_url": "https://pewresearch.org/short-reads/2026/11/05/lgbtq-americans-stand-out-for-being-part-of-online-communities-finding-value-in-them",
+  "title": "LGBTQ Americans Stand Out for Being Part of Online Communities, Finding Value in Them",
+  "source": "Pew Research Center",
+  "published": "2026-11-05T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-15",
+  "category": 6,
+  "url": "https://www.psychologytoday.com/us/blog/in-the-name-of-love/202611/the-tyranny-of-romantic-possibilities",
+  "norm_url": "https://psychologytoday.com/us/blog/in-the-name-of-love/202611/the-tyranny-of-romantic-possibilities",
+  "title": "The Tyranny of Romantic Possibilities",
+  "source": "Psychology Today",
+  "published": "2026-11-14T13:54:25+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-15",
+  "category": 7,
+  "url": "https://www.sciencedaily.com/releases/2026/11/261112025542.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/11/261112025542.htm",
+  "title": "A surprising brain difference may explain why some kids struggle with math",
+  "source": "ScienceDaily",
+  "published": "2026-11-12T23:33:12+00:00",
+  "focus": []
  }
 ]
