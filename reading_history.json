@@ -691,5 +691,67 @@
   "source": "ScienceDaily",
   "published": "2026-11-12T23:33:12+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-16",
+  "category": 1,
+  "url": "https://theconversation.com/back-pain-how-your-doctors-words-could-influence-your-recovery-294717",
+  "norm_url": "https://theconversation.com/back-pain-how-your-doctors-words-could-influence-your-recovery-294717",
+  "title": "Back pain: how your doctor’s words could influence your recovery",
+  "source": "The Conversation",
+  "published": "2026-11-09T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-16",
+  "category": 2,
+  "url": "https://www.theguardian.com/commentisfree/2026/nov/16/making-sense-of-uncertainty-this-islamic-teaching-shows-us-the-way-ntwnfb",
+  "norm_url": "https://theguardian.com/commentisfree/2026/nov/16/making-sense-of-uncertainty-this-islamic-teaching-shows-us-the-way-ntwnfb",
+  "title": "How do we face uncertainty without allowing it to overwhelm us? This Islamic teaching shows us the way",
+  "source": "The Guardian",
+  "published": "2026-11-15T14:00:18+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-16",
+  "category": 3,
+  "url": "https://www.sciencedaily.com/releases/2026/11/261102202833.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/11/261102202833.htm",
+  "title": "The brain’s hidden fear mechanism may explain anxiety and PTSD",
+  "source": "ScienceDaily",
+  "published": "2026-11-03T13:03:02+00:00",
+  "focus": [
+   "PTSD"
+  ]
+ },
+ {
+  "date": "2026-11-16",
+  "category": 4,
+  "url": "https://theconversation.com/the-uncomfortable-question-at-the-heart-of-europes-identity-crisis-293136",
+  "norm_url": "https://theconversation.com/the-uncomfortable-question-at-the-heart-of-europes-identity-crisis-293136",
+  "title": "The uncomfortable question at the heart of Europe’s identity crisis",
+  "source": "The Conversation",
+  "published": "2026-11-12T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-16",
+  "category": 6,
+  "url": "https://www.gottman.com/blog/loneliness-wanting-your-partner/",
+  "norm_url": "https://gottman.com/blog/loneliness-wanting-your-partner",
+  "title": "The Loneliness of Wanting Your Partner",
+  "source": "The Gottman Institute",
+  "published": "2026-11-05T02:27:08+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-16",
+  "category": 7,
+  "url": "https://theconversation.com/how-babies-are-born-knowing-the-difference-between-day-and-night-295699",
+  "norm_url": "https://theconversation.com/how-babies-are-born-knowing-the-difference-between-day-and-night-295699",
+  "title": "How babies are born knowing the difference between day and night",
+  "source": "The Conversation",
+  "published": "2026-11-10T00:00:00+00:00",
+  "focus": []
  }
 ]
