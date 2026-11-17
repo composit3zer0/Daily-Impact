@@ -753,5 +753,67 @@
   "source": "The Conversation",
   "published": "2026-11-10T00:00:00+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-17",
+  "category": 1,
+  "url": "https://theconversation.com/stair-climbers-are-said-to-boost-fitness-strength-and-bone-health-heres-what-the-evidence-actually-says-295026",
+  "norm_url": "https://theconversation.com/stair-climbers-are-said-to-boost-fitness-strength-and-bone-health-heres-what-the-evidence-actually-says-295026",
+  "title": "Stair climbers are said to boost fitness, strength and bone health — here’s what the evidence actually says",
+  "source": "The Conversation",
+  "published": "2026-11-04T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-17",
+  "category": 3,
+  "url": "https://www.bphope.com/bipolar-buzz/7-ways-to-cope-with-noise-sensitivity-when-bipolar/",
+  "norm_url": "https://bphope.com/bipolar-buzz/7-ways-to-cope-with-noise-sensitivity-when-bipolar",
+  "title": "8 Ways to Manage Noise Sensitivity in Bipolar Disorder",
+  "source": "bpHope",
+  "published": "2026-11-10T13:51:36+00:00",
+  "focus": [
+   "Bipolar disorder"
+  ]
+ },
+ {
+  "date": "2026-11-17",
+  "category": 4,
+  "url": "https://www.pewresearch.org/short-reads/2026/11/13/where-americans-get-news-relates-to-how-they-engage-in-public-life/",
+  "norm_url": "https://pewresearch.org/short-reads/2026/11/13/where-americans-get-news-relates-to-how-they-engage-in-public-life",
+  "title": "Where Americans Get News Relates to How They Engage in Public Life",
+  "source": "Pew Research Center",
+  "published": "2026-11-13T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-17",
+  "category": 5,
+  "url": "https://theconversation.com/astaxanthin-supplements-what-the-science-says-about-skin-exercise-and-your-brain-295924",
+  "norm_url": "https://theconversation.com/astaxanthin-supplements-what-the-science-says-about-skin-exercise-and-your-brain-295924",
+  "title": "Astaxanthin supplements: what the science says about skin, exercise and your brain",
+  "source": "The Conversation",
+  "published": "2026-11-16T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-17",
+  "category": 6,
+  "url": "https://www.psychologytoday.com/us/blog/psychology-money-and-happiness/202611/what-is-the-strongest-predictor-of-divorce",
+  "norm_url": "https://psychologytoday.com/us/blog/psychology-money-and-happiness/202611/what-is-the-strongest-predictor-of-divorce",
+  "title": "What Is the Strongest Predictor of Divorce?",
+  "source": "Psychology Today",
+  "published": "2026-11-16T15:52:45+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-17",
+  "category": 7,
+  "url": "https://www.psychologytoday.com/us/blog/beyond-the-ordinary/202611/why-the-clever-hans-analogy-fails-nonspeaking-spellers",
+  "norm_url": "https://psychologytoday.com/us/blog/beyond-the-ordinary/202611/why-the-clever-hans-analogy-fails-nonspeaking-spellers",
+  "title": "Why the Clever Hans Analogy Fails Nonspeaking Spellers",
+  "source": "Psychology Today",
+  "published": "2026-11-16T15:18:21+00:00",
+  "focus": []
  }
 ]
