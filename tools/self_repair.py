@@ -158,7 +158,7 @@ def main():
 
     diff = sh('git', 'diff', '--stat')
     sh('git', 'add', '--', *kept)
-    sh('git', '-c', 'user.name=Claude (self-repair)', '-c', 'user.email=actions@github.com',
+    sh('git', '-c', 'user.name=Claude (self-repair)', '-c', 'user.email=cz.agenthub@gmail.com',
        'commit', '-q', '-m', f'{TAG} {fix or "Fix Daily Impact run"}',
        '-m', f'Diagnosis: {diagnosis}\n\nAlert: #{ISSUE}  Failed run: {RUN_ID}')
     remote = (os.environ.get('REPAIR_REMOTE')        # tests only: push somewhere harmless
