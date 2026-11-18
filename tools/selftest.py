@@ -75,6 +75,75 @@ def briefing_retries_once_then_refuses_to_publish():
         claude_llm.ask = real
 
 
+# ------------------------------------------------------------ news freshness
+
+BKK_NOW = datetime(2026, 11, 18, 7, 50, tzinfo=gr.BANGKOK)
+
+
+def news_page(stories, label=None):
+    """A complete page whose News section holds the given (title, published, kind) stories."""
+    def story(title, published, kind):
+        date = ('' if published is None else
+                f'<div class="story-date" data-published="{published}" data-kind="{kind}">Published</div>')
+        return (f'<div class="story"><div class="story-title">{title}</div>{date}'
+                f'<div class="story-summary">{"text " * 20}</div></div>')
+    news = (f'<div class="card"><div class="section-header">News</div><div class="news-scroll">'
+            + (f'<div class="subsection-label">{label}</div>' if label else '')
+            + ''.join(story(*s) for s in stories) + '</div></div>')
+    p = page()
+    return p.replace('<div class="card"><div class="section-header">News</div><p>' + 'text ' * 300 + '</p></div>', news)
+
+
+def titles(report):
+    return [s['title'] for s in gr.news_stories(report)]
+
+
+@test
+def news_freshness_limits_market_24h_other_48h():
+    h = lambda n: (BKK_NOW - timedelta(hours=n)).isoformat()
+    report = news_page([('Market fresh', h(20), 'market'), ('Market stale', h(30), 'market'),
+                        ('General fresh', h(30), 'general'), ('General stale', h(50), 'general'),
+                        ('Undated', None, None), ('Unlabelled', h(30), ''),
+                        ('Far future', (BKK_NOW + timedelta(days=2)).isoformat(), 'general'),
+                        ('UTC stamp', '2026-11-17T12:00:00Z', 'general')])
+    assert len(gr.news_stories(report)) == 8
+    stale = {st['title'] for st, _ in gr.stale_news(report, BKK_NOW)}
+    assert stale == {'Market stale', 'General stale', 'Undated', 'Unlabelled', 'Far future'}, stale
+    out = gr.finish_briefing(report, BKK_NOW)
+    assert titles(out) == ['Market fresh', 'General fresh', 'UTC stamp'], titles(out)
+    assert gr.completeness_problems(out) == [] and out.count('<div') == out.count('</div')
+    assert '.story-date' in out, 'date line style not added'
+
+
+@test
+def news_all_stale_leaves_a_note_not_a_blank_section():
+    out = gr.finish_briefing(news_page([('Old', '2026-02-26T10:00+07:00', 'general')], label='Southeast Asia'),
+                             BKK_NOW)
+    assert 'freshness rules' in out and 'Southeast Asia' not in out and 'Old' not in titles(out)
+    assert gr.completeness_problems(out) == []
+
+
+@test
+def briefing_retries_stale_news_then_publishes_without_it():
+    calls = []
+    stale_page = news_page([('Fresh', (BKK_NOW - timedelta(hours=2)).isoformat(), 'general'),
+                            ('Nine months old', '2026-02-26T10:00+07:00', 'general')])
+    real = claude_llm.ask
+    claude_llm.ask = lambda prompt, **kw: calls.append(prompt) or stale_page
+    try:
+        out = gr.generate_briefing(BKK_NOW, 'system')
+        assert len(calls) == 2 and 'Nine months old' in calls[1] and 'freshness' in calls[1]
+        assert 'within the last 24 hours' in calls[0] and 'data-published' in calls[0]
+        assert titles(out) == ['Fresh']
+    finally:
+        claude_llm.ask = real
+
+
+@test
+def reading_age_limit_is_three_months():
+    assert er.MAX_AGE_DAYS == 90
+
+
 # --------------------------------------------------------------- reading
 
 @test
