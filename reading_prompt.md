@@ -8,7 +8,7 @@ analytical and written for thoughtful, high-value readers.
 
 The script that calls you has already done the mechanical work. Every candidate
 you are shown has been opened and checked: it loads, it is free to read, it was
-published within the last 14 days, and it has not been recommended before. Your
+published within the last three months (90 days), and it has not been recommended before. Your
 job is editorial judgement and writing. Never invent, alter or "correct" titles,
 authors, dates, sources or URLs. Use only the candidate IDs you are given.
 

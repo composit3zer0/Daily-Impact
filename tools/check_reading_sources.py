@@ -3,9 +3,9 @@
 Run on a GitHub runner (the daily job's network) when changing the source list:
     pip install feedparser requests beautifulsoup4 && python tools/check_reading_sources.py
 
-For each feed: HTTP status, entry count, entries from the last 14 days.
+For each feed: HTTP status, entry count, entries from the last er.MAX_AGE_DAYS days.
 For up to 3 recent entries per feed: run the same article checks the daily
-job uses (loads, dated <= 14 days, no paywall, enough text).
+job uses (loads, dated <= er.MAX_AGE_DAYS days, no paywall, enough text).
 Writes a Markdown table to $GITHUB_STEP_SUMMARY when available.
 """
 import json, os, sys
@@ -22,7 +22,7 @@ def check_feed(src, url):
     entries, err = er.fetch_feed(url)
     if err:
         return {'source': src['name'], 'feed': url, 'error': err, 'articles': []}
-    recent = [e for e in entries if e['published'] and now - e['published'] <= timedelta(days=14)]
+    recent = [e for e in entries if e['published'] and now - e['published'] <= timedelta(days=er.MAX_AGE_DAYS)]
     arts = [er.verify_article(e['url'], e['published'], blocked) for e in recent[:3]]
     return {'source': src['name'], 'feed': url, 'error': None, 'entries': len(entries),
             'recent': len(recent), 'articles': arts}
@@ -31,7 +31,7 @@ jobs = [(s, f) for s in cfg['sources'] for f, _cats in er.feeds_of(s)]
 with ThreadPoolExecutor(8) as ex:
     results = list(ex.map(lambda j: check_feed(*j), jobs))
 
-lines = ["| Source | Feed | Feed result | Last 14 d | Articles passing (of tested) | Rejection reasons / date source |",
+lines = ["| Source | Feed | Feed result | Recent | Articles passing (of tested) | Rejection reasons / date source |",
          "|---|---|---|---|---|---|"]
 for r in results:
     if r['error']:

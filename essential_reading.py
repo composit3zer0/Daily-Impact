@@ -2,7 +2,7 @@
 
 Division of labour:
   * Script (this file): collect candidates from curated RSS feeds, open every
-    article, confirm the publication date (<= 14 days old), reject paywalls and
+    article, confirm the publication date (<= MAX_AGE_DAYS, 90 days, old), reject paywalls and
     blocked domains, compute reading time, enforce no-repeat, check summary
     length, render the HTML section, and record what was published.
   * Claude (Sonnet, via claude_llm.py): choose the best verified candidate per category and write the
@@ -46,7 +46,7 @@ CATEGORIES = [
 ]
 CATEGORY_NAMES = dict(CATEGORIES)
 
-MAX_AGE_DAYS = 14
+MAX_AGE_DAYS = 90               # reading picks may be up to three months old (owner's rule, 2026-11-18)
 WORDS_PER_MINUTE = 230
 MIN_ARTICLE_WORDS = 350          # shorter than this is usually a teaser or a blocked page
 SUMMARY_WORDS = (80, 120)
@@ -392,7 +392,9 @@ def collect_feed_candidates(config, seen_urls, seen_titles, now, focus=None):
             if is_repeat(e['url'], e['title'], seen_urls, seen_titles):
                 continue
             by_url[key] = dict(e, source=src['name'], categories=list(cats))
-    cands = list(by_url.values())
+    # Newest first, so the per-category cap in shortlist() keeps the most recent articles.
+    cands = sorted(by_url.values(), key=lambda c: c['published'] or datetime.min.replace(tzinfo=timezone.utc),
+                   reverse=True)
     for i, c in enumerate(cands):
         c['id'] = f"F{i}"
         c['focus'] = {num: t for num, spec in (focus or {}).items() if num in c['categories']
@@ -531,7 +533,7 @@ def write_summaries(model, system, verified, context_text, only=None, feedback='
                         f"{c['excerpt'][:5000]}")
         blocks.append(f"## Category {num}: {name}\n" + ('\n\n'.join(rows) or '(no verified candidates)'))
     prompt = (
-        "Step 2 of 2: choose and write. Every candidate below is verified (free, dated within 14 days, "
+        f"Step 2 of 2: choose and write. Every candidate below is verified (free, dated within {MAX_AGE_DAYS} days, "
         "not featured before). For each category choose the single best candidate and write its summary "
         "following the summary format, based only on the article text shown. If no candidate meets the "
         "bar or fits the category, set id to null and give a one-sentence reason.\n"
@@ -753,7 +755,7 @@ def build_picks(model, report, now, today):
         if not art:
             reason = None if ch.get('id') else ch.get('reason')
             if not verified[num]:
-                reason = 'no freely accessible article from the last 14 days could be verified'
+                reason = f'no freely accessible article from the last {MAX_AGE_DAYS} days could be verified'
             picks[num] = {'omitted': (reason or 'no candidate met the editorial bar').rstrip('.') + '.'}
             continue
         ok, n = summary_ok(ch.get('summary'))
