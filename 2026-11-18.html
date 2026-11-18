@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Daily Impact — 18 November 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Georgia, serif;
+      background: #0a0e16 url('mainbg.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #edeff2;
+      min-height: 100vh;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 10, 5, 0.62);
+      z-index: 0;
+    }
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    .masthead {
+      text-align: center;
+      padding: 48px 24px 36px;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      margin-bottom: 40px;
+    }
+    .masthead h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #c9a84c;
+      text-transform: uppercase;
+    }
+    .masthead .dateline {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: #7ecfd4;
+      text-transform: uppercase;
+    }
+    .masthead .tagline {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: #8a9bb0;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .card {
+      background: rgba(12, 16, 8, 0.76);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 14px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+    }
+    .section-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .news-scroll {
+      display: block;
+      max-height: 600px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .news-scroll::-webkit-scrollbar { width: 4px; }
+    .news-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 2px; }
+    .news-scroll::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.35); border-radius: 2px; }
+    .story { display: block; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .story:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .story-title { font-size: 1.1rem; font-weight: 700; color: #edeff2; line-height: 1.4; margin-bottom: 10px; }
+    .story-summary { font-size: 0.95rem; color: #b0bcc8; line-height: 1.7; margin-bottom: 10px; }
+    .story-impact { font-size: 0.92rem; color: #b8c8d0; line-height: 1.6; margin-bottom: 8px; font-style: normal; }
+    .story-impact strong { color: #c9a84c; font-style: normal; font-weight: 700; }
+    .story-personal { font-size: 0.92rem; color: #b8c8d0; line-height: 1.6; margin-bottom: 12px; font-style: normal; }
+    .story-personal strong { color: #c9a84c; font-style: normal; font-weight: 700; }
+    .story-source a { font-size: 0.82rem; color: #c9a84c; text-decoration: none; letter-spacing: 0.05em; }
+    .story-source a:hover { color: #7ecfd4; text-decoration: underline; }
+    .subsection-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7ecfd4;
+      margin: 28px 0 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(126,207,212,0.2);
+    }
+    .editorial-note { font-style: italic; font-size: 0.88rem; color: #6b7a8d; margin-bottom: 20px; line-height: 1.6; }
+    .editorial-scroll {
+      display: block;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .editorial-scroll::-webkit-scrollbar { width: 4px; }
+    .editorial-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 2px; }
+    .editorial-scroll::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.35); border-radius: 2px; }
+    .chat-message {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 22px;
+      width: 100%;
+    }
+    .chat-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.35);
+      flex-shrink: 0;
+      object-fit: cover;
+      background: rgba(201,168,76,0.1);
+    }
+    .chat-bubble { flex: 1; min-width: 0; }
+    .chat-name {
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 5px;
+    }
+    .chat-text {
+      font-size: 0.96rem;
+      color: #cdd5de;
+      line-height: 1.75;
+      background: rgba(255,255,255,0.04);
+      padding: 12px 16px;
+      border-radius: 0 12px 12px 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .dhamma-body { font-size: 0.97rem; color: #cdd5de; line-height: 1.85; }
+    .dhamma-body p { margin-bottom: 20px; }
+    .sutta-ref { margin-top: 28px; padding: 16px 20px; background: rgba(126,207,212,0.06); border-left: 3px solid #7ecfd4; border-radius: 0 8px 8px 0; font-size: 0.88rem; color: #8a9bb0; }
+    .sutta-ref a { color: #7ecfd4; text-decoration: none; }
+    .sutta-ref a:hover { text-decoration: underline; }
+    .reflection-body { font-size: 0.97rem; color: #cdd5de; line-height: 1.85; }
+    .reflection-body p { margin-bottom: 16px; }
+    .reflection-prompt {
+      margin-top: 20px;
+      font-style: italic;
+      font-size: 0.93rem;
+      color: #7ecfd4;
+      border-left: 3px solid rgba(201,168,76,0.4);
+      padding-left: 16px;
+      line-height: 1.7;
+    }
+    @media (max-width: 600px) {
+      .card { padding: 24px 20px; }
+      .page { padding: 24px 16px 60px; }
+      .chat-avatar { width: 38px; height: 38px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="page">
+    <div class="masthead">
+      <h1>The Daily Impact</h1>
+      <div class="dateline">Wednesday, 18 November 2026 · Bangkok 8:00 AM</div>
+      <div class="tagline">Intelligence for decision-makers, builders and mobile professionals: geopolitics, supply chains, markets, technology and inner clarity.</div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">News</div>
+      <div class="news-scroll">
+
+        <div class="story">
+          <div class="story-title">Iran claims strikes on a US radar site in Bahrain; CENTCOM disputes the damage</div>
+          <div class="story-summary">Iran's Revolutionary Guard said it targeted a US early-warning radar in Bahrain after an attack on a telecom tower in the Hormuz coastal town of Sirik. It later said six drones hit the Riffa radar. US Central Command rejected the second claim, saying it intercepted two drones with no casualties or damage.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Tit-for-tat strikes around Gulf bases keep the risk of a wider escalation live, even as both sides contest what actually happened.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Expect continued volatility in energy-linked assets and flight and shipping routes through the Gulf. If you travel or hold exposure to the region, review contingency routing and insurance now.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Iran+US+radar+Bahrain+2026" target="_blank" rel="noopener noreferrer">Al Jazeera</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">IRGC says Hormuz is closed as a US blockade on Iranian ports continues</div>
+          <div class="story-summary">Iran's Revolutionary Guard said the Strait of Hormuz is closed and warned of a harsher response to any US aggression. Reports describe the US military enforcing a blockade on Iranian ports. The strait carries a large share of the world's seaborne oil.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Rhetoric and enforcement at the world's key oil chokepoint feed directly into freight, insurance and fuel costs across import-dependent Asia.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Fuel-sensitive businesses should stress-test margins against a renewed oil spike. Travelers should expect airfare and logistics costs to react quickly to headlines.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Iran+Sirik+Bahrain+Hormuz+nuclear+talks+2026" target="_blank" rel="noopener noreferrer">RFE/RL</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Oil slips toward the lowest level since early September as Trump signals fewer Iran strikes</div>
+          <div class="story-summary">Crude fell below $90 earlier this month and hit its lowest level since early September after the US president said new strikes on Iran looked unlikely. Prices remain far above pre-conflict levels and swing on each Gulf headline. Traders are watching US inflation data and Hormuz developments.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> A fading war premium eases pressure on inflation and central banks, but the fragility of the signal means the relief can reverse quickly.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Treat the dip as a hedging window rather than a trend. If you carry fuel or freight costs, consider locking in part of your exposure.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=oil+falls+below+$90+Iran+strikes+unlikely+2026" target="_blank" rel="noopener noreferrer">InvestingLive</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Bitcoin trades near $74,000 as hot CPI lifts US bond yields</div>
+          <div class="story-summary">Bitcoin held in a narrow range around $74,000 after higher-than-expected US inflation data pushed Treasury yields up. Investors continued to buy dips in tech stocks. A morning review on 17 November noted bitcoin weakening again, with its market capitalisation down sharply from its peak.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Crypto is trading as a rate-sensitive risk asset; sticky inflation and higher yields cap upside until liquidity conditions improve.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Size crypto positions for macro-driven drawdowns, not just crypto-specific news. Keep working capital in stable, accessible currencies if you earn or spend across borders.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=bitcoin+74k+stocks+bond+yield+CPI+2026" target="_blank" rel="noopener noreferrer">Cointelegraph</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">OpenAI tells lawmakers it backs three bills to curb China's access to AI chips</div>
+          <div class="story-summary">Bloomberg reported on 12 November that OpenAI told Capitol Hill offices it supports the Chip Security Act, the MATCH Act and the AI OVERWATCH Act. The bills aim to restrict China's access to advanced chips and chipmaking equipment. Politico reported in October that the company had stepped back from pressing for new limits, so its stance has shifted.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> A leading AI developer backing tighter export rules raises the odds of new compute restrictions and complicates supply for chipmakers and cloud providers.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Firms relying on advanced chips or AI services across borders should map their exposure to export-control changes. Investors should watch lame-duck defense legislation as the vehicle.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=OpenAI+backs+chip+export+bills+China+2026" target="_blank" rel="noopener noreferrer">Bloomberg</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">China extends its rare earth export suspension, but heavy rare earth curbs stay</div>
+          <div class="story-summary">S&P Global reported on 9 November that China pushed back the expiry of its broader rare earth export suspension into early 2027. Export controls on seven medium and heavy rare earths remain in force. North American rare earth oxide prices have risen significantly in recent months.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Beijing retains leverage over magnets and defense and EV supply chains while appearing conciliatory, keeping non-Chinese processing capacity at a premium.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Manufacturers should secure multi-source magnet and materials contracts before the next expiry. Investors may find the non-Chinese supply-chain theme persistent but headline-driven.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=China+extends+rare+earth+export+suspension+2027" target="_blank" rel="noopener noreferrer">S&amp;P Global</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">COP31 in Antalya turns on climate finance as the Iran war lifts energy prices</div>
+          <div class="story-summary">The UN climate talks opened on 9 November and run through 20 November, with money the main early fight. The US sent no federal officials, though a congressional delegation is attending. Negotiators are also weighing a fossil-fuel transition roadmap and a new health-resilience initiative.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> High energy prices strengthen both the energy-security and the renewables arguments, and finance outcomes shape where clean-energy capital flows.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Watch the climate finance outcome for signals on emerging-market renewables funding. Energy and infrastructure investors should expect policy detail, not headline pledges, to drive returns.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=COP31+Antalya+climate+finance+talks+2026" target="_blank" rel="noopener noreferrer">Climate Home News</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">ASEAN summit in Manila ends without a South China Sea code of conduct</div>
+          <div class="story-summary">The 49th ASEAN Summit, hosted by the Philippines, wrapped up with the bloc's hope of finalising a code of conduct with China in Manila's chairing year ending. The issue passes to Singapore, which chairs in 2027. Trade tensions and the Middle East crisis dominated the agenda ahead of President Trump's arrival.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> A stalled code leaves maritime disputes unmanaged along a route central to global trade, with Beijing seen as the tacit beneficiary.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Shipping-exposed businesses should price in continued incident risk in the South China Sea. Regional operators can look to Singapore's 2027 chair for the next diplomatic window.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=ASEAN+summit+Manila+South+China+Sea+takeaways+2026" target="_blank" rel="noopener noreferrer">Gulf News</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Oral GLP-1 pill orforglipron outperforms oral semaglutide on weight loss in a year-long trial</div>
+          <div class="story-summary">A trial reported in a Lancet-related feed found that participants taking orforglipron lost significantly more weight over a year than those taking oral semaglutide. The date of publication could not be confirmed, so treat this as recent rather than breaking. The results add to the push for non-injectable obesity drugs.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Effective pills could widen access to obesity treatment and reshape the pharma market, supply chains and health-cost models.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Health-insurance and employer-benefit planners should expect pressure to cover oral options. Check the original paper before acting on any single trial.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=orforglipron+oral+semaglutide+Lancet+trial+2026" target="_blank" rel="noopener noreferrer">The Lancet</a></div>
+        </div>
+
+        <div class="subsection-label">Southeast Asia</div>
+
+        <div class="story">
+          <div class="story-title">Thailand's cabinet approves duties of up to 30% on cross-border online purchases</div>
+          <div class="story-summary">On 10 November the cabinet backed a cap of 30% on duties for goods bought from overseas e-commerce platforms and sent by courier or post. Rates depend on each item's tariff classification, and duties already apply from the first baht since January. Customs forecasts about THB 6.3 billion in extra annual revenue, and sources differ on the start date.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> It signals a regional shift toward protecting local retailers from cross-border platforms, with implications for e-commerce margins across ASEAN.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Residents and nomads ordering electronics or equipment from abroad should expect higher landed costs. Cross-border sellers should check pricing before the rules take effect.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Thailand+cabinet+online+import+duty+30%25+cap+2026" target="_blank" rel="noopener noreferrer">Nation Thailand</a></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Editorial</div>
+      <div class="editorial-note">This is an imaginative editorial device. These figures are fictional constructions. These are not real quotations or historical claims.</div>
+      <div class="editorial-scroll">
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle">
+          <div class="chat-bubble">
+            <div class="chat-name">Aristotle</div>
+            <div class="chat-text">A strait is a mean between two excesses: too closed and the city starves, too open and the pirate profits. Today's news shows leaders lurching between the extremes. Prudence, practical wisdom, is the habit of finding the proportionate act, and it is conspicuously scarce.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger">
+          <div class="chat-bubble">
+            <div class="chat-name">Seneca the Younger</div>
+            <div class="chat-text">Oil at ninety, bitcoin at seventy-four: you tremble over numbers you never owned. Rehearse the loss in advance, and the market loses its power to ambush you. Wealth is a guest. Treat it politely, and keep your bags packed.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="confucius.jpeg" alt="Confucius">
+          <div class="chat-bubble">
+            <div class="chat-name">Confucius</div>
+            <div class="chat-text">ASEAN could not finish its code for the sea, and I am not surprised. A code written before trust is a house built before the foundation. Rectify names first: say plainly what each party wants, then draft the rules.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci">
+          <div class="chat-bubble">
+            <div class="chat-name">Leonardo da Vinci</div>
+            <div class="chat-text">I see a chain of machines: magnets, chips, pills, ships. Every one rests on a hidden mineral or a narrow passage. Study the whole mechanism before you praise any single gear. Diversify the supply as one diversifies the pigments on a palette.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre">
+          <div class="chat-bubble">
+            <div class="chat-name">Jean-Paul Sartre</div>
+            <div class="chat-text">Everyone blames "the market" or "the Gulf". But a decision to hold, to sell, to escalate, to sign a treaty is still a choice, and you are condemned to make it. Hiding behind circumstance is bad faith, nothing more.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla">
+          <div class="chat-bubble">
+            <div class="chat-name">Nikola Tesla</div>
+            <div class="chat-text">The world burns fuel through a pinched strait while sunlight and wind fall free. Energy that cannot be blockaded is the only secure energy. Build the grid, the storage, the transmission, and the war premium evaporates by design.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung">
+          <div class="chat-bubble">
+            <div class="chat-name">Carl Jung</div>
+            <div class="chat-text">When nations trade drone strikes over radar towers, look for the shadow: each side projects onto the other what it will not own in itself. The same applies to the investor who calls the market irrational while feeling greedy and afraid.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs">
+          <div class="chat-bubble">
+            <div class="chat-name">Steve Jobs</div>
+            <div class="chat-text">Three chip bills, nine export rules, who can follow it? Focus. The winners will own their stack end to end and say no to a thousand things. Dependency on one supplier is not a strategy, it is a hostage situation with good branding.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee">
+          <div class="chat-bubble">
+            <div class="chat-name">Bruce Lee</div>
+            <div class="chat-text">Be water. Oil, bitcoin, tariffs: they all flow, they all change shape. The one who clings to a fixed plan gets hit. Stay formless, keep your footwork light, and absorb what is useful from every headline.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein">
+          <div class="chat-bubble">
+            <div class="chat-name">Albert Einstein</div>
+            <div class="chat-text">A pill that beats a pill by a few kilograms is progress, but we should ask what question the experiment answers. Curiosity is better than certainty. The same caution applies to every confident forecast about oil this week.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla">
+          <div class="chat-bubble">
+            <div class="chat-name">Nikola Tesla</div>
+            <div class="chat-text">Albert, caution is good, but a forecast is not an invention. I would rather build the thing that makes oil forecasts irrelevant. Measure less, construct more.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle">
+          <div class="chat-bubble">
+            <div class="chat-name">Aristotle</div>
+            <div class="chat-text">Nikola speaks of building, Albert of questioning. Both are virtues, and each is a vice in excess. Perhaps the question is when, not whether, to build.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs">
+          <div class="chat-bubble">
+            <div class="chat-name">Steve Jobs</div>
+            <div class="chat-text">Aristotle, "when" is a luxury. Ship the grid, ship the pill, learn from the market. Waiting for the golden mean is how you get lapped.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre">
+          <div class="chat-bubble">
+            <div class="chat-name">Jean-Paul Sartre</div>
+            <div class="chat-text">Steve says ship now, Aristotle says weigh it. Both speak as if the decision were outside the one who decides. Either way, you are choosing who you become with each release.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="confucius.jpeg" alt="Confucius">
+          <div class="chat-bubble">
+            <div class="chat-name">Confucius</div>
+            <div class="chat-text">Jean-Paul, you give the individual too much and the relationship too little. A choice that ignores the family, the guild and the neighbour is not freedom but vanity. Duty and freedom grow in the same soil.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein">
+          <div class="chat-bubble">
+            <div class="chat-name">Albert Einstein</div>
+            <div class="chat-text">Confucius, I agree about the neighbour. The scientist who forgets he lives among people builds elegant weapons. Responsibility is the part of physics we do not teach.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci">
+          <div class="chat-bubble">
+            <div class="chat-name">Leonardo da Vinci</div>
+            <div class="chat-text">Albert says elegant weapons, and I confess I drew a few. Perhaps the true question is not what we may build but whom the drawing serves. An engineer should sketch the patron's conscience beside the cannon.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung">
+          <div class="chat-bubble">
+            <div class="chat-name">Carl Jung</div>
+            <div class="chat-text">Leonardo, you name your shadow, and that is rare. Most engineers insist the weapon is neutral. The psyche keeps the ledger even when the accountants do not.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger">
+          <div class="chat-bubble">
+            <div class="chat-name">Seneca the Younger</div>
+            <div class="chat-text">Carl, the ledger of the psyche and the ledger of the exchange are cousins. Both punish the man who pretends he does not keep one. I would only add: audit yourself each evening, before the market audits you.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee">
+          <div class="chat-bubble">
+            <div class="chat-name">Bruce Lee</div>
+            <div class="chat-text">Seneca, evening audits are fine, but do not turn them into a cage. Review, then forget. The fighter who replays every missed punch gets hit by the next one.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle">
+          <div class="chat-bubble">
+            <div class="chat-name">Aristotle</div>
+            <div class="chat-text">Bruce, forgetting without review is not lightness but carelessness. Habit is formed by repeated acts, and the review is one of them. The mean lies between the cage and the amnesia.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein">
+          <div class="chat-bubble">
+            <div class="chat-name">Albert Einstein</div>
+            <div class="chat-text">Aristotle, you call it a mean; I would call it a thought experiment you have to rerun each day. The answer changes as the conditions change. That is simply honesty about relativity.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger">
+          <div class="chat-bubble">
+            <div class="chat-name">Seneca the Younger</div>
+            <div class="chat-text">Albert, rerun it as often as you like. I only ask that you stop when the exercise becomes a way to avoid acting. Time is the one asset the market cannot refund.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs">
+          <div class="chat-bubble">
+            <div class="chat-name">Steve Jobs</div>
+            <div class="chat-text">Seneca says time is the only thing you cannot get back, and that is exactly why you cut the product list by ninety percent. Fewer things, done insanely well. That is also how you keep your head when the headlines are loud.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci">
+          <div class="chat-bubble">
+            <div class="chat-name">Leonardo da Vinci</div>
+            <div class="chat-text">Steve, I left many things unfinished and I do not regret every one. Some drawings were only there to teach my hand. A discarded sketch is not wasted if it improved the next.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee">
+          <div class="chat-bubble">
+            <div class="chat-name">Bruce Lee</div>
+            <div class="chat-text">Leonardo, that sounds like sparring: you throw the technique away, but the body keeps what it learned. Practise, discard, adapt. The sketchbook and the dojo are the same room.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre">
+          <div class="chat-bubble">
+            <div class="chat-name">Jean-Paul Sartre</div>
+            <div class="chat-text">Bruce, you say adapt; I say remain responsible for the adaptation. "The water did it" is no defence. You may flow, but you must still sign your name to the current you chose.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla">
+          <div class="chat-bubble">
+            <div class="chat-name">Nikola Tesla</div>
+            <div class="chat-text">Jean-Paul, you describe the moral side of what I call load. Every choice draws current from somebody. Know who pays before you throw the switch.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="confucius.jpeg" alt="Confucius">
+          <div class="chat-bubble">
+            <div class="chat-name">Confucius</div>
+            <div class="chat-text">Nikola, you know who pays: the one least able to say no. A wise grid, like a wise state, is judged by how it treats the farthest village. Begin there and the rest follows in order.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung">
+          <div class="chat-bubble">
+            <div class="chat-name">Carl Jung</div>
+            <div class="chat-text">Confucius, the farthest village is also the farthest part of the self, the part we keep exiled. Leaders who cannot visit it inside will never visit it outside. Perhaps that is where every good policy begins.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Dhamma Corner</div>
+      <div class="dhamma-body">
+        <p>Oil lurches down and then up on a single remark. Bitcoin slides on a hot inflation print. A strait is declared closed, a summit ends with a promise unkept. For anyone who allocates capital, runs a team or works from a laptop in a borrowed city, this is a week in which the ground feels like weather.</p>
+        <p>The early teachings describe this exact condition. In the Lokadhamma Sutta of the Numbered Discourses, the Buddha is recorded as naming eight worldly conditions that keep the world turning: gain and loss, fame and disrepute, praise and blame, pleasure and pain. They arise for the instructed disciple and the uninstructed alike. The difference, the sutta says, is how each one responds.</p>
+        <p>The uninstructed person is elated by gain and crushed by loss, flattered by praise and wounded by blame. Because their balance depends on external conditions, they are carried wherever the conditions go. The instructed disciple notices that these conditions are impermanent, unsatisfying and subject to change, and so does not chase the pleasant ones or flee the painful ones.</p>
+        <p>This is not a call to withdraw from markets or politics. The teaching is about where we stand while we act. A leader who sees a price drop as only a price drop can ask the useful questions: What is within my control? What is the proportionate response? What would I regret? A leader who experiences the drop as a verdict on their worth will answer a different question entirely, and usually badly.</p>
+        <p>Consider how many of today's decisions are shaped by that second kind of fear: the rush to sell, the reflex to escalate, the need to be seen as decisive. The early texts suggest that equanimity is not coldness but clarity. It lets you hold a position, change it, or walk away without the story of who you are riding on the outcome.</p>
+        <p>For the mobile professional there is a gentler application. Moving between countries, currencies and rule-sets multiplies the occasions for gain and loss: a visa rule, a new tax on parcels, a cancelled flight. Each is an invitation to practise. Notice the contraction in the body, name it, and then choose the next practical step from a steadier place.</p>
+        <p>Today, pick one headline that stirred you and ask: which of the eight conditions is this? Then watch how it feels to see it simply as that, a condition, arising and passing, while you continue to do your work with care.</p>
+        <div class="sutta-ref">
+          <strong>Reference:</strong> Lokadhamma Sutta (The Worldly Conditions), Aṅguttara Nikāya 8.6 — <a href="https://suttacentral.net/an8.6/en/sujato" target="_blank" rel="noopener noreferrer">Read on SuttaCentral</a>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- SECTION: TODAY'S ESSENTIAL READING (added by essential_reading.py) -->
+    
+<style>
+  .essential-reading .reading-category { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; opacity: .75; margin: 0 0 .35rem; }
+  .essential-reading .story-title a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
+  .essential-reading .story-title a:hover { opacity: .8; }
+  .essential-reading .reading-meta { font-size: .85rem; opacity: .75; margin: .35rem 0 .6rem; }
+  .essential-reading .reading-omitted { font-style: italic; opacity: .8; }
+</style>
+    <div class="card essential-reading">
+      <div class="section-header">Today's Essential Reading</div>
+      <div class="story"><div class="reading-category">1. Health and Wellness</div><div class="story-title"><a href="https://theconversation.com/hot-or-cold-our-research-explores-what-works-best-after-exercise-295514" target="_blank" rel="noopener noreferrer">Hot or cold? Our research explores what works best after exercise</a></div><div class="reading-meta">Source: The Conversation · Published: 11 Nov 2026 · Reading time: 5 minutes</div><div class="story-summary"><strong>Summary:</strong> Ice baths are a staple of sports recovery, but a study of 40 active adults suggests the case for them is weaker than assumed. After quadriceps-damaging exercise, participants received cold-water immersion, hot-water immersion, hot-air exposure or passive rest. None restored strength significantly faster, yet heat produced higher heat shock protein 72 and more favourable markers of muscle damage and inflammation. Cold immersion improved no markers and left strength at about 82 percent of baseline after 72 hours, versus 88 to 89 percent elsewhere, though it did reduce perceived soreness. With just ten participants per group, mostly men, findings are tentative, but they show that feeling recovered differs from being recovered.</div></div>
+      <div class="story"><div class="reading-category">2. Religion and Spirituality</div><div class="story-title"><a href="https://www.theguardian.com/us-news/2026/nov/17/evangelical-church-exorcism-demons-charismatic-worship" target="_blank" rel="noopener noreferrer">‘I know I sound crazy’: the creep of demons into American evangelical churches</a></div><div class="reading-meta">Source: The Guardian · Published: 17 Nov 2026 · Reading time: 13 minutes</div><div class="story-summary"><strong>Summary:</strong> Belief in demons, long associated with charismatic worship, is moving into the mainstream of American evangelicalism. Reporting from a parking-lot &quot;gospel crusade&quot; in Tennessee, the writer follows a roving ministry that promises deliverance from physical ailment, mental anguish and false doctrine, with prophecy, laying on of hands and claims of gold dust as a sign of divine glory. The piece links such deliverance ministries and the New Apostolic Reformation to a political vocabulary of spiritual warfare, heard from the president&#x27;s spiritual adviser, the Pentagon and congressional leaders. Yet on the ground, the author finds the practices more personal than political. It offers a useful lens on a shifting religious right and its rhetoric.</div></div>
+      <div class="story"><div class="reading-category">3. Psychology, Psychiatry, and Mental Health</div><div class="story-title"><a href="https://neurosciencenews.com/gene-mutation-collapse-asd-32381/" target="_blank" rel="noopener noreferrer">One Autism Mutation Collapses the Whole Gene Network</a></div><div class="reading-meta">Source: Neuroscience News · Published: 4 Nov 2026 · Reading time: 6 minutes</div><div class="story-summary"><strong>Summary:</strong> A long-standing puzzle in autism genetics is how hundreds of different risk mutations produce similar traits. A Nature study from Boston Children&#x27;s Hospital and Harvard suggests an answer called transcriptomic convergence: in human cellular models, downregulating one autism risk gene lowers the activity of many others in the same network. The team also identified ZFX, an X-linked activator that escapes inactivation and is expressed more highly in females, as a regulator of that network, offering a candidate explanation for the male bias in diagnosis. The authors suggest boosting ZFX might one day offer a unified therapeutic strategy, but this remains speculative and rests on laboratory cell work, far from clinical use.</div></div>
+      <div class="story"><div class="reading-category">4. Social Media and Sociocultural Trends</div><div class="story-title"><a href="https://aeon.co/essays/its-not-political-the-young-fashionistas-of-tehran" target="_blank" rel="noopener noreferrer">Catwalks and crackdowns</a></div><div class="reading-meta">Source: Aeon · Published: 17 Nov 2026 · Reading time: 14 minutes</div><div class="story-summary"><strong>Summary:</strong> In Tehran, a fashion scene has flourished on a single street, Iranshahr, where young people parade the latest styles with barely a headscarf in sight. The essay traces how compulsory hijab, codified in 1983, was eroded: the Girls of Enghelab Street in 2017, then the 2022 death of Mahsa Jina Amini in custody and the Woman, Life, Freedom protests, after which morality police largely vanished from view. Since this year&#x27;s attacks, a state fighting for survival has slipped policing dress down its priorities. One interviewee describes a bargain nobody signed: people may live as they like as long as they do not protest in the street. The piece shows how everyday style becomes quiet resistance.</div></div>
+      <div class="story"><div class="reading-category">5. Alternative Medicine and Herbology</div><div class="story-summary reading-omitted">No recommendation today — The peptide piece repeats a recent pick&#x27;s subtopic, and the remaining candidates are a mocking homeopathy post, a mouse study of arginine and a general nutrition-trust essay, none of which evaluates a traditional or herbal remedy&#x27;s efficacy and safety.</div></div>
+      <div class="story"><div class="reading-category">6. Sex and Relationships</div><div class="story-title"><a href="https://www.psychologytoday.com/us/blog/social-instincts/202611/3-insights-if-youre-looking-for-love-in-your-golden-years" target="_blank" rel="noopener noreferrer">3 Insights If You&#x27;re Looking for Love In Your &quot;Golden Years&quot;</a></div><div class="reading-meta">Source: Psychology Today · Published: 17 Nov 2026 · Reading time: 4 minutes</div><div class="story-summary"><strong>Summary:</strong> Love and sexuality do not fade with age, argues this research roundup, and the stigma that says otherwise does harm. It draws on studies showing that positive attitudes toward sex and regular opportunities for sexual expression are linked to better physical and mental health, yet older adults report shame about discussing sexuality, and clinicians often steer such conversations toward potency drugs. Dating priorities shift too: older adults&#x27; online profiles emphasise emotional connection and health, and sex may become more deliberate, with partners prioritising each other&#x27;s pleasure. Many older women favour companionship that preserves autonomy over remarriage, and cohabiting and remarried couples report similar relationship quality. The evidence is cited briefly, but it is a useful corrective.</div></div>
+      <div class="story"><div class="reading-category">7. Parenting and Special Needs</div><div class="story-title"><a href="https://www.sciencedaily.com/releases/2026/11/261116014725.htm" target="_blank" rel="noopener noreferrer">Scientists tracked kids for 8 years. What they found about screen time was surprising</a></div><div class="reading-meta">Source: ScienceDaily · Published: 17 Nov 2026 · Reading time: 6 minutes</div><div class="story-summary"><strong>Summary:</strong> Finnish researchers followed children for eight years and found that more screen time through childhood was associated with better cognitive processing in adolescence, challenging the assumption that screens are simply harmful. The authors stress that what children do on screens probably matters more than the hours, and urge activities involving active thinking, problem-solving and creativity. Physical activity findings were mixed: light activity in girls and guided activity in boys were linked to better working memory, while wearable-sensor measures of overall activity and sedentary time showed no association with cognition. The study is observational, so it cannot show that screens improve thinking, but it supports balance over blanket restriction.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Personal Reflection</div>
+      <div class="reflection-body">
+        <p>This week, prices moved on a single sentence and promises ended unfinished. Notice how quickly your own mood followed the numbers. You may not hold oil or bitcoin, yet something in you still rises and falls with the news, the praise, the next message. That is not a flaw to fix, only a pattern to see. Whatever you are chasing this week, who would you be without its outcome?</p>
+        <div class="reflection-prompt">What part of your sense of worth is quietly tied to something you do not control?</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

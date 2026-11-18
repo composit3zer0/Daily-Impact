@@ -815,5 +815,67 @@
   "source": "Psychology Today",
   "published": "2026-11-16T15:18:21+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-18",
+  "category": 1,
+  "url": "https://theconversation.com/hot-or-cold-our-research-explores-what-works-best-after-exercise-295514",
+  "norm_url": "https://theconversation.com/hot-or-cold-our-research-explores-what-works-best-after-exercise-295514",
+  "title": "Hot or cold? Our research explores what works best after exercise",
+  "source": "The Conversation",
+  "published": "2026-11-11T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-18",
+  "category": 2,
+  "url": "https://www.theguardian.com/us-news/2026/nov/17/evangelical-church-exorcism-demons-charismatic-worship",
+  "norm_url": "https://theguardian.com/us-news/2026/nov/17/evangelical-church-exorcism-demons-charismatic-worship",
+  "title": "‘I know I sound crazy’: the creep of demons into American evangelical churches",
+  "source": "The Guardian",
+  "published": "2026-11-17T11:00:36+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-18",
+  "category": 3,
+  "url": "https://neurosciencenews.com/gene-mutation-collapse-asd-32381/",
+  "norm_url": "https://neurosciencenews.com/gene-mutation-collapse-asd-32381",
+  "title": "One Autism Mutation Collapses the Whole Gene Network",
+  "source": "Neuroscience News",
+  "published": "2026-11-04T18:44:12+00:00",
+  "focus": [
+   "Autism"
+  ]
+ },
+ {
+  "date": "2026-11-18",
+  "category": 4,
+  "url": "https://aeon.co/essays/its-not-political-the-young-fashionistas-of-tehran",
+  "norm_url": "https://aeon.co/essays/its-not-political-the-young-fashionistas-of-tehran",
+  "title": "Catwalks and crackdowns",
+  "source": "Aeon",
+  "published": "2026-11-17T11:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-18",
+  "category": 6,
+  "url": "https://www.psychologytoday.com/us/blog/social-instincts/202611/3-insights-if-youre-looking-for-love-in-your-golden-years",
+  "norm_url": "https://psychologytoday.com/us/blog/social-instincts/202611/3-insights-if-youre-looking-for-love-in-your-golden-years",
+  "title": "3 Insights If You're Looking for Love In Your \"Golden Years\"",
+  "source": "Psychology Today",
+  "published": "2026-11-17T14:09:37+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-18",
+  "category": 7,
+  "url": "https://www.sciencedaily.com/releases/2026/11/261116014725.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/11/261116014725.htm",
+  "title": "Scientists tracked kids for 8 years. What they found about screen time was surprising",
+  "source": "ScienceDaily",
+  "published": "2026-11-17T12:03:58+00:00",
+  "focus": []
  }
 ]
