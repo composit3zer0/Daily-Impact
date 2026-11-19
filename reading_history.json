@@ -877,5 +877,77 @@
   "source": "ScienceDaily",
   "published": "2026-11-17T12:03:58+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-19",
+  "category": 1,
+  "url": "https://www.sciencedaily.com/releases/2026/10/261020085427.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/10/261020085427.htm",
+  "title": "Millions take fish oil for brain health. A two-year study found no benefit",
+  "source": "ScienceDaily",
+  "published": "2026-10-22T12:46:24+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-19",
+  "category": 2,
+  "url": "https://www.pewresearch.org/newsletter/religion-weekly/religion-weekly-update-nov-18-2026/",
+  "norm_url": "https://pewresearch.org/newsletter/religion-weekly/religion-weekly-update-nov-18-2026",
+  "title": "The Future of World Religions, 2020-2070",
+  "source": "Pew Research Center",
+  "published": "2026-11-18T19:50:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-19",
+  "category": 3,
+  "url": "https://theconversation.com/an-adhd-diagnosis-can-be-a-map-to-guide-a-person-through-challenging-territory-not-to-avoid-it-altogether-293507",
+  "norm_url": "https://theconversation.com/an-adhd-diagnosis-can-be-a-map-to-guide-a-person-through-challenging-territory-not-to-avoid-it-altogether-293507",
+  "title": "An ADHD diagnosis can be a map to guide a person through challenging territory – not to avoid it altogether",
+  "source": "The Conversation",
+  "published": "2026-11-05T00:00:00+00:00",
+  "focus": [
+   "ADHD"
+  ]
+ },
+ {
+  "date": "2026-11-19",
+  "category": 4,
+  "url": "https://www.pewresearch.org/short-reads/2026/10/20/online-communities-rarely-focus-on-politics-and-many-say-it-should-stay-that-way/",
+  "norm_url": "https://pewresearch.org/short-reads/2026/10/20/online-communities-rarely-focus-on-politics-and-many-say-it-should-stay-that-way",
+  "title": "Online Communities Rarely Focus on Politics, and Many Say It Should Stay That Way",
+  "source": "Pew Research Center",
+  "published": "2026-10-20T19:13:43+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-19",
+  "category": 5,
+  "url": "https://www.sciencedaily.com/releases/2026/10/261020085309.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/10/261020085309.htm",
+  "title": "Natural compound could fight rheumatoid arthritis at its source",
+  "source": "ScienceDaily",
+  "published": "2026-10-22T03:37:25+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-19",
+  "category": 6,
+  "url": "https://www.psychologytoday.com/us/blog/systemic-insights/202611/the-psychology-behind-overreacting",
+  "norm_url": "https://psychologytoday.com/us/blog/systemic-insights/202611/the-psychology-behind-overreacting",
+  "title": "The Psychology Behind “Overreacting”",
+  "source": "Psychology Today",
+  "published": "2026-11-18T16:45:04+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-19",
+  "category": 7,
+  "url": "https://greatergood.berkeley.edu/article/item/how_becoming_a_parent_can_change_your_memories_of_your_own_parents",
+  "norm_url": "https://greatergood.berkeley.edu/article/item/how_becoming_a_parent_can_change_your_memories_of_your_own_parents",
+  "title": "How Becoming a Parent Can Change Your Memories of Your Own Parents",
+  "source": "Greater Good Magazine",
+  "published": "2026-11-18T15:57:00+00:00",
+  "focus": []
  }
 ]
