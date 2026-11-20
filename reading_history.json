@@ -949,5 +949,67 @@
   "source": "Greater Good Magazine",
   "published": "2026-11-18T15:57:00+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-20",
+  "category": 1,
+  "url": "https://theconversation.com/dark-nutrition-what-happens-when-people-stop-trusting-food-and-nutrition-science-295203",
+  "norm_url": "https://theconversation.com/dark-nutrition-what-happens-when-people-stop-trusting-food-and-nutrition-science-295203",
+  "title": "Dark nutrition: what happens when people stop trusting food and nutrition science?",
+  "source": "The Conversation",
+  "published": "2026-11-09T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-20",
+  "category": 3,
+  "url": "https://www.sciencedaily.com/releases/2026/10/261022081309.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/10/261022081309.htm",
+  "title": "Breakthrough PTSD treatment achieves 68% remission rate in clinical trial",
+  "source": "ScienceDaily",
+  "published": "2026-10-23T11:02:25+00:00",
+  "focus": [
+   "PTSD"
+  ]
+ },
+ {
+  "date": "2026-11-20",
+  "category": 4,
+  "url": "https://www.pewresearch.org/short-reads/2026/11/06/majority-of-americans-say-social-media-companies-news-outlets-have-too-much-power-in-politics/",
+  "norm_url": "https://pewresearch.org/short-reads/2026/11/06/majority-of-americans-say-social-media-companies-news-outlets-have-too-much-power-in-politics",
+  "title": "Majority of Americans Say Social Media Companies, News Outlets Have Too Much Power in Politics",
+  "source": "Pew Research Center",
+  "published": "2026-11-06T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-20",
+  "category": 5,
+  "url": "https://theconversation.com/acupuncture-like-treatment-linked-to-sustained-weight-loss-in-new-study-296560",
+  "norm_url": "https://theconversation.com/acupuncture-like-treatment-linked-to-sustained-weight-loss-in-new-study-296560",
+  "title": "Acupuncture-like treatment linked to sustained weight loss in new study",
+  "source": "The Conversation",
+  "published": "2026-11-18T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-20",
+  "category": 6,
+  "url": "https://www.npr.org/2026/11/19/nx-s1-5996688/magic-6-marriage-tips-nina-totenberg-relationships",
+  "norm_url": "https://npr.org/2026/11/19/nx-s1-5996688/magic-6-marriage-tips-nina-totenberg-relationships",
+  "title": "The 'Magic Six': How to strengthen your marriage in midlife",
+  "source": "NPR Shots",
+  "published": "2026-11-19T18:28:23+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-20",
+  "category": 7,
+  "url": "https://www.theguardian.com/society/2026/nov/16/our-five-year-old-has-hearing-loss-and-may-one-day-be-blind-here-is-where-i-find-hope",
+  "norm_url": "https://theguardian.com/society/2026/nov/16/our-five-year-old-has-hearing-loss-and-may-one-day-be-blind-here-is-where-i-find-hope",
+  "title": "Our five-year-old has hearing loss and may one day be blind. Here is where I find hope",
+  "source": "The Guardian",
+  "published": "2026-11-15T14:00:17+00:00",
+  "focus": []
  }
 ]
