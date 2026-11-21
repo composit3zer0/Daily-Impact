@@ -1011,5 +1011,67 @@
   "source": "The Guardian",
   "published": "2026-11-15T14:00:17+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-21",
+  "category": 1,
+  "url": "https://theconversation.com/resistance-training-could-help-boost-brain-health-and-confidence-in-older-adults-297007",
+  "norm_url": "https://theconversation.com/resistance-training-could-help-boost-brain-health-and-confidence-in-older-adults-297007",
+  "title": "Resistance training could help boost brain health and confidence in older adults",
+  "source": "The Conversation",
+  "published": "2026-11-20T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-21",
+  "category": 3,
+  "url": "https://www.sciencedaily.com/releases/2026/09/260907201601.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/09/260907201601.htm",
+  "title": "Ozempic and Wegovy may have an unexpected mental health benefit",
+  "source": "ScienceDaily",
+  "published": "2026-09-08T12:59:00+00:00",
+  "focus": [
+   "Bipolar disorder"
+  ]
+ },
+ {
+  "date": "2026-11-21",
+  "category": 4,
+  "url": "https://www.pewresearch.org/short-reads/2026/11/17/younger-and-lgbtq-adults-in-the-us-stand-out-for-finding-friendship-online/",
+  "norm_url": "https://pewresearch.org/short-reads/2026/11/17/younger-and-lgbtq-adults-in-the-us-stand-out-for-finding-friendship-online",
+  "title": "Younger and LGBTQ Adults in the U.S. Stand Out for Finding Friendship Online",
+  "source": "Pew Research Center",
+  "published": "2026-11-17T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-21",
+  "category": 5,
+  "url": "https://sciencebasedmedicine.org/why-cancer-patients-choose-integrative-oncology-and-what-they-get-perception-vs-reality/",
+  "norm_url": "https://sciencebasedmedicine.org/why-cancer-patients-choose-integrative-oncology-and-what-they-get-perception-vs-reality",
+  "title": "Why cancer patients choose “integrative oncology” and what they get: Perception vs. reality",
+  "source": "Science-Based Medicine",
+  "published": "2026-10-19T07:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-21",
+  "category": 6,
+  "url": "https://www.psychologytoday.com/us/blog/meet-catch-and-keep/202611/is-your-obsession-actually-limerence",
+  "norm_url": "https://psychologytoday.com/us/blog/meet-catch-and-keep/202611/is-your-obsession-actually-limerence",
+  "title": "Is Your Obsession Actually Limerence?",
+  "source": "Psychology Today",
+  "published": "2026-11-20T21:13:43+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-21",
+  "category": 7,
+  "url": "https://www.theguardian.com/lifeandstyle/2026/nov/17/would-more-hands-on-dads-create-a-more-peaceful-world-this-pioneering-scientist-thinks-so",
+  "norm_url": "https://theguardian.com/lifeandstyle/2026/nov/17/would-more-hands-on-dads-create-a-more-peaceful-world-this-pioneering-scientist-thinks-so",
+  "title": "Would more hands-on dads create a more peaceful world? This pioneering scientist thinks so",
+  "source": "The Guardian",
+  "published": "2026-11-17T10:00:10+00:00",
+  "focus": []
  }
 ]

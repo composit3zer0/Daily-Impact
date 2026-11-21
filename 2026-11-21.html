@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Daily Impact — 21 November 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Georgia, serif;
+      background: #0a0e16 url('mainbg.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #edeff2;
+      min-height: 100vh;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 10, 5, 0.62);
+      z-index: 0;
+    }
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    .masthead {
+      text-align: center;
+      padding: 48px 24px 36px;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      margin-bottom: 40px;
+    }
+    .masthead h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #c9a84c;
+      text-transform: uppercase;
+    }
+    .masthead .dateline {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: #7ecfd4;
+      text-transform: uppercase;
+    }
+    .masthead .tagline {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: #8a9bb0;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .card {
+      background: rgba(12, 16, 8, 0.76);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 14px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+    }
+    .section-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .news-scroll {
+      display: block;
+      max-height: 600px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .news-scroll::-webkit-scrollbar { width: 4px; }
+    .news-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 2px; }
+    .news-scroll::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.35); border-radius: 2px; }
+    .story { display: block; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .story:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .story-title { font-size: 1.1rem; font-weight: 700; color: #edeff2; line-height: 1.4; margin-bottom: 10px; }
+    .story-summary { font-size: 0.95rem; color: #b0bcc8; line-height: 1.7; margin-bottom: 10px; }
+    .story-impact { font-size: 0.92rem; color: #b8c8d0; line-height: 1.6; margin-bottom: 8px; font-style: normal; }
+    .story-impact strong { color: #c9a84c; font-style: normal; font-weight: 700; }
+    .story-personal { font-size: 0.92rem; color: #b8c8d0; line-height: 1.6; margin-bottom: 12px; font-style: normal; }
+    .story-personal strong { color: #c9a84c; font-style: normal; font-weight: 700; }
+    .story-source a { font-size: 0.82rem; color: #c9a84c; text-decoration: none; letter-spacing: 0.05em; }
+    .story-source a:hover { color: #7ecfd4; text-decoration: underline; }
+    .subsection-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7ecfd4;
+      margin: 28px 0 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(126,207,212,0.2);
+    }
+    .editorial-note { font-style: italic; font-size: 0.88rem; color: #6b7a8d; margin-bottom: 20px; line-height: 1.6; }
+    .editorial-scroll {
+      display: block;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .editorial-scroll::-webkit-scrollbar { width: 4px; }
+    .editorial-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 2px; }
+    .editorial-scroll::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.35); border-radius: 2px; }
+    .chat-message {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 22px;
+      width: 100%;
+    }
+    .chat-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.35);
+      flex-shrink: 0;
+      object-fit: cover;
+      background: rgba(201,168,76,0.1);
+    }
+    .chat-bubble { flex: 1; min-width: 0; }
+    .chat-name {
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 5px;
+    }
+    .chat-text {
+      font-size: 0.96rem;
+      color: #cdd5de;
+      line-height: 1.75;
+      background: rgba(255,255,255,0.04);
+      padding: 12px 16px;
+      border-radius: 0 12px 12px 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .dhamma-body { font-size: 0.97rem; color: #cdd5de; line-height: 1.85; }
+    .dhamma-body p { margin-bottom: 20px; }
+    .sutta-ref { margin-top: 28px; padding: 16px 20px; background: rgba(126,207,212,0.06); border-left: 3px solid #7ecfd4; border-radius: 0 8px 8px 0; font-size: 0.88rem; color: #8a9bb0; }
+    .sutta-ref a { color: #7ecfd4; text-decoration: none; }
+    .sutta-ref a:hover { text-decoration: underline; }
+    .reflection-body { font-size: 0.97rem; color: #cdd5de; line-height: 1.85; }
+    .reflection-body p { margin-bottom: 16px; }
+    .reflection-prompt {
+      margin-top: 20px;
+      font-style: italic;
+      font-size: 0.93rem;
+      color: #7ecfd4;
+      border-left: 3px solid rgba(201,168,76,0.4);
+      padding-left: 16px;
+      line-height: 1.7;
+    }
+    @media (max-width: 600px) {
+      .card { padding: 24px 20px; }
+      .page { padding: 24px 16px 60px; }
+      .chat-avatar { width: 38px; height: 38px; }
+    }
+  </style>
+<style>.story-date { font-size: 0.78rem; color: #7ecfd4; letter-spacing: 0.05em; margin-bottom: 8px; }</style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="page">
+    <div class="masthead">
+      <h1>The Daily Impact</h1>
+      <div class="dateline">Saturday, 21 November 2026 · Bangkok</div>
+      <div class="tagline">Intelligence for decision-makers, builders and mobile professionals. Only stories confirmed fresh at press time are published.</div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">News</div>
+      <div class="news-scroll">
+        <div class="story">
+          <div class="story-title">Wall Street Is Hammered Into the Close: S&amp;P 500 Enters Correction, Nasdaq Drops 5.3%</div>
+          <div class="story-date" data-published="2026-11-21T05:21+07:00" data-kind="market">Published 21 Nov 2026, 05:21 Bangkok</div>
+          <div class="story-summary">The Nasdaq Composite fell 5.28% to 22,617.73 and the S&amp;P 500 fell 3.70% to 6,910.39 on Friday, putting it in correction territory. The week's losses were 8.6% for the S&amp;P 500 and 10.0% for the Nasdaq. Chips led the drop: the Philadelphia Semiconductor Index fell 10.7%, and Nvidia fell 13.8% after a report of an SEC examination of its accounting. The 10-year Treasury yield fell to 4.94%, gold fell 2.4% to $3,538, and Bitcoin fell 4.9% to about $58,900.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> AI and semiconductor concentration is now the market's main risk. Gold and crypto fell with equities, so the usual hedges did not protect portfolios this week.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Check your real exposure to a handful of AI-linked names, including through index funds and employer equity. Weekend is a good time to review leverage and liquidity before Monday's open, rather than reacting to it.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Nasdaq+plunges+S%26P+500+correction+2026" target="_blank" rel="noopener noreferrer">investingLive</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Trump Says Korean Peninsula Was Discussed With Xi and Putin at Shenzhen Summit</div>
+          <div class="story-date" data-published="2026-11-21T04:18+07:00" data-kind="general">Published 21 Nov 2026, 04:18 Bangkok</div>
+          <div class="story-summary">SBS reports that Trump said North Korea came up in his meetings with Xi Jinping and Vladimir Putin on the APEC sidelines. No details were released. The three-way meeting was billed as a first, with nuclear arms control, the Iran war and Ukraine on the agenda.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> A US-China-Russia channel on arms control and regional security is a major shift. Without published outcomes, though, the substance is unconfirmed.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Treat this as a signal, not a settlement. Watch for follow-up statements before changing any Northeast Asia exposure, and keep contingency plans for travel or supply routes in the region.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Trump+Korean+Peninsula+Xi+Putin+summit+2026" target="_blank" rel="noopener noreferrer">SBS News</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Trump Threatens Heavy Taxes on US Firms That Build Data Centers Overseas</div>
+          <div class="story-date" data-published="2026-11-21T04:18+07:00" data-kind="general">Published 21 Nov 2026, 04:18 Bangkok</div>
+          <div class="story-summary">In the same SBS morning roundup, Trump said heavy taxes would apply if American companies build data centers abroad. The roundup carried the remark alongside the overnight selloff in Nvidia and AMD. I found no detail on the legal mechanism or timing.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> If it becomes policy, it would shape where AI compute is built and add cost to offshore expansion by US tech firms, including in Asia.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> If you are exposed to data-center projects or hosting in Southeast Asia, treat this as a policy risk that may or may not become law. Wait for formal text before repricing.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Trump+taxes+data+centers+overseas+2026" target="_blank" rel="noopener noreferrer">SBS News</a></div>
+        </div>
+
+        <div class="subsection-label">Southeast Asia</div>
+
+        <div class="story">
+          <div class="story-title">ICTSI Selloff Drags Philippine Stocks to a Six-Year Low</div>
+          <div class="story-date" data-published="2026-11-21T01:26+07:00" data-kind="market">Published 21 Nov 2026, 01:26 Bangkok</div>
+          <div class="story-summary">The Philippine Stock Exchange index fell to its lowest level in six years as shares of port operator ICTSI sold off. The Inquirer headline gives no further detail. The move came as global equities fell sharply.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Regional markets are showing the same stress as US tech, and a large port and logistics name is among the casualties.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> If you hold ASEAN equities, expect high volatility and check the currency risk too. Six-year lows can attract bargain hunters, but a global selloff can still push prices lower.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=ICTSI+selloff+PSEi+six-year+low+2026" target="_blank" rel="noopener noreferrer">Philippine Daily Inquirer</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Philippine 10-Month Dollar Deficit Breaks Past 2026 Ceiling</div>
+          <div class="story-date" data-published="2026-11-21T01:30+07:00" data-kind="general">Published 21 Nov 2026, 01:30 Bangkok</div>
+          <div class="story-summary">The Philippines' dollar deficit for the first ten months of 2026 has exceeded the ceiling set for the year, according to the Inquirer. The headline is the only detail I could confirm.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> A widening dollar gap adds pressure on the peso and on external financing, at a time of high US yields.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> If you earn or hold pesos, or invest in the country, watch the exchange rate and central bank signals. Budget for currency swings if you are based there.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Philippines+dollar+deficit+breaks+2026+ceiling" target="_blank" rel="noopener noreferrer">Philippine Daily Inquirer</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Editorial</div>
+      <div class="editorial-note">This is an imaginative editorial device. These figures are fictional constructions. These are not real quotations or historical claims.</div>
+      <div class="editorial-scroll">
+        <div class="chat-message"><img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle"><div class="chat-bubble"><div class="chat-name">Aristotle</div><div class="chat-text">A market that loses a tenth in a week has mistaken enthusiasm for knowledge. Excess in any direction is a vice. Prices climbed on the belief that one sector could never disappoint, and that is not prudence.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger"><div class="chat-bubble"><div class="chat-name">Seneca the Younger</div><div class="chat-text">The wise man rehearses loss before it comes. Fortune lent you these gains and may collect them. If a bad Friday has ruined your weekend, you did not own your wealth. It owned you.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="confucius.jpeg" alt="Confucius"><div class="chat-bubble"><div class="chat-name">Confucius</div><div class="chat-text">Three leaders met at a single table, and the world waits to hear what was said. A ruler who is trusted needs few agreements. A ruler who is not trusted needs many and keeps none. Watch conduct, not communiqués.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci"><div class="chat-bubble"><div class="chat-name">Leonardo da Vinci</div><div class="chat-text">I wish to understand how data centers are built before I hear them taxed. Where does the heat go? Where does the water come from? Whoever answers those questions can build anywhere, whatever the levy.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre"><div class="chat-bubble"><div class="chat-name">Jean-Paul Sartre</div><div class="chat-text">Investors say "the market fell," as though it were weather. No. Millions of people chose to sell, and each is responsible for that choice. Hiding behind the crowd is bad faith.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla"><div class="chat-bubble"><div class="chat-name">Nikola Tesla</div><div class="chat-text">Compute is only electricity organized into thought. The nation that generates and moves power most cheaply will win this race, and tariffs on buildings will not change that. I have seen inventors starve while financiers celebrated.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung"><div class="chat-bubble"><div class="chat-name">Carl Jung</div><div class="chat-text">A collective that projects godlike powers onto machines will experience the fall as a bereavement. The shadow of the AI boom is the fear of being replaced, and it surfaces as panic selling. What we refuse to look at, we act out.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs"><div class="chat-bubble"><div class="chat-name">Steve Jobs</div><div class="chat-text">Nobody should be surprised that a bubble popped. Most of those companies built features, not products. The ones that make something people love will still be here in five years. The rest were a trade.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee"><div class="chat-name-wrap" style="display:contents"></div><div class="chat-bubble"><div class="chat-name">Bruce Lee</div><div class="chat-text">Be water. The investor who clings to one stance breaks on the first hard strike. Empty your cup of last month's story, stay loose and adapt to what is in front of you.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein"><div class="chat-bubble"><div class="chat-name">Albert Einstein</div><div class="chat-text">Everything should be made as simple as possible, but not simpler. A valuation is a hypothesis about the future, and hypotheses can be falsified. Friday was an experiment, and the result is now in.</div></div></div>
+
+        <div class="chat-message"><img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs"><div class="chat-bubble"><div class="chat-name">Steve Jobs</div><div class="chat-text">Albert, I'll push on that. A falsified hypothesis is fine if the team learns fast. What scares me is companies that never ran the experiment because they were busy raising money.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla"><div class="chat-bubble"><div class="chat-name">Nikola Tesla</div><div class="chat-text">Steve, you speak of products, but a product without cheap power is a toy. I would add that Leonardo's questions about heat and water are the real balance sheet of this industry.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre"><div class="chat-bubble"><div class="chat-name">Jean-Paul Sartre</div><div class="chat-text">Seneca tells us to rehearse loss. A fine exercise, but rehearsal is not freedom. The test is what you choose to do on Monday when the loss is real and nobody can choose for you.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="confucius.jpeg" alt="Confucius"><div class="chat-bubble"><div class="chat-name">Confucius</div><div class="chat-text">Sartre says that each person chooses alone. Perhaps. Another view is that a choice made well also keeps faith with family and community. Both views can describe the same morning.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung"><div class="chat-bubble"><div class="chat-name">Carl Jung</div><div class="chat-text">Confucius, your point about trust is also a point about the psyche. Distrust at the summit table, panic on the trading floor: these are the same projection at two different scales.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci"><div class="chat-bubble"><div class="chat-name">Leonardo da Vinci</div><div class="chat-text">Carl, here is a reframing. If fear is a kind of heat, then like any heat it can be channeled to turn a wheel or left to burn the workshop. The structure of the vessel decides which.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee"><div class="chat-bubble"><div class="chat-name">Bruce Lee</div><div class="chat-text">Leonardo has it right: it's about the vessel. Hard training in calm weather makes the panic manageable. Nobody finds their form during the fight.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger"><div class="chat-bubble"><div class="chat-name">Seneca the Younger</div><div class="chat-text">Sartre, rehearsal is the preparation and the choice comes after. I do not deny your freedom. I only advise that it be exercised by a mind that has already met its worst day.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein"><div class="chat-bubble"><div class="chat-name">Albert Einstein</div><div class="chat-text">Bruce, I think you and Aristotle may agree more than you know. His "mean" and your "water" both describe a system that corrects itself by moving. Rigidity is the one thing that fails the test.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle"><div class="chat-bubble"><div class="chat-name">Aristotle</div><div class="chat-text">Albert, kindly said. I would add one further point: the mean is not a midpoint to calculate once. It is a skill refined by practice, which means that Jobs's call to build something real is also a call to build character.</div></div></div>
+
+        <div class="chat-message"><img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre"><div class="chat-bubble"><div class="chat-name">Jean-Paul Sartre</div><div class="chat-text">Aristotle speaks of character as though it were stored somewhere. I find no character, only the next decision. Still, I will concede that practice makes the decision lighter.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee"><div class="chat-bubble"><div class="chat-name">Bruce Lee</div><div class="chat-text">Sartre, you two are closer than you think. Practice is how you stop thinking about the decision and just make it. I'll take that concession as a win.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci"><div class="chat-bubble"><div class="chat-name">Leonardo da Vinci</div><div class="chat-text">Steve, you ask for real products. I offer this: study the failure first. A bridge that collapsed teaches more than ten that stand, and Friday has given us a great deal of material.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung"><div class="chat-bubble"><div class="chat-name">Carl Jung</div><div class="chat-text">Leonardo speaks of studying failure. In my work, the same is true of the psyche: the crisis is the teacher, provided one does not rush to explain it away.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein"><div class="chat-bubble"><div class="chat-name">Albert Einstein</div><div class="chat-text">A neutral thought, then: Tesla's power and Jung's psyche both describe limited resources. Neither electricity nor attention is infinite, and a market that forgets this will relearn it.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="confucius.jpeg" alt="Confucius"><div class="chat-bubble"><div class="chat-name">Confucius</div><div class="chat-text">Albert reminds us that all resources are limited. A wise steward therefore begins with reciprocity and asks what he owes before what he can take.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs"><div class="chat-bubble"><div class="chat-name">Steve Jobs</div><div class="chat-text">I'll end here. Leonardo, you're right, and I'm taking the point about studying failures. The best products I made came after the worst quarters, when we were forced to say no to almost everything.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle"><div class="chat-bubble"><div class="chat-name">Aristotle</div><div class="chat-text">Then we have reached something close to agreement: learn from loss, practice moderation, and act with others in mind. A rare outcome for a roundtable.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla"><div class="chat-bubble"><div class="chat-name">Nikola Tesla</div><div class="chat-text">One last word from me: build the grid, then argue about the chips. Fortunes made on hype vanish, but power lines stay.</div></div></div>
+        <div class="chat-message"><img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger"><div class="chat-bubble"><div class="chat-name">Seneca the Younger</div><div class="chat-text">Let the closing be mine, then. Whatever Monday brings, spend this weekend as a person who needs less than the portfolio promised. That freedom was never listed on any index.</div></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Dhamma Corner</div>
+      <div class="dhamma-body">
+        <p>A week in which the Nasdaq loses a tenth of its value and the S&amp;P 500 falls into correction is a good week to reread the Buddha's teaching on the eight worldly conditions. In the Lokadhamma Sutta, the Buddha says that gain and loss, fame and disrepute, praise and blame, pleasure and pain keep rolling over the world, and the world keeps rolling after them.</p>
+        <p>The sutta separates two kinds of people. The uninstructed ordinary person meets these conditions without understanding. When gain arrives, the mind leans toward it and holds on. When loss arrives, the mind pushes against it and suffers. The instructed disciple of the noble ones reflects that these conditions are impermanent, unsatisfactory and subject to change. Because of that reflection, the disciple is not captured by them. Notice that the teaching does not ask anyone to stop caring about outcomes or to stop working. It asks us to see clearly that the outcomes are not ours to hold.</p>
+        <p>For investors and founders, this is practical. A portfolio that was up last month and down this week has not changed in its nature. What changed is the mind's grip. The sutta offers a simple question to ask on a day like Friday: is my mind leaning toward the price, or standing apart from it? Standing apart does not mean being passive. It means making decisions on Monday from clarity rather than from fear, and stopping the habit of measuring self-worth by a number on a screen.</p>
+        <p>For those who live and work across borders, the same teaching applies to the headlines about summits, tariffs and policy threats. Each of these will come and go. Praise and blame will follow any decision you make, and gain and loss will follow any venture. The Buddha's advice is to cultivate the steady mind that can meet all eight without being thrown by them. This steadiness is built through ordinary practice: keeping precepts, being generous, and sitting quietly each day, even a short while, so that the mind learns to observe its own leaning.</p>
+        <p>As you open your accounts and your news feeds this weekend, try a brief exercise. Name which of the eight conditions you are facing. Say plainly, "This is loss," or "This is blame." Then ask whether it is permanent. The answer will usually loosen the grip, and from that looser place you can act wisely.</p>
+        <div class="sutta-ref">
+          <strong>Sutta reference:</strong> Lokadhamma Sutta (Worldly Conditions), Aṅguttara Nikāya 8.6 — <a href="https://suttacentral.net/an8.6/en/sujato" target="_blank" rel="noopener noreferrer">Read on SuttaCentral</a>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- SECTION: TODAY'S ESSENTIAL READING (added by essential_reading.py) -->
+    
+<style>
+  .essential-reading .reading-category { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; opacity: .75; margin: 0 0 .35rem; }
+  .essential-reading .story-title a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
+  .essential-reading .story-title a:hover { opacity: .8; }
+  .essential-reading .reading-meta { font-size: .85rem; opacity: .75; margin: .35rem 0 .6rem; }
+  .essential-reading .reading-omitted { font-style: italic; opacity: .8; }
+</style>
+    <div class="card essential-reading">
+      <div class="section-header">Today's Essential Reading</div>
+      <div class="story"><div class="reading-category">1. Health and Wellness</div><div class="story-title"><a href="https://theconversation.com/resistance-training-could-help-boost-brain-health-and-confidence-in-older-adults-297007" target="_blank" rel="noopener noreferrer">Resistance training could help boost brain health and confidence in older adults</a></div><div class="reading-meta">Source: The Conversation · Published: 20 Nov 2026 · Reading time: 5 minutes</div><div class="story-summary"><strong>Summary:</strong> Strength training may do more for older adults than build muscle, though the evidence is still modest. The piece centres on a 24-week trial of 162 people aged 65 and over with mild cognitive impairment, comparing progressive resistance training, later including balance-challenging surfaces, with gentle exercise. The strength group scored slightly higher on digit repetition and letter-based word fluency, but not on story recall, and it is unclear whether the gains matter in daily life or affect dementia risk. The author explores plausible mechanisms, including better nerve activation of muscles, lower blood pressure, improved insulin response and possible myokine signalling, while stressing that many remain unproven. Mobility and confidence may be the practical payoff.</div></div>
+      <div class="story"><div class="reading-category">2. Religion and Spirituality</div><div class="story-summary reading-omitted">No recommendation today — None of the candidates is genuinely about religion or spirituality, and the only mindfulness-adjacent pieces are a thin three-minute self-compassion column and a general intuition explainer.</div></div>
+      <div class="story"><div class="reading-category">3. Psychology, Psychiatry, and Mental Health</div><div class="story-title"><a href="https://www.sciencedaily.com/releases/2026/09/260907201601.htm" target="_blank" rel="noopener noreferrer">Ozempic and Wegovy may have an unexpected mental health benefit</a></div><div class="reading-meta">Source: ScienceDaily · Published: 8 Sep 2026 · Reading time: 2 minutes</div><div class="story-summary"><strong>Summary:</strong> Semaglutide, the drug sold as Ozempic and Wegovy, may offer an unexpected benefit for people with bipolar disorder, according to a Swedish registry study. Researchers at Griffith University analysed nationwide data on nearly 15,000 people with bipolar disorder who were prescribed GLP-1 medications over 15 years, comparing periods on and off treatment. Semaglutide use was associated with a 21 percent lower risk of psychiatric hospitalisation, while liraglutide and dulaglutide showed no such association, suggesting any effect may not span the drug class. The authors speculate about reduced inflammation and cellular stress. Because the data are observational, causation is unproven; the lead author calls for a randomised controlled trial before anyone draws clinical conclusions.</div></div>
+      <div class="story"><div class="reading-category">4. Social Media and Sociocultural Trends</div><div class="story-title"><a href="https://www.pewresearch.org/short-reads/2026/11/17/younger-and-lgbtq-adults-in-the-us-stand-out-for-finding-friendship-online/" target="_blank" rel="noopener noreferrer">Younger and LGBTQ Adults in the U.S. Stand Out for Finding Friendship Online</a></div><div class="reading-meta">Source: Pew Research Center · Published: 17 Nov 2026 · Reading time: 3 minutes</div><div class="story-summary"><strong>Summary:</strong> A quarter of Americans say the internet is where they met friends who are part of their lives today, and the pattern varies sharply by age and identity. A Pew-Knight Initiative survey of 9,750 adults found that 43 percent of those under 30 have at least one friend first met online, versus about one in ten aged 65 and over. LGBTQ adults stand out at 45 percent, against 22 percent of other adults, a gap that persists after accounting for age. These are rarely purely virtual ties: 85 percent have met at least one such friend in person. Notably, 62 percent of these people consider online-origin friendships just as meaningful, against 25 percent of those with no online friends.</div></div>
+      <div class="story"><div class="reading-category">5. Alternative Medicine and Herbology</div><div class="story-title"><a href="https://sciencebasedmedicine.org/why-cancer-patients-choose-integrative-oncology-and-what-they-get-perception-vs-reality/" target="_blank" rel="noopener noreferrer">Why cancer patients choose “integrative oncology” and what they get: Perception vs. reality</a></div><div class="reading-meta">Source: Science-Based Medicine · Published: 19 Oct 2026 · Reading time: 25 minutes</div><div class="story-summary"><strong>Summary:</strong> Why do cancer patients turn to integrative oncology, and what do they actually receive? A critical commentary examines two small recent studies, a prospective French observational study of 50 patients and a Taiwanese study of why women with breast cancer choose traditional Chinese medicine, and finds both wanting. The author argues they avoid labelling quackery as such and focus on academic centres, which mostly use complementary approaches for symptom management, while ignoring freestanding clinics unconstrained by evidence. Against patients&#x27; perceptions, the author sets an undercover investigation in which a researcher posing as a stage IV colon cancer patient sought integrative care, and a New York Times account of a father drained of money by one such clinic. A sobering read.</div></div>
+      <div class="story"><div class="reading-category">6. Sex and Relationships</div><div class="story-title"><a href="https://www.psychologytoday.com/us/blog/meet-catch-and-keep/202611/is-your-obsession-actually-limerence" target="_blank" rel="noopener noreferrer">Is Your Obsession Actually Limerence?</a></div><div class="reading-meta">Source: Psychology Today · Published: 20 Nov 2026 · Reading time: 4 minutes</div><div class="story-summary"><strong>Summary:</strong> Obsessing over someone is common, but limerence is something more disruptive. This psychologist&#x27;s overview describes it as an intense cognitive and emotional state, marked by uncontrollable rumination and an overwhelming desire to be viewed positively by a specific person, usually someone with whom a real relationship is unlikely. Recent research suggests two dimensions: a need for attachment, linked to attachment anxiety, daydreaming, the need to belong and idealisation, and neglect of self or others, linked to social anxiety and lower self-esteem. Scholars note parallels with addiction and, in some cases, a path to stalking. The author suggests limerence may be the mind&#x27;s way of meeting an unmet need for belonging and intimacy, though the field has much to learn.</div></div>
+      <div class="story"><div class="reading-category">7. Parenting and Special Needs</div><div class="story-title"><a href="https://www.theguardian.com/lifeandstyle/2026/nov/17/would-more-hands-on-dads-create-a-more-peaceful-world-this-pioneering-scientist-thinks-so" target="_blank" rel="noopener noreferrer">Would more hands-on dads create a more peaceful world? This pioneering scientist thinks so</a></div><div class="reading-meta">Source: The Guardian · Published: 17 Nov 2026 · Reading time: 11 minutes</div><div class="story-summary"><strong>Summary:</strong> Could involved fathers make for a less belligerent world? The evolutionary anthropologist Sarah Blaffer Hrdy turns to fatherhood in her new book. She cites evidence that men who care for babies show higher oxytocin and lower testosterone, mirroring other mammals and birds, and that brain scans of male primary carers show activity in older circuits such as the hypothalamus and amygdala rather than the neocortex. Hrdy reads this as an ancient inheritance shared with species in which fathers provide care, and hopes that activating it could shift societies. Her own evidence includes an informal saliva test on her husband after their grandchild&#x27;s birth, which showed a rise in oxytocin; the broader political hope is speculative.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Personal Reflection</div>
+      <div class="reflection-body">
+        <p>This week, a lot of people watched a number fall and felt something fall inside them too. You may have felt it, or you may have felt relief that it was not yours. Either way, notice how quickly a figure on a screen can tell you who you are. Some part of you has been quietly keeping score, and it rarely asks your permission. Underneath the score is the person who wakes up, cares for others, and does honest work. That person was there before Friday's close, and will be there after the next one.</p>
+        <div class="reflection-prompt">If every number you track went to zero tomorrow, what would still be undeniably, steadily you?</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
