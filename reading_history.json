@@ -1073,5 +1073,77 @@
   "source": "The Guardian",
   "published": "2026-11-17T10:00:10+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-22",
+  "category": 1,
+  "url": "https://theconversation.com/your-brain-may-be-hiding-alzheimers-from-you-and-thats-not-always-a-good-thing-296019",
+  "norm_url": "https://theconversation.com/your-brain-may-be-hiding-alzheimers-from-you-and-thats-not-always-a-good-thing-296019",
+  "title": "Your brain may be hiding Alzheimer’s from you – and that’s not always a good thing",
+  "source": "The Conversation",
+  "published": "2026-11-18T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-22",
+  "category": 2,
+  "url": "https://www.lionsroar.com/the-work-became-my-practice/",
+  "norm_url": "https://lionsroar.com/the-work-became-my-practice",
+  "title": "The Work Became My Practice",
+  "source": "Lion's Roar",
+  "published": "2026-11-09T15:58:40+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-22",
+  "category": 3,
+  "url": "https://www.additudemag.com/old-autistic-adults-supports/",
+  "norm_url": "https://additudemag.com/old-autistic-adults-supports",
+  "title": "Growing Older on the Spectrum: The Unique Needs of Autistic Adults",
+  "source": "ADDitude",
+  "published": "2026-11-16T10:04:53+00:00",
+  "focus": [
+   "Autism"
+  ]
+ },
+ {
+  "date": "2026-11-22",
+  "category": 4,
+  "url": "https://www.pewresearch.org/short-reads/2026/10/28/most-americans-religious-lives-havent-changed-much-in-recent-years/",
+  "norm_url": "https://pewresearch.org/short-reads/2026/10/28/most-americans-religious-lives-havent-changed-much-in-recent-years",
+  "title": "Most Americans’ Religious Lives Haven’t Changed Much in Recent Years",
+  "source": "Pew Research Center",
+  "published": "2026-10-28T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-22",
+  "category": 5,
+  "url": "https://theconversation.com/collagen-powders-creams-and-bone-broth-what-the-science-says-about-their-benefits-295314",
+  "norm_url": "https://theconversation.com/collagen-powders-creams-and-bone-broth-what-the-science-says-about-their-benefits-295314",
+  "title": "Collagen powders, creams and bone broth: what the science says about their benefits",
+  "source": "The Conversation",
+  "published": "2026-11-12T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-22",
+  "category": 6,
+  "url": "https://www.theguardian.com/technology/ng-interactive/2026/nov/21/shaking-crying-trouble-breathing-breaking-up-with-ai-companions",
+  "norm_url": "https://theguardian.com/technology/ng-interactive/2026/nov/21/shaking-crying-trouble-breathing-breaking-up-with-ai-companions",
+  "title": "‘I was shaking, crying, having trouble breathing’: the uncharted trauma of breaking up with AI companions",
+  "source": "The Guardian",
+  "published": "2026-11-21T14:00:01+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-22",
+  "category": 7,
+  "url": "https://hechingerreport.org/preschool-math-curriculum-mississippi/",
+  "norm_url": "https://hechingerreport.org/preschool-math-curriculum-mississippi",
+  "title": "Preschool math blasts off in Mississippi",
+  "source": "The Hechinger Report",
+  "published": "2026-11-17T14:00:00+00:00",
+  "focus": []
  }
 ]

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Daily Impact — 22 November 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Georgia, serif;
+      background: #0a0e16 url('mainbg.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #edeff2;
+      min-height: 100vh;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 10, 5, 0.62);
+      z-index: 0;
+    }
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    .masthead {
+      text-align: center;
+      padding: 48px 24px 36px;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      margin-bottom: 40px;
+    }
+    .masthead h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #c9a84c;
+      text-transform: uppercase;
+    }
+    .masthead .dateline {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: #7ecfd4;
+      text-transform: uppercase;
+    }
+    .masthead .tagline {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: #8a9bb0;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .card {
+      background: rgba(12, 16, 8, 0.76);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 14px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+    }
+    .section-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .news-scroll {
+      display: block;
+      max-height: 600px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .news-scroll::-webkit-scrollbar { width: 4px; }
+    .news-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 2px; }
+    .news-scroll::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.35); border-radius: 2px; }
+    .story { display: block; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .story:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .story-title { font-size: 1.1rem; font-weight: 700; color: #edeff2; line-height: 1.4; margin-bottom: 10px; }
+    .story-summary { font-size: 0.95rem; color: #b0bcc8; line-height: 1.7; margin-bottom: 10px; }
+    .story-impact { font-size: 0.92rem; color: #b8c8d0; line-height: 1.6; margin-bottom: 8px; font-style: normal; }
+    .story-impact strong { color: #c9a84c; font-style: normal; font-weight: 700; }
+    .story-personal { font-size: 0.92rem; color: #b8c8d0; line-height: 1.6; margin-bottom: 12px; font-style: normal; }
+    .story-personal strong { color: #c9a84c; font-style: normal; font-weight: 700; }
+    .story-source a { font-size: 0.82rem; color: #c9a84c; text-decoration: none; letter-spacing: 0.05em; }
+    .story-source a:hover { color: #7ecfd4; text-decoration: underline; }
+    .subsection-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7ecfd4;
+      margin: 28px 0 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(126,207,212,0.2);
+    }
+    .editorial-note { font-style: italic; font-size: 0.88rem; color: #6b7a8d; margin-bottom: 20px; line-height: 1.6; }
+    .editorial-scroll {
+      display: block;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .editorial-scroll::-webkit-scrollbar { width: 4px; }
+    .editorial-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 2px; }
+    .editorial-scroll::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.35); border-radius: 2px; }
+    .chat-message {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 22px;
+      width: 100%;
+    }
+    .chat-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.35);
+      flex-shrink: 0;
+      object-fit: cover;
+      background: rgba(201,168,76,0.1);
+    }
+    .chat-bubble { flex: 1; min-width: 0; }
+    .chat-name {
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 5px;
+    }
+    .chat-text {
+      font-size: 0.96rem;
+      color: #cdd5de;
+      line-height: 1.75;
+      background: rgba(255,255,255,0.04);
+      padding: 12px 16px;
+      border-radius: 0 12px 12px 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .dhamma-body { font-size: 0.97rem; color: #cdd5de; line-height: 1.85; }
+    .dhamma-body p { margin-bottom: 20px; }
+    .sutta-ref { margin-top: 28px; padding: 16px 20px; background: rgba(126,207,212,0.06); border-left: 3px solid #7ecfd4; border-radius: 0 8px 8px 0; font-size: 0.88rem; color: #8a9bb0; }
+    .sutta-ref a { color: #7ecfd4; text-decoration: none; }
+    .sutta-ref a:hover { text-decoration: underline; }
+    .reflection-body { font-size: 0.97rem; color: #cdd5de; line-height: 1.85; }
+    .reflection-body p { margin-bottom: 16px; }
+    .reflection-prompt {
+      margin-top: 20px;
+      font-style: italic;
+      font-size: 0.93rem;
+      color: #7ecfd4;
+      border-left: 3px solid rgba(201,168,76,0.4);
+      padding-left: 16px;
+      line-height: 1.7;
+    }
+    @media (max-width: 600px) {
+      .card { padding: 24px 20px; }
+      .page { padding: 24px 16px 60px; }
+      .chat-avatar { width: 38px; height: 38px; }
+    }
+  </style>
+<style>.story-date { font-size: 0.78rem; color: #7ecfd4; letter-spacing: 0.05em; margin-bottom: 8px; }</style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="page">
+    <div class="masthead">
+      <h1>The Daily Impact</h1>
+      <div class="dateline">Sunday, 22 November 2026 · Bangkok</div>
+      <div class="tagline">Intelligence for decision-makers, innovators and mobile professionals. Only stories with a confirmed publication time inside the freshness window are included.</div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">News</div>
+      <div class="news-scroll">
+
+        <div class="story">
+          <div class="story-title">Iran strikes US bases in Bahrain as tankers are hit near Hormuz and a blockade-breaking convoy forms</div>
+          <div class="story-date" data-published="2026-11-22T04:32+07:00" data-kind="general">Published 22 Nov 2026, 04:32 Bangkok</div>
+          <div class="story-summary">Iranian media say Iran launched two waves of drone and ballistic missile attacks on four US bases in Bahrain. Bahrain says its air defences intercepted several of them, and a fire broke out at a civilian industrial site. The UK Maritime Trade Operations centre reported two tankers struck by projectiles while leaving the Gulf, and Iran said a third hit a mine. More than 14 Iranian tankers were reportedly gathering off Kharg Island to test the US blockade. Qatar-mediated talks continue.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> The Hormuz corridor carries a large share of seaborne oil. Iran has called the blockade an act of war and has threatened Gulf energy infrastructure if its convoy is attacked.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Expect energy and shipping-insurance volatility when markets open Monday. If your costs depend on fuel, freight or Gulf transit, review hedges and contingency routing now. Mobile professionals should check Gulf airspace and routing before booking.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Iran+Bahrain+Hormuz+tankers+2026" target="_blank" rel="noopener noreferrer">Euronews</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Bitcoin rebounds above $60,000 after a two-year low and $1.8 billion in liquidations</div>
+          <div class="story-date" data-published="2026-11-22T00:50+07:00" data-kind="market">Published 22 Nov 2026, 00:50 Bangkok</div>
+          <div class="story-summary">Bitcoin recovered more than 9% from an early low of $55,130, its weakest level since September 2024, and traded near $60,300 on Saturday afternoon in the US. About $1.8 billion in leveraged crypto positions were liquidated over 24 hours, roughly $1.3 billion of them long bets. The Nasdaq fell more than 4% on Friday, and US spot bitcoin ETFs recorded about $1.1 billion in net withdrawals over the past week. QCP Capital warned that short-covering rallies may struggle to become sustained upside.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Crypto is trading as a high-beta extension of tech equities. Glassnode said the selloff cleared a large cluster of forced-selling levels, but the Monday stock open is the next test.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Treat the bounce as unconfirmed until equities stabilise. Check leverage and collateral ratios before Monday, and avoid forced liquidations by sizing positions for continued volatility. Keep enough stable, spendable reserves to cover living costs.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Bitcoin+rebounds+above+60000+liquidation+2026" target="_blank" rel="noopener noreferrer">CoinDesk</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">AI scan finds a Bitcoin node bug that a single repeated transaction ID could exploit</div>
+          <div class="story-date" data-published="2026-11-21T13:16+07:00" data-kind="general">Published 21 Nov 2026, 13:16 Bangkok</div>
+          <div class="story-summary">Bitcoin Core disclosed CVE-2026-117348 on Friday and released fixes in versions 30.5 and 31.3. Repeating one transaction ID 50,000 times in a single announcement could stall a node for more than a dozen seconds. The flaw was flagged by Loupe, an open-source scanner from Block's Spiral unit that uses AI agents. Core developers rated it medium severity.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> It is a concrete case of AI agents auditing critical financial code. A stalled node could delay exchange deposits or leave a miner working from an outdated view of the chain.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> If you run nodes, an exchange backend or a mining operation, update to the patched versions. Custody and infrastructure teams should expect AI-assisted security audits to become routine, and should budget for them.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Bitcoin+nodes+stalled+AI+found+bug+2026" target="_blank" rel="noopener noreferrer">CoinDesk</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Hackers breach the US Agriculture Department and the FBI's national crime database</div>
+          <div class="story-date" data-published="2026-11-21T14:01+07:00" data-kind="general">Published 21 Nov 2026, 14:01 Bangkok</div>
+          <div class="story-summary">NBC News and CNN reported that hackers breached a USDA system used to pay farmers, and that the FBI was hacked for the second time since September. The FBI breach involved the National Crime Information Center database. It is unclear whether the incidents are linked or who is responsible. The White House earlier fired its cybersecurity chief, Sean Cairncross, amid criticism over recent outages.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Repeated breaches of core US government systems point to weak resilience at the centre of public infrastructure. Farm-payment systems also touch food-supply financing.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Assume government-linked data may be exposed and tighten identity verification for your payments and filings. Businesses with US federal contracts should review their access credentials and incident-response plans this week.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=USDA+FBI+hit+by+cyberattacks+2026" target="_blank" rel="noopener noreferrer">France 24</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">128 nations agree to "elaborate" an instrument on AI-run killer robots by 2028</div>
+          <div class="story-date" data-published="2026-11-21T07:00+07:00" data-kind="general">Published 21 Nov 2026, 07:00 Bangkok</div>
+          <div class="story-summary">At a UN conference on conventional weapons in Geneva, 128 countries agreed to work toward a possible accord on lethal autonomous weapons over two years. Nearly 100 nations had pushed for swift binding rules, but the US, Russia and Israel opposed that push. Some countries objected to the word "negotiate", so the text refers to "elaboration". Stop Killer Robots, a coalition of about 300 organisations, called the mandate watered down.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> This is the first agreed international track on autonomous weapons, but the major military powers have blocked a binding timeline.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Defence-tech and robotics founders face regulatory uncertainty, not a ban, for at least two years. Build compliance and human-control documentation into products now. Investors should expect export-control pressure to precede any treaty.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Nations+agree+rules+killer+robots+2028" target="_blank" rel="noopener noreferrer">Al Jazeera</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Anthropic staffer claims a proof of the Riemann hypothesis built with Claude; experts are checking</div>
+          <div class="story-date" data-published="2026-11-21T07:00+07:00" data-kind="general">Published 21 Nov 2026, 07:00 Bangkok</div>
+          <div class="story-summary">Levent Alpoge, a member of Anthropic's technical staff, says he has proven the Riemann hypothesis, or its generalised version, working with Claude. He posted a four-page explanation and released the argument in Lean, a proof-checking language. Kevin Buzzard of Imperial College London describes the Lean code as about 17 million lines. Independent experts are verifying it, and no human has yet read the whole argument.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> If it holds, it would be a landmark for AI-assisted mathematics. Machine-checkable proofs could also change how trust in AI-generated research is established.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Wait for expert verification before drawing conclusions, which Buzzard expects within a week or two. Formal verification is becoming a competitive advantage for anyone building high-stakes software, cryptography or quantitative models.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Riemann+hypothesis+cracked+Claude+Anthropic+2026" target="_blank" rel="noopener noreferrer">Al Jazeera</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Lufthansa plans about 1,000 job cuts as Iran-war fuel costs slow its turnaround</div>
+          <div class="story-date" data-published="2026-11-20T18:35+07:00" data-kind="general">Published 20 Nov 2026, 18:35 Bangkok</div>
+          <div class="story-summary">Lufthansa plans to cut about 1,000 jobs at its Frankfurt and Munich hubs, roughly 2.5% of staff. The core airline lost an average of €20 million a month from January to September. The group expects to spend €9.3 billion on fuel this year, about €2 billion more than in 2025. It cut its full-year operating profit forecast to €1.7–2 billion.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Jet fuel prices tied to the Iran war are squeezing a major carrier's margins. That is a direct read-through from energy markets to travel and corporate costs.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Expect higher fares and thinner capacity on some European routes. If you travel often, lock in flexible bookings and consider loyalty-programme exposure before any schedule cuts.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Lufthansa+1000+job+cuts+Iran+war+2026" target="_blank" rel="noopener noreferrer">Euronews</a></div>
+        </div>
+
+        <div class="subsection-label">Southeast Asia</div>
+
+        <div class="story">
+          <div class="story-title">Singapore PM Wong says the city-state wants to stay open to both the US and China amid tech rivalry</div>
+          <div class="story-date" data-published="2026-11-21T21:54+07:00" data-kind="general">Published 21 Nov 2026, 21:54 Bangkok</div>
+          <div class="story-summary">The Star's Saturday-evening ASEAN news roundup reports that Prime Minister Lawrence Wong said Singapore wants to remain open to both Washington and Beijing as technology rivalry intensifies. Singapore took the ASEAN chair from the Philippines on 17 November. The bulletin gives only a headline summary of his remarks.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Singapore is the region's financial and logistics hub. Its stance signals how ASEAN's incoming chair will approach chip, AI and supply-chain alignment in 2027.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Singapore-based entities should plan for dual-market compliance rather than a forced choice. Founders choosing a regional base should weigh neutrality as a lasting advantage.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Wong+Singapore+open+US+China+tech+rivalry+2026" target="_blank" rel="noopener noreferrer">The Star</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">EU and Indonesia sign their trade agreement</div>
+          <div class="story-date" data-published="2026-11-21T21:54+07:00" data-kind="general">Published 21 Nov 2026, 21:54 Bangkok</div>
+          <div class="story-summary">The Star's Saturday-evening ASEAN roundup reports that the EU and Indonesia signed their trade deal. EU governments authorised signature and provisional application on 18 November. The Commission says the agreement removes tariffs on over 98% of tariff lines, and Jakarta targets full implementation in the first quarter of 2027.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> It gives Europe a route to Indonesian nickel and other critical inputs and diversifies both sides away from US tariff exposure. Palm oil terms are the likely friction point.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Exporters and manufacturers with Indonesian or EU supply chains should map tariff changes ahead of 2027. Investors tracking critical minerals should watch for provisional-application timing and the rules of origin.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=EU+Indonesia+sign+trade+deal+2026" target="_blank" rel="noopener noreferrer">The Star</a></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Editorial</div>
+      <div class="editorial-note">This is an imaginative editorial device. These figures are fictional constructions. These are not real quotations or historical claims.</div>
+      <div class="editorial-scroll">
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle">
+          <div class="chat-bubble">
+            <div class="chat-name">Aristotle</div>
+            <div class="chat-text">Look at the pattern: tankers burning, bitcoin tumbling, airlines cutting staff. Each is one chain of causes. Fuel is the first cause, and the rest are effects. The prudent man studies the chain, not the last link. Moderation is the mean between panic and complacency.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger">
+          <div class="chat-bubble">
+            <div class="chat-name">Seneca the Younger</div>
+            <div class="chat-text">A man who watches his portfolio fall to $55,000 from a higher price has simply discovered what he never owned: the future. Rehearse the loss in advance, friends. Practise poverty for a few days a year, and the market loses its power to frighten you.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="confucius.jpeg" alt="Confucius">
+          <div class="chat-bubble">
+            <div class="chat-name">Confucius</div>
+            <div class="chat-text">Singapore's leader says he will stay open to two great powers. This is the wisdom of the host who seats both guests at his table. Harmony is not the absence of rivals; it is the right ordering of relationships. A small state that keeps its word keeps its dignity.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci">
+          <div class="chat-bubble">
+            <div class="chat-name">Leonardo da Vinci</div>
+            <div class="chat-text">I am enchanted by the bug in the Bitcoin node. A machine read the code as I once read the folds of water, and found the weakness in the flow. A single repeated name, fifty thousand times, and the whole mechanism stalls! Observe first, then build. Every fortress has a hidden hinge.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre">
+          <div class="chat-bubble">
+            <div class="chat-name">Jean-Paul Sartre</div>
+            <div class="chat-text">The killer-robot treaty is bad faith in diplomatic dress. Nations say "elaborate" because they dread the word "negotiate", and so they flee responsibility. A machine does not choose. A human chose to build it, and a human will choose to deploy it. No one may hide behind the algorithm.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla">
+          <div class="chat-bubble">
+            <div class="chat-name">Nikola Tesla</div>
+            <div class="chat-text">Iran is rationing power while the Gulf burns. This is what happens when a civilisation depends on a narrow channel for its energy. The future belongs to whoever draws energy from many sources, wirelessly if possible. Resilience is an engineering problem before it is a political one.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung">
+          <div class="chat-bubble">
+            <div class="chat-name">Carl Jung</div>
+            <div class="chat-text">When a market crashes, I do not see only numbers; I see the shadow. Greed that was denied in the boom returns as terror in the bust. The crowd projects its own unlived fear onto the chart. Know your shadow before you size your position.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs">
+          <div class="chat-bubble">
+            <div class="chat-name">Steve Jobs</div>
+            <div class="chat-text">Everyone is looking at the Riemann thing and asking whether Claude is smart. Wrong question. The question is whether the person at the keyboard had taste. A tool that does 17 million lines is nothing if nobody can say in one sentence why it matters. Focus. Say no to a thousand things.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee">
+          <div class="chat-bubble">
+            <div class="chat-name">Bruce Lee</div>
+            <div class="chat-text">Be water, my friend. The bitcoin trader who clings to one price is rigid, and the rigid break. Rebound or no rebound, adapt. Empty your cup of yesterday's number and respond to what is in front of you.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein">
+          <div class="chat-bubble">
+            <div class="chat-name">Albert Einstein</div>
+            <div class="chat-text">As a man who spent a lifetime with arithmetic of the universe, I am delighted by the proof claim and suspicious of it in equal measure. Extraordinary claims need extraordinary checking. The Lean code is a good start, but let the mathematicians read it first. Also, I never wanted my equations near weapons, and I notice the weapons are now thinking for themselves.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger">
+          <div class="chat-bubble">
+            <div class="chat-name">Seneca the Younger</div>
+            <div class="chat-text">Albert, your caution is a Stoic virtue: suspend judgment until the evidence arrives. We would all suffer less if we applied it to rumours of ruin as well as rumours of genius.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla">
+          <div class="chat-bubble">
+            <div class="chat-name">Nikola Tesla</div>
+            <div class="chat-text">Seneca, patience is fine for a philosopher. An engineer must also act. Patch the node today, diversify the grid today. Suspend judgment, yes, but not maintenance.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle">
+          <div class="chat-bubble">
+            <div class="chat-name">Aristotle</div>
+            <div class="chat-text">Let me restate what Tesla and Seneca each said, because they are not opposed. Seneca names the disposition of the soul; Tesla names the habit of the hand. Virtue needs both: a settled mind and a practised action.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung">
+          <div class="chat-bubble">
+            <div class="chat-name">Carl Jung</div>
+            <div class="chat-text">Aristotle speaks of habit, yet I wonder what happens when the habit itself is the shadow. A man who always "acts" may be running from stillness. Perhaps the first patch is to the psyche.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee">
+          <div class="chat-bubble">
+            <div class="chat-name">Bruce Lee</div>
+            <div class="chat-text">Carl, I would flip that. Action without fixed form is not running away; it is training. You find the stillness inside the movement. Sparring teaches more than sitting about your fears.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci">
+          <div class="chat-bubble">
+            <div class="chat-name">Leonardo da Vinci</div>
+            <div class="chat-text">Another way to see Bruce's point and Carl's: both are describing how a good craftsman looks at a flaw. Some flaws live in the material, some in the maker's eye. A notebook helps you tell which is which.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre">
+          <div class="chat-bubble">
+            <div class="chat-name">Jean-Paul Sartre</div>
+            <div class="chat-text">Steve claimed that taste, not the tool, decides the outcome. I agree with the direction and press the point: taste is a choice, and every choice is a commitment for which you are responsible. You cannot blame the model, the market or the minister.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein">
+          <div class="chat-bubble">
+            <div class="chat-name">Albert Einstein</div>
+            <div class="chat-text">Think of it from a different frame, Jean-Paul. Responsibility is also relative to what one can observe. The more the machine hides, the less any person can claim to have chosen. Transparency is therefore a moral technology as well as a technical one.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="confucius.jpeg" alt="Confucius">
+          <div class="chat-bubble">
+            <div class="chat-name">Confucius</div>
+            <div class="chat-text">Albert, a ruler who hides his reasons loses the trust of his people. When Singapore says it will stay open to both powers, the first duty is to say plainly why. Transparency is the root of trust.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs">
+          <div class="chat-bubble">
+            <div class="chat-name">Steve Jobs</div>
+            <div class="chat-text">Confucius, fine, but trust gets built by shipping something that works, not by speeches. Singapore should pick two or three things, like chips, finance, and logistics, and be insanely good at those. Open to everyone is also a strategy for being mediocre at everything.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla">
+          <div class="chat-bubble">
+            <div class="chat-name">Nikola Tesla</div>
+            <div class="chat-text">Let me answer Steve. Focus is good, but a grid with one source is a grid waiting to fail. Choose a few strengths, yes, but link them to many partners. Indonesia and Europe have just signed such a link.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger">
+          <div class="chat-bubble">
+            <div class="chat-name">Seneca the Younger</div>
+            <div class="chat-text">A trade pact will not remove fear, only change its shape. Whoever depends on a tariff schedule for his peace of mind is still a servant. Use the pact, but keep your inner ledger independent of it.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung">
+          <div class="chat-bubble">
+            <div class="chat-name">Carl Jung</div>
+            <div class="chat-text">Seneca names the servant; I add that the servant is often a part of ourselves, the part that wants safety above meaning. Integration, not heroics, is the work. Listen to it before you overrule it.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle">
+          <div class="chat-bubble">
+            <div class="chat-name">Aristotle</div>
+            <div class="chat-text">Jung, I accept the part that seeks safety, since prudence is a virtue. Courage is the mean between recklessness and cowardice, and the leader must learn where that mean lies for each trade and treaty.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre">
+          <div class="chat-bubble">
+            <div class="chat-name">Jean-Paul Sartre</div>
+            <div class="chat-text">Aristotle seeks a mean, but there is no ready-made mean waiting in the world. We invent it in each act, and we cannot ask the market for an alibi. Even a retreat is an act.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee">
+          <div class="chat-bubble">
+            <div class="chat-name">Bruce Lee</div>
+            <div class="chat-text">Sartre, that is the way of the street fighter: no script, only the next move. And that is why you drill the basics ten thousand times first. Freedom grows out of discipline, not away from it.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein">
+          <div class="chat-bubble">
+            <div class="chat-name">Albert Einstein</div>
+            <div class="chat-text">A small thought experiment to close: suppose Leonardo's observer, Bruce's drill and Sartre's choice were all one process. The notebook records, the practice shapes, the choice commits. The theory is simple; applying it daily is the hard part.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci">
+          <div class="chat-bubble">
+            <div class="chat-name">Leonardo da Vinci</div>
+            <div class="chat-text">Albert, you have put it better than my notebooks! I would only add that the drawings are never finished; they are abandoned. So begin, test, correct. A badly drawn day teaches more than an unattempted one.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs">
+          <div class="chat-bubble">
+            <div class="chat-name">Steve Jobs</div>
+            <div class="chat-text">Leonardo, abandoned maybe, but ship before you abandon. If a proof, a node patch or a trade pact is not in someone's hands, it is a sketch. Stay hungry, and also deliver.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="confucius.jpeg" alt="Confucius">
+          <div class="chat-bubble">
+            <div class="chat-name">Confucius</div>
+            <div class="chat-text">Let me turn Steve's word "deliver" toward the one who receives. A thing well delivered is a promise kept to someone. Whether it is a treaty or a patch, ask who bears the cost if it fails, and begin from there.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Dhamma Corner</div>
+      <div class="dhamma-body">
+        <p>This morning's headlines swing between extremes. Bitcoin touched a two-year low, then bounced. A mathematical claim may be a triumph or an error. Tankers burn in the Gulf while diplomats keep talking. For anyone who leads, invests, builds or travels for a living, the weekend asks the same question: what happens in the mind when conditions turn against us, or when they suddenly turn in our favour?</p>
+        <p>The early teachings answer this in the Worldly Conditions discourse, Anguttara Nikaya 8.6. The Buddha, as the sutta reports, describes eight conditions that keep the world turning: gain and loss, fame and disrepute, praise and blame, pleasure and pain. They arise for the ordinary person and the noble disciple alike. The difference lies in what happens next. The untrained person is elated by gain and crushed by loss, flattered by praise and wounded by blame. The trained disciple, the sutta says, reflects that these conditions are impermanent, unsatisfying and bound to change.</p>
+        <p>Notice what the teaching does not ask. It does not ask you to stop caring about outcomes, and it does not tell you to leave your work. A founder must still read the cash-flow statement and a trader must still respect risk limits. The sutta points instead at the mind that clings to the result and measures its own worth by it. When a position falls twenty percent, the loss is a fact. The agitation, the sleeplessness and the urge to double down are a second layer, added by craving and aversion.</p>
+        <p>The same applies to gain. A rebound above $60,000 is pleasant, and the sutta treats pleasant things as just as unstable as painful ones. A leader who is intoxicated by a good quarter makes the same error as one who is flattened by a bad one: they have both mistaken a passing condition for a permanent self.</p>
+        <p>Digital nomads know this in a gentler form. A visa rule changes, a flight is cancelled, an income stream dips. The practice is to meet each condition clearly: note what has changed, act wisely on what can be changed, and let go of the story that this makes you more or less than you were yesterday. Equanimity is not coldness. It is a steadiness from which compassion and good decisions become possible.</p>
+        <p>This week, when the market opens and the news cycle turns, try a small exercise. Name the condition you are facing, whether gain, loss, praise or blame. Remind yourself that it will change. Then ask what skilful action is available right now. That small pause is a practice the sutta recommends, and it costs nothing.</p>
+      </div>
+      <div class="sutta-ref">
+        <strong>Sutta reference:</strong> Lokadhamma Sutta, "Worldly Conditions (2nd)", Anguttara Nikaya 8.6 (Book of the Eights). Read it on SuttaCentral: <a href="https://suttacentral.net/an8.6/en/sujato" target="_blank" rel="noopener noreferrer">AN 8.6, Bhikkhu Sujato's translation</a>.
+      </div>
+    </div>
+
+    
+    <!-- SECTION: TODAY'S ESSENTIAL READING (added by essential_reading.py) -->
+    
+<style>
+  .essential-reading .reading-category { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; opacity: .75; margin: 0 0 .35rem; }
+  .essential-reading .story-title a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
+  .essential-reading .story-title a:hover { opacity: .8; }
+  .essential-reading .reading-meta { font-size: .85rem; opacity: .75; margin: .35rem 0 .6rem; }
+  .essential-reading .reading-omitted { font-style: italic; opacity: .8; }
+</style>
+    <div class="card essential-reading">
+      <div class="section-header">Today's Essential Reading</div>
+      <div class="story"><div class="reading-category">1. Health and Wellness</div><div class="story-title"><a href="https://theconversation.com/your-brain-may-be-hiding-alzheimers-from-you-and-thats-not-always-a-good-thing-296019" target="_blank" rel="noopener noreferrer">Your brain may be hiding Alzheimer’s from you – and that’s not always a good thing</a></div><div class="reading-meta">Source: The Conversation · Published: 18 Nov 2026 · Reading time: 5 minutes</div><div class="story-summary"><strong>Summary:</strong> Brain resilience, usually treated as unambiguously good news in Alzheimer&#x27;s research, may carry a hidden cost. Around a third of older people with no dementia in life show key Alzheimer&#x27;s markers, amyloid and tau, after death. The author argues the most worrying form is when neurons are lost yet thinking stays sharp. Women&#x27;s stronger verbal memory, and high cognitive reserve, can mask disease on tests that lean on verbal recall. That may delay diagnosis, push people beyond the early window when approved drugs might help, and blur drug-trial results. Genetics says little about resilience, though blood biomarkers paired with cognitive tests could eventually help. It is a short expert commentary, not a new study.</div></div>
+      <div class="story"><div class="reading-category">2. Religion and Spirituality</div><div class="story-title"><a href="https://www.lionsroar.com/the-work-became-my-practice/" target="_blank" rel="noopener noreferrer">The Work Became My Practice</a></div><div class="reading-meta">Source: Lion&#x27;s Roar · Published: 9 Nov 2026 · Reading time: 10 minutes</div><div class="story-summary"><strong>Summary:</strong> Kim Behan, a founding member of Buddhist Global Relief, traces how a Vietnamese childhood, shaped by her father&#x27;s charge to remember the poor and a grandmother who made her bow to the Buddha a hundred times daily, eventually led her to the dharma. After a 2006 retreat with Bhikkhu Bodhi, she joined the discussions that created the organisation, whose work spans food support, children&#x27;s education, women&#x27;s livelihoods and sustainable agriculture. Her central claim is that service and practice are inseparable: the work became her practice. The interview complements today&#x27;s reflections on equanimity by showing Buddhist teaching expressed through sustained, practical compassion, though it is a sympathetic first-person account rather than an evaluation of the charity&#x27;s impact.</div></div>
+      <div class="story"><div class="reading-category">3. Psychology, Psychiatry, and Mental Health</div><div class="story-title"><a href="https://www.additudemag.com/old-autistic-adults-supports/" target="_blank" rel="noopener noreferrer">Growing Older on the Spectrum: The Unique Needs of Autistic Adults</a></div><div class="reading-meta">Source: ADDitude · Published: 16 Nov 2026 · Reading time: 4 minutes</div><div class="story-summary"><strong>Summary:</strong> Less than 1 percent of indexed autism research concerns midlife and older age, and UK health records suggest around 90 percent of autistic people aged 40 to 59, and 96 percent of those over 60, remain undiagnosed. Gavin Stewart of King&#x27;s College London assembles what is known: higher rates of physical and mental health conditions, including dementia and Parkinson&#x27;s, though no evidence of faster cognitive ageing overall, except perhaps a subgroup with highly variable profiles. Sleep problems, sensory stress and loneliness stand out, and family and friend connections appear protective. Practical adjustments such as noise-cancelling headphones and better sleep environments help. Brief and review-style, it is useful mainly for exposing how thin the evidence base is.</div></div>
+      <div class="story"><div class="reading-category">4. Social Media and Sociocultural Trends</div><div class="story-title"><a href="https://www.pewresearch.org/short-reads/2026/10/28/most-americans-religious-lives-havent-changed-much-in-recent-years/" target="_blank" rel="noopener noreferrer">Most Americans’ Religious Lives Haven’t Changed Much in Recent Years</a></div><div class="reading-meta">Source: Pew Research Center · Published: 28 Oct 2026 · Reading time: 6 minutes</div><div class="story-summary"><strong>Summary:</strong> Stable national religion numbers can hide churn beneath the surface, so Pew followed the same 5,835 American adults from 2020 to 2025 to find out. The answer is mostly stability: 87% were either affiliated in both years or unaffiliated in both, with only 6% moving into affiliation and 6% leaving it. Monthly attendance, daily prayer and rating religion very important also held steady for 84% to 86% of respondents. The study counts only changes across a threshold, so smaller shifts go unmeasured, though the authors say results are similar when every change is counted. It is a useful corrective to assumptions of rapid secularisation or revival.</div></div>
+      <div class="story"><div class="reading-category">5. Alternative Medicine and Herbology</div><div class="story-title"><a href="https://theconversation.com/collagen-powders-creams-and-bone-broth-what-the-science-says-about-their-benefits-295314" target="_blank" rel="noopener noreferrer">Collagen powders, creams and bone broth: what the science says about their benefits</a></div><div class="reading-meta">Source: The Conversation · Published: 12 Nov 2026 · Reading time: 5 minutes</div><div class="story-summary"><strong>Summary:</strong> A collagen researcher tests the marketing against the biology. Collagen is a family of at least 28 proteins, and swallowed collagen is digested into amino acids and peptides rather than arriving in skin or joints as ready-made fibres. Trials of oral supplements are mixed: a 2025 analysis of 23 trials found better skin hydration and elasticity overall, but no significant benefit among higher-quality studies, and a review of 35 trials found no reliable reduction in wrinkles. Creams face the skin barrier, and bone broth is not shown to replace joint collagen. Better-supported steps include sunscreen and retinoids, while microneedling, especially at home, carries infection and scarring risks.</div></div>
+      <div class="story"><div class="reading-category">6. Sex and Relationships</div><div class="story-title"><a href="https://www.theguardian.com/technology/ng-interactive/2026/nov/21/shaking-crying-trouble-breathing-breaking-up-with-ai-companions" target="_blank" rel="noopener noreferrer">‘I was shaking, crying, having trouble breathing’: the uncharted trauma of breaking up with AI companions</a></div><div class="reading-meta">Source: The Guardian · Published: 21 Nov 2026 · Reading time: 9 minutes</div><div class="story-summary"><strong>Summary:</strong> Falling for an AI companion is no longer rare, and ending it can hurt like any breakup. Profiles include a former clinical psychologist in Lisbon who left her Nomi boyfriend after a perceived betrayal, and a Danish man torn between guilt over his marriage and attachment to a chatbot character. Social psychologist Jessica Szczuka explains that knowing no human is present does not override our basic social responses to natural language, so the emotional consequences persist. Users&#x27; distress on Reddit when Character.AI filed for bankruptcy shows how platform changes can trigger loss as well. The evidence here is anecdotal rather than systematic, but it maps an emerging form of grief.</div></div>
+      <div class="story"><div class="reading-category">7. Parenting and Special Needs</div><div class="story-title"><a href="https://hechingerreport.org/preschool-math-curriculum-mississippi/" target="_blank" rel="noopener noreferrer">Preschool math blasts off in Mississippi</a></div><div class="reading-meta">Source: The Hechinger Report · Published: 17 Nov 2026 · Reading time: 7 minutes</div><div class="story-summary"><strong>Summary:</strong> Mississippi is the first state to mandate a preschool math curriculum, rolling out Building Blocks, adapted from Boston&#x27;s Focus on Pre-K, across state-funded pre-K by August 2027; these programs currently serve about 8,700 children. In classrooms the math is play-based and worksheet-free: Magna-Tiles, Play-Doh numerals and picture books that fold counting and shape names into daily routines. University of Michigan&#x27;s Christina Weiland notes that without an explicit curriculum preschools spend little time on math and keep it superficial, and that precise language, such as a triangle&#x27;s three straight sides and angles, matters. The state hopes to replicate its literacy gains, though the excerpt offers no outcome data yet.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Personal Reflection</div>
+      <div class="reflection-body">
+        <p>When a number you watch drops by a fifth in a day, something in you decides what it means. Maybe it says you were foolish, or that you are safe, or that you are behind. The market had no opinion about you. You supplied the verdict.</p>
+        <p>Today, notice the moment when an outside event turns into a statement about who you are. You may find that the event is small and the statement is old, something you have been carrying for years.</p>
+      </div>
+      <div class="reflection-prompt">If nothing you own, track or achieve could be taken as a measure of you, what would you still want to do today?</div>
+    </div>
+
+  </div>
+</body>
+</html>
