@@ -1145,5 +1145,67 @@
   "source": "The Hechinger Report",
   "published": "2026-11-17T14:00:00+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-23",
+  "category": 1,
+  "url": "https://www.sciencedaily.com/releases/2026/11/261120070904.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/11/261120070904.htm",
+  "title": "Keto diet slashes liver fat by 67% in just 4 months",
+  "source": "ScienceDaily",
+  "published": "2026-11-20T12:44:39+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-23",
+  "category": 3,
+  "url": "https://www.additudemag.com/midlife-adhd-symptoms-coping/",
+  "norm_url": "https://additudemag.com/midlife-adhd-symptoms-coping",
+  "title": "ADHD in Midlife & Beyond: 5 Big Research Findings",
+  "source": "ADDitude",
+  "published": "2026-11-17T23:04:26+00:00",
+  "focus": [
+   "ADHD"
+  ]
+ },
+ {
+  "date": "2026-11-23",
+  "category": 4,
+  "url": "https://restofworld.org/2026/ai-jobs-skills-gig-work/",
+  "norm_url": "https://restofworld.org/2026/ai-jobs-skills-gig-work",
+  "title": "AI isn’t replacing your job. It’s turning it into low-paid gig work",
+  "source": "Rest of World",
+  "published": "2026-11-19T11:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-23",
+  "category": 5,
+  "url": "https://sciencebasedmedicine.org/retracted-study-of-ivermectin-and-mebendazole-for-cancer-removed-by-publisher/",
+  "norm_url": "https://sciencebasedmedicine.org/retracted-study-of-ivermectin-and-mebendazole-for-cancer-removed-by-publisher",
+  "title": "Retracted: Study of ivermectin and mebendazole for cancer removed by publisher",
+  "source": "Science-Based Medicine",
+  "published": "2026-10-24T07:30:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-23",
+  "category": 6,
+  "url": "https://www.theguardian.com/wellness/2026/nov/18/adam-grant-platonic-bonds-relationships",
+  "norm_url": "https://theguardian.com/wellness/2026/nov/18/adam-grant-platonic-bonds-relationships",
+  "title": "‘Opposites don’t attract’: Adam Grant on how to strengthen friendships and make new ones faster",
+  "source": "The Guardian",
+  "published": "2026-11-18T18:19:27+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-23",
+  "category": 7,
+  "url": "https://www.theguardian.com/commentisfree/2026/nov/18/neet-childhood-neglect-needs-mental-health-milburn-review-britain",
+  "norm_url": "https://theguardian.com/commentisfree/2026/nov/18/neet-childhood-neglect-needs-mental-health-milburn-review-britain",
+  "title": "Childhood neglect, unmet needs, mental health struggles: this is the making of a Neet | Mark Mon-Williams",
+  "source": "The Guardian",
+  "published": "2026-11-18T08:00:36+00:00",
+  "focus": []
  }
 ]
