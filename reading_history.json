@@ -1207,5 +1207,67 @@
   "source": "The Guardian",
   "published": "2026-11-18T08:00:36+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-24",
+  "category": 1,
+  "url": "https://www.npr.org/2026/11/23/nx-s1-6047791/mushroom-supplements-health-research",
+  "norm_url": "https://npr.org/2026/11/23/nx-s1-6047791/mushroom-supplements-health-research",
+  "title": "Mushroom supplements promise health benefits. What does the science say?",
+  "source": "NPR Shots",
+  "published": "2026-11-23T10:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-24",
+  "category": 3,
+  "url": "https://www.psychiatrictimes.com/view/podcast-bessel-van-der-kolk-md-on-trauma-attachment-and-the-limits-of-pharmacotherapy-for-ptsd",
+  "norm_url": "https://psychiatrictimes.com/view/podcast-bessel-van-der-kolk-md-on-trauma-attachment-and-the-limits-of-pharmacotherapy-for-ptsd",
+  "title": "<![CDATA[Podcast: Bessel van der Kolk, MD, on Trauma, Attachment, and the Limits of Pharmacotherapy for PTSD]]>",
+  "source": "Psychiatric Times",
+  "published": "2026-11-20T17:00:00+00:00",
+  "focus": [
+   "PTSD"
+  ]
+ },
+ {
+  "date": "2026-11-24",
+  "category": 4,
+  "url": "https://www.pewresearch.org/short-reads/2026/10/23/growing-share-of-americans-say-social-media-is-an-important-news-source-for-them/",
+  "norm_url": "https://pewresearch.org/short-reads/2026/10/23/growing-share-of-americans-say-social-media-is-an-important-news-source-for-them",
+  "title": "Growing Share of Americans Say Social Media Is an Important News Source for Them",
+  "source": "Pew Research Center",
+  "published": "2026-10-23T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-24",
+  "category": 5,
+  "url": "https://theconversation.com/boots-is-moving-into-medical-cannabis-will-pharmacies-make-it-mainstream-296881",
+  "norm_url": "https://theconversation.com/boots-is-moving-into-medical-cannabis-will-pharmacies-make-it-mainstream-296881",
+  "title": "Boots is moving into medical cannabis – will pharmacies make it mainstream?",
+  "source": "The Conversation",
+  "published": "2026-11-23T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-24",
+  "category": 6,
+  "url": "https://www.psychologytoday.com/us/blog/the-myths-of-sex/202611/when-casual-dating-comes-with-major-expectations",
+  "norm_url": "https://psychologytoday.com/us/blog/the-myths-of-sex/202611/when-casual-dating-comes-with-major-expectations",
+  "title": "When Casual Dating Comes With Major Expectations",
+  "source": "Psychology Today",
+  "published": "2026-11-23T17:58:46+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-24",
+  "category": 7,
+  "url": "https://hechingerreport.org/proof-points-3-cellphone-ban-studies/",
+  "norm_url": "https://hechingerreport.org/proof-points-3-cellphone-ban-studies",
+  "title": "Three studies in a row show teeny-tiny or zero academic gains from school cellphone bans",
+  "source": "The Hechinger Report",
+  "published": "2026-11-23T11:00:00+00:00",
+  "focus": []
  }
 ]

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Daily Impact — 24 November 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Georgia, serif;
+      background: #0a0e16 url('mainbg.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #edeff2;
+      min-height: 100vh;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 10, 5, 0.62);
+      z-index: 0;
+    }
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    .masthead {
+      text-align: center;
+      padding: 48px 24px 36px;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      margin-bottom: 40px;
+    }
+    .masthead h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #c9a84c;
+      text-transform: uppercase;
+    }
+    .masthead .dateline {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: #7ecfd4;
+      text-transform: uppercase;
+    }
+    .masthead .tagline {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: #8a9bb0;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .card {
+      background: rgba(12, 16, 8, 0.76);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 14px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+    }
+    .section-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .news-scroll {
+      display: block;
+      max-height: 600px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .news-scroll::-webkit-scrollbar { width: 4px; }
+    .news-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 2px; }
+    .news-scroll::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.35); border-radius: 2px; }
+    .story { display: block; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .story:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .story-title { font-size: 1.1rem; font-weight: 700; color: #edeff2; line-height: 1.4; margin-bottom: 10px; }
+    .story-summary { font-size: 0.95rem; color: #b0bcc8; line-height: 1.7; margin-bottom: 10px; }
+    .story-impact { font-size: 0.92rem; color: #b8c8d0; line-height: 1.6; margin-bottom: 8px; font-style: normal; }
+    .story-impact strong { color: #c9a84c; font-style: normal; font-weight: 700; }
+    .story-personal { font-size: 0.92rem; color: #b8c8d0; line-height: 1.6; margin-bottom: 12px; font-style: normal; }
+    .story-personal strong { color: #c9a84c; font-style: normal; font-weight: 700; }
+    .story-source a { font-size: 0.82rem; color: #c9a84c; text-decoration: none; letter-spacing: 0.05em; }
+    .story-source a:hover { color: #7ecfd4; text-decoration: underline; }
+    .subsection-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7ecfd4;
+      margin: 28px 0 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(126,207,212,0.2);
+    }
+    .editorial-note { font-style: italic; font-size: 0.88rem; color: #6b7a8d; margin-bottom: 20px; line-height: 1.6; }
+    .editorial-scroll {
+      display: block;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .editorial-scroll::-webkit-scrollbar { width: 4px; }
+    .editorial-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 2px; }
+    .editorial-scroll::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.35); border-radius: 2px; }
+    .chat-message {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 22px;
+      width: 100%;
+    }
+    .chat-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.35);
+      flex-shrink: 0;
+      object-fit: cover;
+      background: rgba(201,168,76,0.1);
+    }
+    .chat-bubble { flex: 1; min-width: 0; }
+    .chat-name {
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 5px;
+    }
+    .chat-text {
+      font-size: 0.96rem;
+      color: #cdd5de;
+      line-height: 1.75;
+      background: rgba(255,255,255,0.04);
+      padding: 12px 16px;
+      border-radius: 0 12px 12px 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .dhamma-body { font-size: 0.97rem; color: #cdd5de; line-height: 1.85; }
+    .dhamma-body p { margin-bottom: 20px; }
+    .sutta-ref { margin-top: 28px; padding: 16px 20px; background: rgba(126,207,212,0.06); border-left: 3px solid #7ecfd4; border-radius: 0 8px 8px 0; font-size: 0.88rem; color: #8a9bb0; }
+    .sutta-ref a { color: #7ecfd4; text-decoration: none; }
+    .sutta-ref a:hover { text-decoration: underline; }
+    .reflection-body { font-size: 0.97rem; color: #cdd5de; line-height: 1.85; }
+    .reflection-body p { margin-bottom: 16px; }
+    .reflection-prompt {
+      margin-top: 20px;
+      font-style: italic;
+      font-size: 0.93rem;
+      color: #7ecfd4;
+      border-left: 3px solid rgba(201,168,76,0.4);
+      padding-left: 16px;
+      line-height: 1.7;
+    }
+    @media (max-width: 600px) {
+      .card { padding: 24px 20px; }
+      .page { padding: 24px 16px 60px; }
+      .chat-avatar { width: 38px; height: 38px; }
+    }
+  </style>
+<style>.story-date { font-size: 0.78rem; color: #7ecfd4; letter-spacing: 0.05em; margin-bottom: 8px; }</style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="page">
+    <div class="masthead">
+      <h1>The Daily Impact</h1>
+      <div class="dateline">Tuesday, 24 November 2026 · Bangkok</div>
+      <div class="tagline">Intelligence for decision-makers, innovators, market movers and mobile professionals navigating rapid change.</div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">News</div>
+      <div class="news-scroll">
+
+        <div class="story">
+          <div class="story-title">Nvidia reinstates Jensen Huang as CEO days after ruling out his return</div>
+          <div class="story-date" data-published="2026-11-23T21:12+07:00" data-kind="general">Published 23 Nov 2026, 21:12 Bangkok</div>
+          <div class="story-summary">Nvidia's board reinstated Jensen Huang as CEO with immediate effect, reversing his 12 November departure over revelations of extramarital affairs, including one with a woman US authorities suspected of spying for China. The board said it consulted senior US officials and sees no national security risk. Lawmakers from both parties criticised the move, and SEC and Justice Department investigations continue.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Governance, export-control politics and the AI trade are now tangled together. The board's reversal came after input from Washington, which will draw scrutiny.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Treat AI-linked holdings as exposed to headline and policy risk, not only to earnings. Expect more volatility around the congressional hearings scheduled for early December.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Nvidia+Huang+reinstated+CEO+2026" target="_blank" rel="noopener noreferrer">ABC News</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Wall Street surges on Huang's return as Treasury yields and the dollar climb</div>
+          <div class="story-date" data-published="2026-11-24T05:25+07:00" data-kind="market">Published 24 Nov 2026, 05:25 Bangkok</div>
+          <div class="story-summary">Nvidia closed up 31% on Monday. The Nasdaq 100 rose 6.5%, the S&P 500 added 4.7% and Europe's STOXX 600 gained 1.8%. The rally reversed much of last week's rout, when the Nasdaq fell 10% in its worst week since March 2020. The 10-year Treasury yield rose to about 4.94%, the 2-year to about 4.69%, and the dollar index hit a 19-month high near 104.3.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> One stock's reversal drove a market-wide swing. Rising yields and a stronger dollar show that traders are still pricing a hawkish Fed.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> A one-day rebound after a 10% weekly drop is not a regime change. Rebalance on your plan rather than on the bounce, and watch dollar-denominated costs if you earn or spend in other currencies.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Wall+Street+soars+Huang+Nvidia+2026" target="_blank" rel="noopener noreferrer">Reuters</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Oil falls as the geopolitical premium fades</div>
+          <div class="story-date" data-published="2026-11-23T22:47+07:00" data-kind="market">Published 23 Nov 2026, 22:47 Bangkok</div>
+          <div class="story-summary">Brent fell about 3.5% to roughly $86.76 and WTI to about $80.52 in Monday trading. Brent is down about 22% over one month but still up about 43% year to date. The article attributes the drop to fading risk premium. It says a move back above $90 would signal the premium returning, and a fall below $85 would extend the slide.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Oil is still far above its year-start level, so energy costs keep feeding inflation and rate expectations. The remaining premium reflects the Iran conflict.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Don't budget for a durable fall in fuel and freight costs yet. If you hedge travel or logistics exposure, the $85–$90 Brent band is the level to watch.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Oil+falls+fading+geopolitical+premium+2026" target="_blank" rel="noopener noreferrer">Investing.com</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Gold, copper and miners rebound; bitcoin steadies near $61,000</div>
+          <div class="story-date" data-published="2026-11-24T05:46+07:00" data-kind="market">Published 24 Nov 2026, 05:46 Bangkok</div>
+          <div class="story-summary">Gold futures rose about 4%, silver about 5% and copper nearly 3% on Monday. Freeport-McMoRan jumped almost 8%, and Newmont and Gold Fields each gained more than 7%. Bitcoin rose about 1% to roughly $61,300, after falling below $60,000 last week for the first time since July. Strategy rose 8.5% and Mara 7.6%.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Metals recovered alongside risk assets, which suggests last week's selling was forced deleveraging. Crypto is still trading as a high-beta tech proxy.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Don't count on bitcoin to offset equity drawdowns in a stress event. Check how much of your portfolio is exposed to the same AI-liquidity factor.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=stocks+moving+most+gold+bitcoin+Zscaler+2026" target="_blank" rel="noopener noreferrer">CNBC</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">CrowdStrike to acquire Zscaler in $43.9 billion all-stock deal</div>
+          <div class="story-date" data-published="2026-11-24T05:46+07:00" data-kind="general">Published 24 Nov 2026, 05:46 Bangkok</div>
+          <div class="story-summary">CrowdStrike agreed to buy Zscaler at $260.41 per share, a 34% premium to Friday's close. Zscaler holders receive 1.135 CrowdStrike shares each. Zscaler rose 13% and CrowdStrike fell about 9% in early trading. The companies say the combined business would start with more than $10 billion in annual recurring revenue. Closing is expected in the second half of CrowdStrike's fiscal year ending January 2028.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> The deal would fuse endpoint and network security into one platform. That pressures rivals and may reshape enterprise security purchasing for AI deployments.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> If your firm uses either vendor, review contract terms and integration roadmaps now. Expect rival vendors to offer discounts aggressively over the next year.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=CrowdStrike+Zscaler+acquisition+2026" target="_blank" rel="noopener noreferrer">CNBC</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Iran strikes Bahrain facility as Trump says he wants a "real deal"</div>
+          <div class="story-date" data-published="2026-11-23T12:00+07:00" data-kind="general">Published 23 Nov 2026, 12:00 Bangkok</div>
+          <div class="story-summary">Bahrain's Interior Ministry said an Iranian attack on Saturday hit a civilian industrial facility and injured two people. Iran's Revolutionary Guard said it launched missiles and drones at US positions in Bahrain, and Bahraini air defences intercepted several attacks. On Friday, Trump said Iran wants a deal to end hostilities but not one he finds acceptable.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Gulf infrastructure remains in the line of fire, and diplomacy has not produced terms either side accepts. That keeps a risk premium in oil and shipping insurance.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> If you travel or operate through the Gulf, keep contingency routing and insurance current. Assume energy-price shocks can return quickly.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Iran+Bahrain+attack+Trump+deal+2026" target="_blank" rel="noopener noreferrer">Just Security</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Denmark expels Russian defence attaché over alleged assassination plot</div>
+          <div class="story-date" data-published="2026-11-23T12:00+07:00" data-kind="general">Published 23 Nov 2026, 12:00 Bangkok</div>
+          <div class="story-summary">On Friday Denmark ordered Russia's defence attaché to leave. Danish intelligence said Russian operatives recruited members of a Danish gang to kill Ukrainian rapper Kyivstoner. Foreign Minister Lars Løkke Rasmussen called the plot an "outrageous and completely unacceptable violation of our boundaries." Poland said Russia had targeted the same man earlier this year and that a Russian citizen had been detained.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> It is another case of Russia using criminal proxies on European soil. Governments are answering with diplomatic expulsions rather than escalation.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Security and compliance teams in Europe should expect tighter scrutiny of Russia-linked counterparties. Reputational risk now extends beyond sanctions lists.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Denmark+expels+Russian+attache+plot+2026" target="_blank" rel="noopener noreferrer">Just Security</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Trump offers the Philippines $2.4 billion for self-defence, with a catch</div>
+          <div class="story-date" data-published="2026-11-23T16:02+07:00" data-kind="general">Published 23 Nov 2026, 16:02 Bangkok</div>
+          <div class="story-summary">A US loan and financing package of $2.4 billion aims to strengthen Manila's deterrence in the South China Sea. Analysts quoted by SCMP warn that it could deepen the Philippines' reliance on American arms rather than build self-reliance.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Financing tied to US-made weapons ties Manila more closely to Washington. That sharpens the security alignment with China at the centre of the South China Sea dispute.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Defence, shipping and insurance exposure in the South China Sea may be repriced as alignments harden. Check your supply-chain dependence on those routes.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Trump+Philippines+2.4+billion+self-defence+2026" target="_blank" rel="noopener noreferrer">South China Morning Post</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Takaichi leaves APEC without a Xi meeting as Taiwan heads to local elections</div>
+          <div class="story-date" data-published="2026-11-23T20:02+07:00" data-kind="general">Published 23 Nov 2026, 20:02 Bangkok</div>
+          <div class="story-summary">Japan's Prime Minister Sanae Takaichi left the APEC summit in Shenzhen without a formal meeting with Xi Jinping, after a handshake of about 10 seconds, according to SCMP as cited by the brief. On 19 November Taiwan reported two Russian Tu-95 bombers entering its air defence zone. Taiwan holds local elections on 28 November. Monday's markets were weak, with the Nikkei down 5.06% and the KOSPI down 3.31%.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Cold Tokyo–Beijing relations and Russian activity near Japan and Taiwan add political risk to East Asian supply chains and markets.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> If you depend on Japanese, Taiwanese or Korean suppliers, build slack into Q1 planning. Treat the 28 November vote and Taiwan's GDP release on 27 November as near-term signals.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Asia+Intelligence+Brief+Takaichi+Taiwan+2026" target="_blank" rel="noopener noreferrer">The Rio Times</a></div>
+        </div>
+
+        <div class="subsection-label">Southeast Asia</div>
+
+        <div class="story">
+          <div class="story-title">Indonesia plans for 70% of mining shares or revenue to be state-controlled</div>
+          <div class="story-date" data-published="2026-11-23T16:05+07:00" data-kind="general">Published 23 Nov 2026, 16:05 Bangkok</div>
+          <div class="story-summary">The proposal would shift a large share of mining equity or income to the state. Fitch Solutions says it adds policy uncertainty to the sector. The presidential palace has said the 70% target concerns benefits from managing mining permits, not necessarily equity in every company. Reports also say Indonesia's energy stock index fell about 4% after the president's remarks.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Indonesia is central to nickel and coal supply. Unclear ownership and revenue rules raise risk for the battery and stainless-steel supply chains.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> If you invest in or source from Indonesian miners, wait for the implementing regulation before sizing positions. Diversify nickel sourcing where you can.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Indonesia+70%25+mining+state-controlled+2026" target="_blank" rel="noopener noreferrer">South China Morning Post</a></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Editorial</div>
+      <div class="editorial-note">This is an imaginative editorial device. These figures are fictional constructions. These are not real quotations or historical claims.</div>
+      <div class="editorial-scroll">
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle">
+          <div class="chat-bubble">
+            <div class="chat-name">Aristotle</div>
+            <div class="chat-text">A single man's return lifted the Nasdaq nearly seven percent. Observe the cause: the market treated one person as the final cause of an entire industry. A well-ordered institution should not hang on one name. Where the mean is lost, there is excess on both sides, and last week was the excess of fear.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger">
+          <div class="chat-bubble">
+            <div class="chat-name">Seneca the Younger</div>
+            <div class="chat-text">Down ten percent, up five in one day, and you call it news? Fortune lends, she does not give. The one who held no more than he could lose calmly slept through both. Prepare for the loss while the portfolio is full.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="confucius.jpeg" alt="Confucius">
+          <div class="chat-bubble">
+            <div class="chat-name">Confucius</div>
+            <div class="chat-text">The board said it had asked officials before it reversed itself. When names must be rectified, begin with who holds authority and who answers for it. A leader's candour is the foundation of trust, and trust is cheaper than any export licence. Denmark, at least, called a plot by its name and sent the attaché home.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci">
+          <div class="chat-bubble">
+            <div class="chat-name">Leonardo da Vinci</div>
+            <div class="chat-text">I look at CrowdStrike and Zscaler and see two mechanisms joined into one machine. Endpoint and network, like the heart and the veins. But a machine of forty-four billion dollars still needs every gear to turn together, and joining is easier to sketch than to build.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre">
+          <div class="chat-bubble">
+            <div class="chat-name">Jean-Paul Sartre</div>
+            <div class="chat-text">The Philippines is offered money with a catch, and Washington calls it freedom. But a state that buys its defence is choosing, and choosing is the only thing one cannot avoid. No one escapes responsibility by saying the package left no alternative. Choosing nothing is also a choice.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla">
+          <div class="chat-bubble">
+            <div class="chat-name">Nikola Tesla</div>
+            <div class="chat-text">Oil at eighty-seven, down a third in a month, and still the world's engines wait on the Strait of Hormuz. A civilisation tied to one narrow channel invites ruin. Energy must come from sources no navy can blockade, and the sooner the better.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung">
+          <div class="chat-bubble">
+            <div class="chat-name">Carl Jung</div>
+            <div class="chat-text">Notice the shadow in this week's story: a hero of the age is exposed, cast out, then called back within eleven days. The collective could not tolerate losing its projection. Markets do not only price earnings, they price the figures we need to believe in. Fear of the empty throne drove the sell-off.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs">
+          <div class="chat-bubble">
+            <div class="chat-name">Steve Jobs</div>
+            <div class="chat-text">Look, the lesson is simple: great companies are built around product, and people who care obsessively. I get why the board brought him back. But if one person is worth a trillion dollars in a day, you don't have a succession plan, you have a single point of failure.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee">
+          <div class="chat-bubble">
+            <div class="chat-name">Bruce Lee</div>
+            <div class="chat-text">Be water. Indonesia says seventy percent of mining must benefit the state, then the palace softens it. Rigid rules break investors' stance, and rigid investors get hit by the next shift. Adapt to the form of the vessel, but don't let the vessel own you.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein">
+          <div class="chat-bubble">
+            <div class="chat-name">Albert Einstein</div>
+            <div class="chat-text">What strikes me is the relativity of it all. A seven percent jump looks enormous from last Friday's low and modest from last month's high. The observer's frame decides the story. Ask first where your own reference point is.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre">
+          <div class="chat-bubble">
+            <div class="chat-name">Jean-Paul Sartre</div>
+            <div class="chat-text">Albert, your reference point is itself a choice. The investor who picks the Friday low has already decided what the story will be, then pretends the numbers did it.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger">
+          <div class="chat-bubble">
+            <div class="chat-name">Seneca the Younger</div>
+            <div class="chat-text">Jean-Paul speaks of choosing the frame. Then choose one that lasts longer than a trading day. Another way to say it: the market is a loud room, and a wise person visits it without moving in.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs">
+          <div class="chat-bubble">
+            <div class="chat-name">Steve Jobs</div>
+            <div class="chat-text">Seneca, nice, but a room you don't move into is a room where you don't build anything. Stoic calm is fine until a competitor ships. I'd rather be calm and shipping.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="confucius.jpeg" alt="Confucius">
+          <div class="chat-bubble">
+            <div class="chat-name">Confucius</div>
+            <div class="chat-text">Steve says build, Seneca says stay calm. Perhaps the two are one question: what does the builder owe to those who depend on the building? Speed without duty is only noise, and duty without action is only a word.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla">
+          <div class="chat-bubble">
+            <div class="chat-name">Nikola Tesla</div>
+            <div class="chat-text">Confucius, duty is fine, but duty needs a power source. The AI boom runs on electricity, and the same grid that serves the data centres serves the villages. Whoever solves energy settles most arguments.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle">
+          <div class="chat-bubble">
+            <div class="chat-name">Aristotle</div>
+            <div class="chat-text">Nikola names the efficient cause, energy, and Confucius the final cause, duty. Perhaps the question is how they relate: does the purpose govern the power, or does the power set the purpose?</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee">
+          <div class="chat-bubble">
+            <div class="chat-name">Bruce Lee</div>
+            <div class="chat-text">Aristotle, too much sorting of causes. In a fight, you don't classify the punch, you move. Take the real lesson from the oil drop: don't mistake a calm round for the end of the match.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung">
+          <div class="chat-bubble">
+            <div class="chat-name">Carl Jung</div>
+            <div class="chat-text">Bruce speaks of moving without sorting. I would only say: the part of us that moves without thinking is often the part that carries the unexamined fear. Neither fixed form nor formlessness frees us until we know what we are acting from.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci">
+          <div class="chat-bubble">
+            <div class="chat-name">Leonardo da Vinci</div>
+            <div class="chat-text">Carl, that is why I kept notebooks. Sketch your fear on paper and it becomes a thing with edges, which you can measure and, with luck, redesign. A notebook costs less than a margin call.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein">
+          <div class="chat-bubble">
+            <div class="chat-name">Albert Einstein</div>
+            <div class="chat-text">Leonardo's notebook and Steve's shipping meet at an experiment: write down the prediction, run it, record the result. Whether the subject is a chip, a deal or a mine, the discipline is to find out whether you were wrong.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger">
+          <div class="chat-bubble">
+            <div class="chat-name">Seneca the Younger</div>
+            <div class="chat-text">Albert, that is nearly a Stoic evening review. Each night I asked what I did well and what I did poorly, and I hid nothing from myself. A trader's ledger could do the same.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre">
+          <div class="chat-bubble">
+            <div class="chat-name">Jean-Paul Sartre</div>
+            <div class="chat-text">Seneca's ledger is honest only if it admits that you chose each entry. A notebook that blames the market is still bad faith, however neatly it is ruled.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="confucius.jpeg" alt="Confucius">
+          <div class="chat-bubble">
+            <div class="chat-name">Confucius</div>
+            <div class="chat-text">Jean-Paul, you are right, and I would add one thing. To own your choices, you must also own how they land on others. A mining decree in Jakarta reaches a miner, a smelter and a battery maker. Responsibility travels along the chain.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs">
+          <div class="chat-bubble">
+            <div class="chat-name">Steve Jobs</div>
+            <div class="chat-text">Confucius, the chain framing is useful, so here is how I'd put it: the people at the end of the chain are the customers. Whoever forgets that, whether in Jakarta or Santa Clara, gets surprised.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle">
+          <div class="chat-bubble">
+            <div class="chat-name">Aristotle</div>
+            <div class="chat-text">Steve, a fine point, and I accept it. A state or a firm is judged by whether the end it serves is good. The customer, the citizen and the worker are the proper end, and the market is only the means.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla">
+          <div class="chat-bubble">
+            <div class="chat-name">Nikola Tesla</div>
+            <div class="chat-text">Aristotle, mark that "means" well. Means can be redesigned. A grid, a chip or a corporate charter is only a means, and a clever engineer can often improve one without anyone's permission.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung">
+          <div class="chat-bubble">
+            <div class="chat-name">Carl Jung</div>
+            <div class="chat-text">Nikola, I agree the means can change, and I add this: so can the one who changes them. A person who has met their own shadow tends to build less defensively. Watch whether today's winners build from confidence or from dread.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee">
+          <div class="chat-bubble">
+            <div class="chat-name">Bruce Lee</div>
+            <div class="chat-text">Carl, simple version: empty your cup before you act. Then act. Everything we said today is good, but none of it counts until someone throws the first honest punch.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein">
+          <div class="chat-bubble">
+            <div class="chat-name">Albert Einstein</div>
+            <div class="chat-text">Bruce, I would only add: do it in a manner you could explain to a child. If the explanation fails, the understanding is not yet complete, and the market will soon say so.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci">
+          <div class="chat-bubble">
+            <div class="chat-name">Leonardo da Vinci</div>
+            <div class="chat-text">Albert's child is worth a thought. A child asks why the sky is blue and why a price moves, and both are fair questions. Perhaps the best advice today is to keep the curiosity, whatever the headline says.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Dhamma Corner</div>
+      <div class="dhamma-body">
+        <p>This week gave us a lesson in how quickly fortunes turn. Last week the Nasdaq fell ten percent in its worst stretch since 2020. On Monday a chief executive was reinstated, his company's shares rose more than thirty percent in a day, and the index rebounded sharply. Oil slid, gold climbed, bitcoin wobbled around sixty thousand. The early teachings have a plain word for this: aniccā, impermanence. Conditions arise and pass, and the mind that clings to either the peak or the trough is the one that suffers.</p>
+        <p>The Sallatha Sutta, the Discourse on the Arrow, gives a precise tool for such days. In it the Buddha describes how an untrained person, touched by painful feeling, sorrows and laments and is distraught. That person feels two pains, like someone struck by one arrow and then by a second. The first arrow is the event itself: the loss, the headline, the drawdown. The second arrow is what we add: the panic, the resentment, the rehearsal of what might have been. The trained disciple, the sutta says, feels the first arrow only. Pain is not denied. The mind simply does not pile its own wound on top.</p>
+        <p>For a leader or investor this is practical, not abstract. A falling position will hurt, and a missed rally will sting. The teaching asks that you notice the feeling as feeling. Is it painful, pleasant or neutral? Then see whether craving or aversion is attached to it. The sutta also observes that one who lacks any other way of finding ease turns to sensual pleasure, here the endless refresh of the price screen, which only strengthens the habit. A person with training sees a different path: seeing the feeling clearly, without being pulled into reaction.</p>
+        <p>For the traveller and digital nomad the same applies. Visas shift, flights are cancelled, currencies swing, and a Gulf conflict can reprice a fuel bill overnight. These are first arrows. The question each morning is what second arrow you are about to fire. One measure of practice is how quickly you notice it.</p>
+        <p>Nothing here counsels passivity. Elsewhere the early texts praise diligence, prudence and right livelihood. The point is that clear action comes from a steady mind, and a steady mind begins by seeing the arrow for what it is. Let today's volatility be a reminder rather than a verdict: what rose can fall, what fell can rise, and your peace need not wait on either.</p>
+        <div class="sutta-ref">
+          Reference: Sallatha Sutta (The Arrow), Saṁyutta Nikāya 36.6 — <a href="https://suttacentral.net/sn36.6" target="_blank" rel="noopener noreferrer">Read on SuttaCentral</a>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- SECTION: TODAY'S ESSENTIAL READING (added by essential_reading.py) -->
+    
+<style>
+  .essential-reading .reading-category { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; opacity: .75; margin: 0 0 .35rem; }
+  .essential-reading .story-title a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
+  .essential-reading .story-title a:hover { opacity: .8; }
+  .essential-reading .reading-meta { font-size: .85rem; opacity: .75; margin: .35rem 0 .6rem; }
+  .essential-reading .reading-omitted { font-style: italic; opacity: .8; }
+</style>
+    <div class="card essential-reading">
+      <div class="section-header">Today's Essential Reading</div>
+      <div class="story"><div class="reading-category">1. Health and Wellness</div><div class="story-title"><a href="https://www.npr.org/2026/11/23/nx-s1-6047791/mushroom-supplements-health-research" target="_blank" rel="noopener noreferrer">Mushroom supplements promise health benefits. What does the science say?</a></div><div class="reading-meta">Source: NPR Shots · Published: 23 Nov 2026 · Reading time: 5 minutes</div><div class="story-summary"><strong>Summary:</strong> Functional mushrooms such as lion&#x27;s mane, reishi and turkey tail are marketed on social media as aids to focus, immunity and ageing, but this report asks what the evidence actually supports. A dietitian says robust clinical trials are largely lacking and warns that mushrooms concentrate whatever is in their growing soil, while traditional use does not establish safety or dosing. The strongest signal comes from PSK, a turkey tail extract: a meta-analysis of eight randomized trials covering 8,009 gastric cancer patients in Japan found a 12% reduction in risk of death. Even a supportive oncologist stresses that this does not mean mushrooms cure cancer, and that questions of who benefits remain open.</div></div>
+      <div class="story"><div class="reading-category">2. Religion and Spirituality</div><div class="story-summary reading-omitted">No recommendation today — Neither candidate fits the category: one profiles an investigator of psychic fraud and the other is a mental-health guide to delusions, so an honest omission is better than a stretch.</div></div>
+      <div class="story"><div class="reading-category">3. Psychology, Psychiatry, and Mental Health</div><div class="story-title"><a href="https://www.psychiatrictimes.com/view/podcast-bessel-van-der-kolk-md-on-trauma-attachment-and-the-limits-of-pharmacotherapy-for-ptsd" target="_blank" rel="noopener noreferrer">&lt;![CDATA[Podcast: Bessel van der Kolk, MD, on Trauma, Attachment, and the Limits of Pharmacotherapy for PTSD]]&gt;</a></div><div class="reading-meta">Source: Psychiatric Times · Published: 20 Nov 2026 · Reading time: 4 minutes</div><div class="story-summary"><strong>Summary:</strong> Psychiatrist Bessel van der Kolk argues that much of what is labelled trauma is really a disorder of attachment, harm done by the very person meant to provide comfort, and that antidepressants have served such patients poorly. In his NIH-funded trial of 88 people with PTSD, EMDR outperformed fluoxetine and placebo, and no one on fluoxetine had no remaining symptoms at six months. He also points to a phase 3 trial of MDMA-assisted therapy in 90 people with severe PTSD, in which he was an investigator, and says he uses ketamine in his practice. This is one clinician&#x27;s view in conversation, not a balanced review, but his warnings about set and setting, and about psychosis, are practical.</div></div>
+      <div class="story"><div class="reading-category">4. Social Media and Sociocultural Trends</div><div class="story-title"><a href="https://www.pewresearch.org/short-reads/2026/10/23/growing-share-of-americans-say-social-media-is-an-important-news-source-for-them/" target="_blank" rel="noopener noreferrer">Growing Share of Americans Say Social Media Is an Important News Source for Them</a></div><div class="reading-meta">Source: Pew Research Center · Published: 23 Oct 2026 · Reading time: 3 minutes</div><div class="story-summary"><strong>Summary:</strong> Social media is now an important way to keep up with the news for 58% of US adults, up from 43% in 2022, according to a Pew-Knight Initiative survey of 3,488 adults conducted in June 2026. The share calling it their most important news source has risen from 5% to 13%. The generational divide is stark: 76% of adults aged 18 to 29 value it, including 22% who say it is their main route to news, against 41% of those 65 and older. About half of under-30s also say they have at least some trust in information from social media. The findings matter for anyone tracking how Americans get their civic information.</div></div>
+      <div class="story"><div class="reading-category">5. Alternative Medicine and Herbology</div><div class="story-title"><a href="https://theconversation.com/boots-is-moving-into-medical-cannabis-will-pharmacies-make-it-mainstream-296881" target="_blank" rel="noopener noreferrer">Boots is moving into medical cannabis – will pharmacies make it mainstream?</a></div><div class="reading-meta">Source: The Conversation · Published: 23 Nov 2026 · Reading time: 4 minutes</div><div class="story-summary"><strong>Summary:</strong> Boots has launched a private medical cannabis clinic in the UK, prompting the question of whether pharmacies can make such treatment mainstream. The gap is large: private prescriptions rose from about 350,000 in 2023–24 to more than 830,000 in 2024–25, while the NHS issued just 70 CBD prescriptions in 2025. The evidence explains the caution. Purified CBD cut seizures by about 20% in Dravet and Lennox-Gastaut syndromes, and a THC-CBD spray has support for spasticity in multiple sclerosis. For chronic pain benefits look modest, and evidence for anxiety and insomnia is weak. Side effects, dependence risk and drug interactions make careful monitoring essential, and cost still limits access.</div></div>
+      <div class="story"><div class="reading-category">6. Sex and Relationships</div><div class="story-title"><a href="https://www.psychologytoday.com/us/blog/the-myths-of-sex/202611/when-casual-dating-comes-with-major-expectations" target="_blank" rel="noopener noreferrer">When Casual Dating Comes With Major Expectations</a></div><div class="reading-meta">Source: Psychology Today · Published: 23 Nov 2026 · Reading time: 4 minutes</div><div class="story-summary"><strong>Summary:</strong> Situationships, ambiguous arrangements that include sex and intimacy but lack agreed labels, are the subject of a preliminary survey of 390 adults. Women were more likely to enter them hoping for commitment and more often described mixed signals and closeness followed by distance (77% versus 50% of men). Only 9% of past situationships became relationships, yet 41% lasted at least seven months and half of participants had returned to a former one. Despite the missing labels, 55% assumed sexual exclusivity and most would feel betrayed by a partner seeing others. The core problem is mismatched assumptions rather than the lack of a label. The sample was an online convenience sample of different-sex relationships, limiting generalisation.</div></div>
+      <div class="story"><div class="reading-category">7. Parenting and Special Needs</div><div class="story-title"><a href="https://hechingerreport.org/proof-points-3-cellphone-ban-studies/" target="_blank" rel="noopener noreferrer">Three studies in a row show teeny-tiny or zero academic gains from school cellphone bans</a></div><div class="reading-meta">Source: The Hechinger Report · Published: 23 Nov 2026 · Reading time: 7 minutes</div><div class="story-summary"><strong>Summary:</strong> Three major studies of school cellphone bans now point the same way: academic gains are tiny or absent. A new Harvard study of locked-pouch schools found a combined math and reading improvement of 0.0087 of a standard deviation, which the authors translated into one to two weeks of extra learning a year. Critics note that the estimate under the originally planned method, 0.0068, was not statistically significant, and one called the effects basically zero. An earlier national study found little to no improvement, and a Florida district study found about 0.6 of a percentile point. The pouches do reduce phone use, and cost about $25, which the lead author argues is good value.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Personal Reflection</div>
+      <div class="reflection-body">
+        <p>This week showed how fast the story about one person can change. A name was cast out, and eleven days later it was welcomed back, and the world rearranged itself around both verdicts. You also keep a running story about yourself, built from your last win or your last failure. Notice how quickly you update it, and how much of your mood follows. Today, spend a few minutes without the screen and ask who you are when no one is scoring you.</p>
+        <div class="reflection-prompt">If everyone's opinion of you reversed overnight, what in you would stay exactly the same?</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
