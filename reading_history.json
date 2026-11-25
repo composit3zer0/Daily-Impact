@@ -1269,5 +1269,77 @@
   "source": "The Hechinger Report",
   "published": "2026-11-23T11:00:00+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-25",
+  "category": 1,
+  "url": "https://www.sciencedaily.com/releases/2026/11/261102075553.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/11/261102075553.htm",
+  "title": "Experts say high blood pressure guidelines are missing half the equation",
+  "source": "ScienceDaily",
+  "published": "2026-11-02T13:10:42+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-25",
+  "category": 2,
+  "url": "https://www.lionsroar.com/the-eightfold-path-of-joy-liberation/",
+  "norm_url": "https://lionsroar.com/the-eightfold-path-of-joy-liberation",
+  "title": "The Eightfold Path of Joy",
+  "source": "Lion's Roar",
+  "published": "2026-11-23T07:48:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-25",
+  "category": 3,
+  "url": "https://www.bphope.com/a-bumpy-road/",
+  "norm_url": "https://bphope.com/a-bumpy-road",
+  "title": "Bipolar Relapse: Signs, Prevention, and Getting Back on Track",
+  "source": "bpHope",
+  "published": "2026-11-20T14:14:12+00:00",
+  "focus": [
+   "Bipolar disorder"
+  ]
+ },
+ {
+  "date": "2026-11-25",
+  "category": 4,
+  "url": "https://www.pewresearch.org/short-reads/2026/11/02/americans-trust-in-information-from-news-organizations-has-risen-in-the-past-year/",
+  "norm_url": "https://pewresearch.org/short-reads/2026/11/02/americans-trust-in-information-from-news-organizations-has-risen-in-the-past-year",
+  "title": "Americans’ Trust in Information From News Organizations Has Risen in the Past Year",
+  "source": "Pew Research Center",
+  "published": "2026-11-02T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-25",
+  "category": 5,
+  "url": "https://theconversation.com/rfk-jr-loosens-access-to-unapproved-peptides-a-health-law-scholar-explains-what-consumers-need-to-know-295526",
+  "norm_url": "https://theconversation.com/rfk-jr-loosens-access-to-unapproved-peptides-a-health-law-scholar-explains-what-consumers-need-to-know-295526",
+  "title": "RFK Jr. loosens access to unapproved peptides: A health law scholar explains what consumers need to know",
+  "source": "The Conversation",
+  "published": "2026-11-10T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-25",
+  "category": 6,
+  "url": "https://www.psychologytoday.com/us/blog/fulfillment-at-any-age/202611/who-stays-and-who-goes-in-new-research-on-relationships",
+  "norm_url": "https://psychologytoday.com/us/blog/fulfillment-at-any-age/202611/who-stays-and-who-goes-in-new-research-on-relationships",
+  "title": "Who Stays, and Who Goes, in New Research on Relationships",
+  "source": "Psychology Today",
+  "published": "2026-11-24T17:00:19+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-25",
+  "category": 7,
+  "url": "https://hechingerreport.org/opinion-its-time-to-put-curiosity-creativity-and-critical-thinking-first-in-the-early-learning-years/",
+  "norm_url": "https://hechingerreport.org/opinion-its-time-to-put-curiosity-creativity-and-critical-thinking-first-in-the-early-learning-years",
+  "title": "OPINION: It’s time to put curiosity, creativity and critical thinking first in the early learning years",
+  "source": "The Hechinger Report",
+  "published": "2026-11-23T06:00:00+00:00",
+  "focus": []
  }
 ]
