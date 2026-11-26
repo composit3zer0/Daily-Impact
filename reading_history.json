@@ -1341,5 +1341,67 @@
   "source": "The Hechinger Report",
   "published": "2026-11-23T06:00:00+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-26",
+  "category": 1,
+  "url": "https://theconversation.com/creatine-is-popular-with-bodybuilders-could-it-help-older-adults-stay-independent-289771",
+  "norm_url": "https://theconversation.com/creatine-is-popular-with-bodybuilders-could-it-help-older-adults-stay-independent-289771",
+  "title": "Creatine is popular with bodybuilders – could it help older adults stay independent?",
+  "source": "The Conversation",
+  "published": "2026-11-25T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-26",
+  "category": 3,
+  "url": "https://www.sciencedaily.com/releases/2026/11/261116023344.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/11/261116023344.htm",
+  "title": "Autistic brains look surprisingly similar on average. Then scientists looked closer.",
+  "source": "ScienceDaily",
+  "published": "2026-11-18T01:10:14+00:00",
+  "focus": [
+   "Autism"
+  ]
+ },
+ {
+  "date": "2026-11-26",
+  "category": 4,
+  "url": "https://theconversation.com/cosmetic-surgery-is-on-the-rise-globally-with-social-media-and-celebrities-reducing-taboos-and-influencing-beauty-ideals-295431",
+  "norm_url": "https://theconversation.com/cosmetic-surgery-is-on-the-rise-globally-with-social-media-and-celebrities-reducing-taboos-and-influencing-beauty-ideals-295431",
+  "title": "Cosmetic surgery is on the rise globally, with social media and celebrities reducing taboos and influencing beauty ideals",
+  "source": "The Conversation",
+  "published": "2026-11-24T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-26",
+  "category": 5,
+  "url": "https://theconversation.com/spermmaxxing-promises-better-fertility-but-the-evidence-is-thin-295315",
+  "norm_url": "https://theconversation.com/spermmaxxing-promises-better-fertility-but-the-evidence-is-thin-295315",
+  "title": "‘Spermmaxxing’ promises better fertility, but the evidence is thin",
+  "source": "The Conversation",
+  "published": "2026-11-19T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-26",
+  "category": 6,
+  "url": "https://greatergood.berkeley.edu/article/item/can_you_learn_to_feel_more_loved",
+  "norm_url": "https://greatergood.berkeley.edu/article/item/can_you_learn_to_feel_more_loved",
+  "title": "Can You Learn to Feel More Loved?",
+  "source": "Greater Good Magazine",
+  "published": "2026-10-26T15:10:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-26",
+  "category": 7,
+  "url": "https://www.psychologytoday.com/us/blog/the-social-lives-of-children/202611/what-children-really-notice-about-honesty",
+  "norm_url": "https://psychologytoday.com/us/blog/the-social-lives-of-children/202611/what-children-really-notice-about-honesty",
+  "title": "What Children Really Notice About Honesty",
+  "source": "Psychology Today",
+  "published": "2026-11-25T16:46:50+00:00",
+  "focus": []
  }
 ]
