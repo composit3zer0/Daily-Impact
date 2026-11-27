@@ -1403,5 +1403,77 @@
   "source": "Psychology Today",
   "published": "2026-11-25T16:46:50+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-27",
+  "category": 1,
+  "url": "https://theconversation.com/strength-training-can-help-preserve-muscle-while-using-weight-loss-drugs-research-shows-296899",
+  "norm_url": "https://theconversation.com/strength-training-can-help-preserve-muscle-while-using-weight-loss-drugs-research-shows-296899",
+  "title": "Strength training can help preserve muscle while using weight-loss drugs, research shows",
+  "source": "The Conversation",
+  "published": "2026-11-26T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-27",
+  "category": 2,
+  "url": "https://psyche.co/ideas/what-exile-was-like-for-the-first-people-called-refugees",
+  "norm_url": "https://psyche.co/ideas/what-exile-was-like-for-the-first-people-called-refugees",
+  "title": "What exile was like for the first people called ‘refugees’",
+  "source": "Psyche",
+  "published": "2026-11-26T11:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-27",
+  "category": 3,
+  "url": "https://www.additudemag.com/brain-fog-adhd-medication-perimenopause-women/",
+  "norm_url": "https://additudemag.com/brain-fog-adhd-medication-perimenopause-women",
+  "title": "ADHD Medications May Improve Brain Fog in Perimenopausal Women: New Research",
+  "source": "ADDitude",
+  "published": "2026-11-23T12:50:17+00:00",
+  "focus": [
+   "ADHD"
+  ]
+ },
+ {
+  "date": "2026-11-27",
+  "category": 4,
+  "url": "https://aeon.co/essays/falsely-claiming-indigenous-identity-is-a-grave-form-of-theft",
+  "norm_url": "https://aeon.co/essays/falsely-claiming-indigenous-identity-is-a-grave-form-of-theft",
+  "title": "The pretendian wars",
+  "source": "Aeon",
+  "published": "2026-11-26T11:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-27",
+  "category": 5,
+  "url": "https://www.sciencedaily.com/releases/2026/09/260920030147.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/09/260920030147.htm",
+  "title": "Millions take calcium and vitamin D for bone health. A major review finds little benefit",
+  "source": "ScienceDaily",
+  "published": "2026-09-21T01:59:17+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-27",
+  "category": 6,
+  "url": "https://theconversation.com/we-need-to-talk-about-young-peoples-sexual-wellbeing-heres-why-297107",
+  "norm_url": "https://theconversation.com/we-need-to-talk-about-young-peoples-sexual-wellbeing-heres-why-297107",
+  "title": "We need to talk about young people’s sexual wellbeing – here’s why",
+  "source": "The Conversation",
+  "published": "2026-11-26T00:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-27",
+  "category": 7,
+  "url": "https://www.psychologytoday.com/us/blog/mental-health-reimagined/202611/is-it-true-that-pda-is-driven-by-anxiety",
+  "norm_url": "https://psychologytoday.com/us/blog/mental-health-reimagined/202611/is-it-true-that-pda-is-driven-by-anxiety",
+  "title": "Is It True That PDA Is Driven by Anxiety?",
+  "source": "Psychology Today",
+  "published": "2026-11-26T23:31:16+00:00",
+  "focus": []
  }
 ]

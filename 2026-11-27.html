@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Daily Impact — 27 November 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Georgia, serif;
+      background: #0a0e16 url('mainbg.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #edeff2;
+      min-height: 100vh;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 10, 5, 0.62);
+      z-index: 0;
+    }
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    .masthead {
+      text-align: center;
+      padding: 48px 24px 36px;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      margin-bottom: 40px;
+    }
+    .masthead h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #c9a84c;
+      text-transform: uppercase;
+    }
+    .masthead .dateline {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: #7ecfd4;
+      text-transform: uppercase;
+    }
+    .masthead .tagline {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: #8a9bb0;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .card {
+      background: rgba(12, 16, 8, 0.76);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 14px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+    }
+    .section-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .news-scroll {
+      display: block;
+      max-height: 600px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .news-scroll::-webkit-scrollbar { width: 4px; }
+    .news-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 2px; }
+    .news-scroll::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.35); border-radius: 2px; }
+    .story { display: block; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .story:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .story-title { font-size: 1.1rem; font-weight: 700; color: #edeff2; line-height: 1.4; margin-bottom: 10px; }
+    .story-summary { font-size: 0.95rem; color: #b0bcc8; line-height: 1.7; margin-bottom: 10px; }
+    .story-impact { font-size: 0.92rem; color: #b8c8d0; line-height: 1.6; margin-bottom: 8px; font-style: normal; }
+    .story-impact strong { color: #c9a84c; font-style: normal; font-weight: 700; }
+    .story-personal { font-size: 0.92rem; color: #b8c8d0; line-height: 1.6; margin-bottom: 12px; font-style: normal; }
+    .story-personal strong { color: #c9a84c; font-style: normal; font-weight: 700; }
+    .story-source a { font-size: 0.82rem; color: #c9a84c; text-decoration: none; letter-spacing: 0.05em; }
+    .story-source a:hover { color: #7ecfd4; text-decoration: underline; }
+    .subsection-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7ecfd4;
+      margin: 28px 0 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(126,207,212,0.2);
+    }
+    .editorial-note { font-style: italic; font-size: 0.88rem; color: #6b7a8d; margin-bottom: 20px; line-height: 1.6; }
+    .editorial-scroll {
+      display: block;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .editorial-scroll::-webkit-scrollbar { width: 4px; }
+    .editorial-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 2px; }
+    .editorial-scroll::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.35); border-radius: 2px; }
+    .chat-message {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 22px;
+      width: 100%;
+    }
+    .chat-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.35);
+      flex-shrink: 0;
+      object-fit: cover;
+      background: rgba(201,168,76,0.1);
+    }
+    .chat-bubble { flex: 1; min-width: 0; }
+    .chat-name {
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 5px;
+    }
+    .chat-text {
+      font-size: 0.96rem;
+      color: #cdd5de;
+      line-height: 1.75;
+      background: rgba(255,255,255,0.04);
+      padding: 12px 16px;
+      border-radius: 0 12px 12px 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .dhamma-body { font-size: 0.97rem; color: #cdd5de; line-height: 1.85; }
+    .dhamma-body p { margin-bottom: 20px; }
+    .sutta-ref { margin-top: 28px; padding: 16px 20px; background: rgba(126,207,212,0.06); border-left: 3px solid #7ecfd4; border-radius: 0 8px 8px 0; font-size: 0.88rem; color: #8a9bb0; }
+    .sutta-ref a { color: #7ecfd4; text-decoration: none; }
+    .sutta-ref a:hover { text-decoration: underline; }
+    .reflection-body { font-size: 0.97rem; color: #cdd5de; line-height: 1.85; }
+    .reflection-body p { margin-bottom: 16px; }
+    .reflection-prompt {
+      margin-top: 20px;
+      font-style: italic;
+      font-size: 0.93rem;
+      color: #7ecfd4;
+      border-left: 3px solid rgba(201,168,76,0.4);
+      padding-left: 16px;
+      line-height: 1.7;
+    }
+    @media (max-width: 600px) {
+      .card { padding: 24px 20px; }
+      .page { padding: 24px 16px 60px; }
+      .chat-avatar { width: 38px; height: 38px; }
+    }
+  </style>
+<style>.story-date { font-size: 0.78rem; color: #7ecfd4; letter-spacing: 0.05em; margin-bottom: 8px; }</style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="page">
+    <div class="masthead">
+      <h1>The Daily Impact</h1>
+      <div class="dateline">Friday, 27 November 2026 · Bangkok</div>
+      <div class="tagline">Intelligence for decision-makers, innovators and mobile professionals. Only stories with a confirmed publication date inside the freshness window appear today.</div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">News</div>
+      <div class="news-scroll">
+
+        <div class="story">
+          <div class="story-title">Brent holds near $95 as Gulf attacks and Hormuz mines revive supply fears</div>
+          <div class="story-date" data-published="2026-11-26T09:00+07:00" data-kind="market">Published 26 Nov 2026, 09:00 Bangkok</div>
+          <div class="story-summary">Oil rose for a second straight session on Thursday. Brent traded near $94.66 and WTI near $84. Houthi attacks on Saudi targets, reportedly including the Ras Tanura export hub, and Iranian claims that two tankers hit mines in the Strait of Hormuz drove the move. Tehran says normal shipping will not resume until the US naval blockade ends. It has offered, via Qatari mediators, to reopen the strait within 48 hours if Washington agrees. Goldman Sachs raised its December Brent forecast to $105.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> The market is pricing a wide range of outcomes. Goldman's bull case reaches $140, while JPMorgan expects Gulf supply to hold up through ship-to-ship transfers and extra pipeline capacity. A diplomatic opening could swing prices sharply in either direction.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> If your costs depend on fuel, freight or airfares, hedge or lock in rates now rather than betting on a deal. Investors should expect headline-driven gaps in energy and inflation-sensitive assets.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Brent+crude+rises+supply+fears+2026" target="_blank" rel="noopener noreferrer">The Fifth Skill</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Bitcoin rebounds above $60,000, but ETF outflows and rate-hike odds keep sentiment in extreme fear</div>
+          <div class="story-date" data-published="2026-11-26T19:49+07:00" data-kind="market">Published 26 Nov 2026, 19:49 Bangkok</div>
+          <div class="story-summary">Bitcoin rose about 3.3% to roughly $60,600, but analysts at Talos called the rally fragile because it rests on short covering. Spot Bitcoin ETFs have lost more than $5 billion in November, and stablecoin supply shrank by $6.2 billion over the week. The 10-year Treasury yield closed at 4.845%. CME FedWatch implies about an 85% chance of a quarter-point Fed hike on 8–9 December. The Fear &amp; Greed Index reads 11.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Shrinking stablecoin supply and ETF redemptions point to falling liquidity. A rate hike would add to that. Talos puts resistance at $63,000–$65,000.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Treat the bounce as a liquidity event and not a trend change until flows turn. If you hold crypto for operating reserves, check position sizes and stablecoin counterparty risk ahead of the December Fed meeting.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Bitcoin+Asia+session+roundup+2026" target="_blank" rel="noopener noreferrer">Coincu</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">North Korea reportedly pauses military support for Russia, Ukrainian intelligence says</div>
+          <div class="story-date" data-published="2026-11-27T04:06+07:00" data-kind="general">Published 27 Nov 2026, 04:06 Bangkok</div>
+          <div class="story-summary">Ukrainian intelligence says Pyongyang has temporarily halted its military support for Russia. Analysts quoted by SBS link the pause to North Korean objections to Russian remarks about "contributing to easing tensions on the Korean Peninsula." The claim comes from Ukrainian sources and is not independently confirmed.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> If it holds, the pause would remove a source of munitions and manpower for Moscow. It would also show friction in one of Russia's few close alliances while US-mediated talks remain stalled.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Treat this as an early signal, not a trend. Watch for confirmation from Seoul or Washington before changing views on defense, energy or Korean-peninsula risk.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=North+Korea+halts+military+support+Russia+2026" target="_blank" rel="noopener noreferrer">SBS News</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Vale says it is studying rare earths but has made no investment decision</div>
+          <div class="story-date" data-published="2026-11-27T06:42+07:00" data-kind="general">Published 27 Nov 2026, 06:42 Bangkok</div>
+          <div class="story-summary">CEO Gustavo Pimenta said Vale holds mineral rights in areas with rare-earth potential. The miner could go alone or partner, and he named Brazil's development bank BNDES as one possible model. Iron ore, copper and nickel remain its priorities. "Rare earths is one that we study, we have not made a decision yet," he said.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> A major diversified miner entering rare earths would add a non-Chinese source at a time when Western governments are looking for alternatives. For now this is only an option, with no capital committed.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> Don't price in new supply yet. If you work in magnets, EVs or defense electronics, add Brazil to your list of potential suppliers and watch for a BNDES partnership announcement.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Vale+rare+earths+Pimenta+decision+2026" target="_blank" rel="noopener noreferrer">The Rio Times</a></div>
+        </div>
+
+        <div class="story">
+          <div class="story-title">Severe Thanksgiving storm knocks out power and cancels flights across the US</div>
+          <div class="story-date" data-published="2026-11-27T04:06+07:00" data-kind="general">Published 27 Nov 2026, 04:06 Bangkok</div>
+          <div class="story-summary">A storm with heavy rain and strong winds moved from the western to the eastern United States during the Thanksgiving holiday. SBS reports widespread damage, power cuts across large areas, many flight cancellations, and hundreds of thousands of people displaced.</div>
+          <div class="story-impact"><strong>Why it matters:</strong> The disruption falls on one of the busiest travel and shopping weekends of the year. Delays can cascade through airline schedules and parcel logistics.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> If you are routing through US hubs this weekend, rebook early and keep flexible fares. Expect some delivery delays for time-sensitive shipments.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Thanksgiving+storm+US+power+outages+flights+2026" target="_blank" rel="noopener noreferrer">SBS News</a></div>
+        </div>
+
+        <div class="subsection-label">Southeast Asia</div>
+
+        <div class="story">
+          <div class="story-title">Nvidia tells partners to halt AI server shipments to Malaysia, Singapore, Thailand and Indonesia</div>
+          <div class="story-date" data-published="2026-11-26T09:04+07:00" data-kind="general">Published 26 Nov 2026, 09:04 Bangkok</div>
+          <div class="story-summary">Per the Financial Times, as reported by The National, Nvidia has asked manufacturing partners to stop shipping servers containing its AI chips to the four countries. Dell and Supermicro have told customers that Nvidia will not authorize their orders. The step follows new US rules requiring licenses and targeting Chinese firms that rent computing power. It is unclear whether the halt is temporary. One cloud executive said no one knows how to apply for a license "while the 90-day clock is ticking."</div>
+          <div class="story-impact"><strong>Why it matters:</strong> Southeast Asia has been a major route for AI compute, and its data-center build-out depends on these chips. Licensing uncertainty could delay projects and shift investment.</div>
+          <div class="story-personal"><strong>What it might mean for you:</strong> If your AI workloads or data-center plans rely on hardware in these four countries, ask your provider about its licensing status and look for alternative capacity. Investors should check regional data-center exposure.</div>
+          <div class="story-source"><a href="https://news.google.com/search?q=Nvidia+halts+chip+shipments+South-East+Asia+2026" target="_blank" rel="noopener noreferrer">The National</a></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Editorial</div>
+      <div class="editorial-note">This is an imaginative editorial device. These figures are fictional constructions. These are not real quotations or historical claims.</div>
+      <div class="editorial-scroll">
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle">
+          <div class="chat-bubble">
+            <div class="chat-name">Aristotle</div>
+            <div class="chat-text">Oil near $95, bitcoin in "extreme fear": both are excess and deficiency of the same thing, confidence. A sound polity seeks the mean. Hormuz is a chokepoint, and any system that depends on one narrow passage has made a design error and not only a political one.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger">
+          <div class="chat-bubble">
+            <div class="chat-name">Seneca the Younger</div>
+            <div class="chat-text">A Fear &amp; Greed reading of 11 is a mirror. Men suffer more in imagination than in fact. Rehearse the loss in advance, hold your positions lightly, and the storm, whether in the market or over the American airports, loses half its power over you.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="confucius.jpeg" alt="Confucius">
+          <div class="chat-bubble">
+            <div class="chat-name">Confucius</div>
+            <div class="chat-text">When trust between states fails, the people pay in prices. Qatar carries messages between Washington and Tehran. That is the quiet work of a go-between. Rectify names first: call a blockade a blockade, and a mine a mine, and talks may begin.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci">
+          <div class="chat-bubble">
+            <div class="chat-name">Leonardo da Vinci</div>
+            <div class="chat-text">I look at Vale's rare earths and see geology waiting for an engineer. Brazil has the rock; what is missing is the workshop. A magnet is only a mountain that someone has learned to refine. Build the process, and the dependency loosens.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre">
+          <div class="chat-bubble">
+            <div class="chat-name">Jean-Paul Sartre</div>
+            <div class="chat-text">Nvidia says the rules forced its hand. That is bad faith: a choice dressed up as a necessity. Every company that halts a shipment has chosen. We are condemned to decide, even when we hide behind "compliance."</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla">
+          <div class="chat-bubble">
+            <div class="chat-name">Nikola Tesla</div>
+            <div class="chat-text">Nations fight over wells and chips because energy and computation are scarce and centralized. Distribute them and the chokepoint fades. A world that has to ask permission to compute is a world that has not finished its engineering.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung">
+          <div class="chat-bubble">
+            <div class="chat-name">Carl Jung</div>
+            <div class="chat-text">An index reading 11 is the collective shadow made visible. Markets carry the fears no one admits at dinner. North Korea pausing its help to Moscow is the same pattern: an alliance's hidden resentments come to the surface. What is repressed returns as price.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs">
+          <div class="chat-bubble">
+            <div class="chat-name">Steve Jobs</div>
+            <div class="chat-text">The Nvidia story is about focus. When a rule changes, the best companies simplify. Cut the things that were never core. Ship fewer products, and make sure they work in the countries you can serve. Everything else is noise.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee">
+          <div class="chat-bubble">
+            <div class="chat-name">Bruce Lee</div>
+            <div class="chat-text">Be water. A Fed hike, a mined strait, a license clock: the rigid breaks and the fluid adapts. Don't fight the market's shape. Flow around it, keep your stance light, and strike when the opening is real.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein">
+          <div class="chat-bubble">
+            <div class="chat-name">Albert Einstein</div>
+            <div class="chat-text">Everyone predicts oil: Goldman says $105, someone else says $140. A forecast is a thought experiment with a very confident face. Judge the assumptions, not the number. The uncertainty is the real finding.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre">
+          <div class="chat-bubble">
+            <div class="chat-name">Jean-Paul Sartre</div>
+            <div class="chat-text">Einstein, you flatter the forecaster. Goldman is not describing the future, it is choosing a story to sell. Let's name the interest behind each number.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger">
+          <div class="chat-bubble">
+            <div class="chat-name">Seneca the Younger</div>
+            <div class="chat-text">Notice that Leonardo and Tesla both speak of building, while Aristotle speaks of a mean. All three assume the wise man acts before the crisis, and that is rarer than any mineral.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs">
+          <div class="chat-bubble">
+            <div class="chat-name">Steve Jobs</div>
+            <div class="chat-text">Tesla, distributed energy is beautiful, but nobody buys a philosophy. They buy the thing that works on Monday. Ship the product first, and the decentralization will follow.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="confucius.jpeg" alt="Confucius">
+          <div class="chat-bubble">
+            <div class="chat-name">Confucius</div>
+            <div class="chat-text">Jobs says the product must work on Monday; Tesla says the system must outlast Monday. Both are teaching patience at different scales. Which obligation comes first, to the customer or to the generations?</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein">
+          <div class="chat-bubble">
+            <div class="chat-name">Albert Einstein</div>
+            <div class="chat-text">Sartre, fair. Even so, a biased forecast can still be informative if you know the bias. I'd rather read ten honest ranges than one precise lie.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla">
+          <div class="chat-bubble">
+            <div class="chat-name">Nikola Tesla</div>
+            <div class="chat-text">Confucius frames it as customer versus generations. Put another way: is infrastructure a product, or a promise? The answer decides who pays for it.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle">
+          <div class="chat-bubble">
+            <div class="chat-name">Aristotle</div>
+            <div class="chat-text">Bruce Lee's water is a fine virtue only up to a point. Pure adaptability without a purpose is mere drift. Flow, yes, but toward a chosen end.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung">
+          <div class="chat-bubble">
+            <div class="chat-name">Carl Jung</div>
+            <div class="chat-text">Aristotle's mean and Seneca's rehearsal of loss are two ways of meeting the same shadow. One tames it by structure, the other by familiarity. The question is which one you can sustain when panic arrives.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci">
+          <div class="chat-bubble">
+            <div class="chat-name">Leonardo da Vinci</div>
+            <div class="chat-text">Jung, I'd add the sketchbook's lesson: you only learn what a thing is by drawing it. Draw the supply chain, draw your own portfolio. Fear shrinks when it has edges.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee">
+          <div class="chat-name-placeholder" style="display:none"></div>
+          <div class="chat-bubble">
+            <div class="chat-name">Bruce Lee</div>
+            <div class="chat-text">Seen from here, Aristotle wants a target and I want an open hand. Maybe the target is the one that appears when you stop forcing it. Purpose may show up after the movement and not before.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="tesla.jpeg" alt="Nikola Tesla">
+          <div class="chat-bubble">
+            <div class="chat-name">Nikola Tesla</div>
+            <div class="chat-text">Leonardo, I agree about drawing it. But I would draw the grid and not just the portfolio. A mapped dependency is already half a solution.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="brucelee.jpeg" alt="Bruce Lee">
+          <div class="chat-bubble">
+            <div class="chat-name">Bruce Lee</div>
+            <div class="chat-text">Sartre, you say we choose even when we hide. Fine. Then choose in training and not in the fight. By the time the strait closes, the decision was made months ago.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="aristotle.jpeg" alt="Aristotle">
+          <div class="chat-bubble">
+            <div class="chat-name">Aristotle</div>
+            <div class="chat-text">Let me reframe what Lee and Jung have each said: habit is how a choice is made in advance. Virtue is simply training that has become character. The market only reveals it.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="einstein.jpeg" alt="Albert Einstein">
+          <div class="chat-bubble">
+            <div class="chat-name">Albert Einstein</div>
+            <div class="chat-text">Aristotle's "habit as advance choice" suggests a clean question for any crisis: what did we set up before it began? That tells us more than the headline does.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="carljung.jpeg" alt="Carl Jung">
+          <div class="chat-bubble">
+            <div class="chat-name">Carl Jung</div>
+            <div class="chat-text">Tesla, mapping the grid is wise, though a map of fear is still a map of the self. Those who never chart their own dependence will keep projecting it onto Hormuz.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="stevejobs.jpeg" alt="Steve Jobs">
+          <div class="chat-bubble">
+            <div class="chat-name">Steve Jobs</div>
+            <div class="chat-text">Take Einstein's question, "what did we set up before it began?", and flip it: what will we wish we had built in a year? Start there, and be ruthless about the rest.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="leonardo.jpeg" alt="Leonardo da Vinci">
+          <div class="chat-bubble">
+            <div class="chat-name">Leonardo da Vinci</div>
+            <div class="chat-text">So Jobs asks what we will wish we had built, and Einstein asks what we built before. Both are about the workshop. I would only add that the workshop includes the apprentices.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="sartre.jpeg" alt="Jean-Paul Sartre">
+          <div class="chat-bubble">
+            <div class="chat-name">Jean-Paul Sartre</div>
+            <div class="chat-text">Leonardo, your apprentices also choose. Seen that way, "setup" is never complete: each person remakes the system each morning, and no one can hand that choice off.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="confucius.jpeg" alt="Confucius">
+          <div class="chat-bubble">
+            <div class="chat-name">Confucius</div>
+            <div class="chat-text">Sartre speaks of daily remaking, and I agree. Yet a person remakes himself among others: teacher, student, ruler, subject. Choose, then, but choose within your relationships, and the choice will be better.</div>
+          </div>
+        </div>
+
+        <div class="chat-message">
+          <img class="chat-avatar" src="seneca.jpeg" alt="Seneca the Younger">
+          <div class="chat-bubble">
+            <div class="chat-name">Seneca the Younger</div>
+            <div class="chat-text">Confucius is right, and Jobs is too harsh to say "ruthless." Be firm with your priorities and gentle with yourself. Then whether Brent reaches $105 or $140, you will still be at the table, and calm.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Dhamma Corner</div>
+      <div class="dhamma-body">
+        <p>Today's headlines carry a lot of pain: a strait with mines in it, a crypto index in "extreme fear," and storm-struck travelers stranded over a holiday. Early Buddhist teaching does not tell us to ignore any of it. It offers a precise account of how suffering is made and where it can stop.</p>
+        <p>In the Sallatha Sutta, "The Dart," the Buddha, as the discourse records, compares ordinary experience to being struck by arrows. An untaught person, touched by a painful feeling, grieves and laments and becomes distraught. That is a second arrow, shot by the mind on top of the first. The well-taught disciple feels the same bodily pain but does not add the second. The sutta says plainly that pain is unavoidable. What can change is the reaction to it.</p>
+        <p>Apply this to a market drawdown. A fall in portfolio value is the first arrow. It is real, and it calls for sober action: reviewing risk, rebalancing, perhaps taking a loss. The second arrow is the sleepless night, the compulsive checking of prices, the story that you are a fool, the urge to revenge-trade. The sutta points out that this second layer is built from craving for pleasant feeling and aversion to unpleasant feeling. These are habits, and habits can be seen.</p>
+        <p>The same applies to the leader facing supply shocks. A halted shipment or a spike in fuel costs is a first arrow. Anger at a regulator or a rival, or dread about next quarter, is a second one. It clouds judgement just when clear thinking has the most value. The teaching is not detachment from responsibility. It is clarity: feel the actual pain, and name it as it is, with no extra story attached.</p>
+        <p>For the digital nomad, the first arrow may be a cancelled flight or a visa surprise. Notice the tightening in the chest, the impatience, the thought "this shouldn't be happening." The practice described in the discourses is to know feeling as feeling, to see it arise and pass, and then to act from steadiness. It is a small training, repeated daily, and it compounds like any good discipline.</p>
+        <p>Equanimity is not coldness. The suttas pair it with compassion. The people affected by a closed strait, a failed alliance or a flooded mine are real, and a settled mind is better able to help them. Today, when a headline lands, pause for one breath and ask: which arrow is this, the first or the second?</p>
+        <div class="sutta-ref">
+          <strong>Reference:</strong> Sallatha Sutta, "The Dart" — Saṁyutta Nikāya 36.6 (Vedanā Saṁyutta).<br>
+          <a href="https://suttacentral.net/sn36.6/en/sujato" target="_blank" rel="noopener noreferrer">Read on SuttaCentral: SN 36.6</a>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- SECTION: TODAY'S ESSENTIAL READING (added by essential_reading.py) -->
+    
+<style>
+  .essential-reading .reading-category { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; opacity: .75; margin: 0 0 .35rem; }
+  .essential-reading .story-title a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
+  .essential-reading .story-title a:hover { opacity: .8; }
+  .essential-reading .reading-meta { font-size: .85rem; opacity: .75; margin: .35rem 0 .6rem; }
+  .essential-reading .reading-omitted { font-style: italic; opacity: .8; }
+</style>
+    <div class="card essential-reading">
+      <div class="section-header">Today's Essential Reading</div>
+      <div class="story"><div class="reading-category">1. Health and Wellness</div><div class="story-title"><a href="https://theconversation.com/strength-training-can-help-preserve-muscle-while-using-weight-loss-drugs-research-shows-296899" target="_blank" rel="noopener noreferrer">Strength training can help preserve muscle while using weight-loss drugs, research shows</a></div><div class="reading-meta">Source: The Conversation · Published: 26 Nov 2026 · Reading time: 4 minutes</div><div class="story-summary"><strong>Summary:</strong> Weight-loss drugs such as tirzepatide shrink fat but also lean tissue, raising concern about strength and independence, especially for older adults. In a randomised trial of 120 Australians aged 50 to 70 who were overweight or obese and rarely exercised, everyone took tirzepatide for 40 weeks and was then assigned either to usual activity or to supervised strength training three times weekly. Both groups lost around 22kg, with similar metabolic improvements. The trainers lost 3.6kg of lean tissue versus 4.7kg, yet their knee-extension strength rose by 6kg while the others lost about 4kg. The practical advice: two or three sessions weekly, starting light, building to two sets of eight to twelve repetitions, while keeping protein intake up.</div></div>
+      <div class="story"><div class="reading-category">2. Religion and Spirituality</div><div class="story-title"><a href="https://psyche.co/ideas/what-exile-was-like-for-the-first-people-called-refugees" target="_blank" rel="noopener noreferrer">What exile was like for the first people called ‘refugees’</a></div><div class="reading-meta">Source: Psyche · Published: 26 Nov 2026 · Reading time: 10 minutes</div><div class="story-summary"><strong>Summary:</strong> In 1683 a nineteen-year-old Protestant, Blanche Gamond, held her hand to a fire to test whether she could endure martyrdom, and was devastated when she pulled away. Her story opens an exploration of the French Protestants who fled Louis XIV&#x27;s escalating persecution, including the billeting of soldiers meant to force conversion, and who became among the first to be called refugees. The author shows how martyrologies, including the tale of Thomas Bilney, both consoled and pressured readers, and how the ideal of renouncing the world shaped Gamond&#x27;s anguished prayers. It is a humane reminder that religious exile, and its costs, are neither new nor exotic.</div></div>
+      <div class="story"><div class="reading-category">3. Psychology, Psychiatry, and Mental Health</div><div class="story-title"><a href="https://www.additudemag.com/brain-fog-adhd-medication-perimenopause-women/" target="_blank" rel="noopener noreferrer">ADHD Medications May Improve Brain Fog in Perimenopausal Women: New Research</a></div><div class="reading-meta">Source: ADDitude · Published: 23 Nov 2026 · Reading time: 6 minutes</div><div class="story-summary"><strong>Summary:</strong> Brain fog in perimenopause can mimic ADHD, and preliminary findings suggest ADHD medication may ease it even in women without the diagnosis. A scoping review presented at the Menopause Society meeting, not yet peer reviewed, pooled three crossover randomised trials involving 60 patients and two cross-sectional studies of 6,048 women. Lisdexamphetamine and atomoxetine both lowered self-reported executive dysfunction on the Brown scale compared with placebo. The caveat matters: objective tests of working memory and sustained attention showed little or no significant change. With small trials, self-reported outcomes and unpublished status, this is a hypothesis-generating signal, though it may help clinicians distinguish hormonal change from undiagnosed ADHD in midlife.</div></div>
+      <div class="story"><div class="reading-category">4. Social Media and Sociocultural Trends</div><div class="story-title"><a href="https://aeon.co/essays/falsely-claiming-indigenous-identity-is-a-grave-form-of-theft" target="_blank" rel="noopener noreferrer">The pretendian wars</a></div><div class="reading-meta">Source: Aeon · Published: 26 Nov 2026 · Reading time: 20 minutes</div><div class="story-summary"><strong>Summary:</strong> Why do people claim Indigenous identity without ancestry or lived experience? Indigenous studies scholar Dina Gilio-Whitaker, who has written a book on self-indigenisation, argues that the answer usually lies in perceived material and psychological benefits. She contrasts Native belonging, grounded in family and clan ties and heavily documented, with unverifiable stories that fill the gap when those ties are absent. The essay notes that the United Nations accepts self-identification as one criterion, complicating the debate, and that cultural identities legitimately change over time, so demands for static authenticity can be a trap. It surveys fabricated claims from the United States and Canada to Latin America, Australia and Aotearoa, and explains why ethnic fraud matters.</div></div>
+      <div class="story"><div class="reading-category">5. Alternative Medicine and Herbology</div><div class="story-title"><a href="https://www.sciencedaily.com/releases/2026/09/260920030147.htm" target="_blank" rel="noopener noreferrer">Millions take calcium and vitamin D for bone health. A major review finds little benefit</a></div><div class="reading-meta">Source: ScienceDaily · Published: 21 Sep 2026 · Reading time: 4 minutes</div><div class="story-summary"><strong>Summary:</strong> Calcium and vitamin D supplements are widely recommended to older adults, but a large BMJ review suggests they do little to prevent fractures or falls. Canadian researchers pooled 69 randomised trials involving 153,902 adults, setting thresholds for clinically meaningful benefit. They found little to no effect on any fracture, hip fracture or falls, with moderate to high certainty evidence for calcium, vitamin D and the two combined. Results held across age, sex, prior fractures and dietary calcium. The authors caution that people with bone disorders or on osteoporosis treatment may differ, and they urge guideline bodies to reconsider routine recommendations. An accompanying editorial points instead to balance training, resistance exercise and multifactorial fall-prevention programmes.</div></div>
+      <div class="story"><div class="reading-category">6. Sex and Relationships</div><div class="story-title"><a href="https://theconversation.com/we-need-to-talk-about-young-peoples-sexual-wellbeing-heres-why-297107" target="_blank" rel="noopener noreferrer">We need to talk about young people’s sexual wellbeing – here’s why</a></div><div class="reading-meta">Source: The Conversation · Published: 26 Nov 2026 · Reading time: 4 minutes</div><div class="story-summary"><strong>Summary:</strong> Britain&#x27;s latest once-a-decade sexual attitudes survey, Natsal-4, shows young adults having sex later and less often, with one in three 16- to 24-year-olds never having had sex. The less noticed finding is that this age group reports the lowest sexual wellbeing: nearly one in four women and almost one in five men, against about one in seven across ages 16 to 59. Low wellbeing is tied to anxiety and depression, probably in both directions, and the patterns differ by gender, with women more upset about past experiences and men more ashamed of their desires. The author argues that how young people feel about sex matters more than how often they have it.</div></div>
+      <div class="story"><div class="reading-category">7. Parenting and Special Needs</div><div class="story-title"><a href="https://www.psychologytoday.com/us/blog/mental-health-reimagined/202611/is-it-true-that-pda-is-driven-by-anxiety" target="_blank" rel="noopener noreferrer">Is It True That PDA Is Driven by Anxiety?</a></div><div class="reading-meta">Source: Psychology Today · Published: 26 Nov 2026 · Reading time: 7 minutes</div><div class="story-summary"><strong>Summary:</strong> Online parenting communities increasingly explain difficult, demand-refusing children through pathological demand avoidance, framed as anxiety-driven, while oppositional defiant disorder is cast as wilful anger. A clinician argues the evidence does not support so clean a split. Diagnoses describe symptom patterns rather than causes, anxiety as the driver of PDA is proposed rather than established, children with ODD often are anxious, and parents of PDA-type children report anger. He suggests anxiety may be the byproduct of chronic conflict, not its engine. His informal count found 44 PDA Facebook groups against seven for ODD, and he notes that coaches selling alternatives have commercial incentives. This is opinion rather than trial evidence, but it usefully challenges a popular narrative.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">Personal Reflection</div>
+      <div class="reflection-body">
+        <p>When markets turn fearful and the news turns grim, you tend to reach for certainty: a forecast, a plan, someone to blame. But much of what unsettles you today was never in your hands. What remains yours is where your attention goes next, and what you do with the first hour of it. Notice what you check most often and what it promises you. Notice, too, who you are when the numbers are down and nobody is watching.</p>
+        <div class="reflection-prompt">If the outcome were entirely out of your control today, what is the one thing you would still be glad to have done well?</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
