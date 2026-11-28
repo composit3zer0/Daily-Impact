@@ -1475,5 +1475,67 @@
   "source": "Psychology Today",
   "published": "2026-11-26T23:31:16+00:00",
   "focus": []
+ },
+ {
+  "date": "2026-11-28",
+  "category": 1,
+  "url": "https://www.sciencedaily.com/releases/2026/11/261104012303.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/11/261104012303.htm",
+  "title": "Scientists discover hidden brain changes linked to common sleep disorders",
+  "source": "ScienceDaily",
+  "published": "2026-11-08T04:47:52+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-28",
+  "category": 3,
+  "url": "https://www.nationalelfservice.net/populations-and-settings/refugee/how-trauma-and-ptsd-affect-refugees-lives-after-migration/",
+  "norm_url": "https://nationalelfservice.net/populations-and-settings/refugee/how-trauma-and-ptsd-affect-refugees-lives-after-migration",
+  "title": "How trauma and PTSD affect refugees’ lives after migration",
+  "source": "The Mental Elf",
+  "published": "2026-11-24T05:00:35+00:00",
+  "focus": [
+   "PTSD"
+  ]
+ },
+ {
+  "date": "2026-11-28",
+  "category": 4,
+  "url": "https://restofworld.org/2026/ai-companion-apps-africa-character-ai/",
+  "norm_url": "https://restofworld.org/2026/ai-companion-apps-africa-character-ai",
+  "title": "How foreign AI romance apps are reshaping youth intimacy in Africa",
+  "source": "Rest of World",
+  "published": "2026-11-25T11:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-28",
+  "category": 5,
+  "url": "https://www.sciencedaily.com/releases/2026/11/261126033031.htm",
+  "norm_url": "https://sciencedaily.com/releases/2026/11/261126033031.htm",
+  "title": "Common supplements rival antibiotics in treating severe gum disease",
+  "source": "ScienceDaily",
+  "published": "2026-11-26T11:43:30+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-28",
+  "category": 6,
+  "url": "https://www.gottman.com/blog/after-the-holiday-blowup-how-couples-repair/",
+  "norm_url": "https://gottman.com/blog/after-the-holiday-blowup-how-couples-repair",
+  "title": "After the Holiday Blowup: How Couples Repair Without Reliving the Fight",
+  "source": "The Gottman Institute",
+  "published": "2026-11-23T17:00:00+00:00",
+  "focus": []
+ },
+ {
+  "date": "2026-11-28",
+  "category": 7,
+  "url": "https://greatergood.berkeley.edu/article/item/how_do_you_raise_kids_to_be_emotionally_mature",
+  "norm_url": "https://greatergood.berkeley.edu/article/item/how_do_you_raise_kids_to_be_emotionally_mature",
+  "title": "How Do You Raise Kids to Be Emotionally Mature?",
+  "source": "Greater Good Magazine",
+  "published": "2026-10-14T18:23:00+00:00",
+  "focus": []
  }
 ]
